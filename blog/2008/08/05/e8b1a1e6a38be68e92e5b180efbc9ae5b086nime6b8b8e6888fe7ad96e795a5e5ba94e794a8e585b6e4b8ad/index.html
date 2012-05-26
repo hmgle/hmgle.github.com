@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>象棋排局：将Nim游戏策略应用其中 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="上面的这局对称的排局不知来源于古谱还是现代排局，曾经在一本国内科普读物（ 现在忘记叫什么了，电子版的，在我的硬盘上有，可惜晾在家里了 是谈祥柏的《趣味对策论》，蒋声的《趣味代数》也有,最早可能是古谱《竹香斋》 ）看过，如果是出自古谱那原作者就相当不简单了， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hmgle.github.com/blog/2008/08/05/e8b1a1e6a38be68e92e5b180efbc9ae5b086nime6b8b8e6888fe7ad96e795a5e5ba94e794a8e585b6e4b8ad">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hmgle.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">象棋排局：将Nim游戏策略应用其中</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-05T21:45:00+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://hmgle.com/wp-content/uploads/2008/08/nim_0.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/08/nim_0.jpg" alt="" /></a></p>
+
+<p>上面的这局对称的排局不知来源于古谱还是现代排局，曾经在一本国内科普读物（</p>
+
+<p>现在忘记叫什么了，电子版的，在我的硬盘上有，可惜晾在家里了 是谈祥柏的《趣味对策论》，蒋声的《趣味代数》也有,最早可能是古谱《竹香斋》</p>
+
+<p>）看过，如果是出自古谱那原作者就相当不简单了，要知道Nim游戏理论建立到现在不过100多年时间。象棋不属于Nim游戏，因为Nim游戏的一个必要条件是对于游戏的任一种局面，可移动的集合只取决于当前局面而与游戏者无关，但这个局面的确可用Nim游戏策略来解决。</p>
+
+<p>从棋局中我们看到，每方可移动棋子只有三种：两个炮，边兵（卒），对应的位于同一纵线上，且不能离开当前的纵线。我们把可移动棋子所在的三条线分成三组，炮所在的组中，我们j记下对应棋子的间隔数，兵（卒）所在的组中，因为间隔一格后就不能再前进了，所以把间隔数减一。考虑棋子后退（把间隔数增大，相当于Nim游戏中放入石块到堆中）是有限的，再想想Nim游戏的模型，这不正好是3-堆Nim取物游戏吗？各堆大小分别是1，4，4。表示成二进制为001，100，100，是非平衡的Nim游戏，即N-position，先手有必胜策略，可以炮七退一变成101、100，001或挺兵变成000，100，100这样的P-position局面，以下无论后手方如何走都将把局面导向N-position位置。</p>
+
+<p>这是一局少见的排局，可能因为存在数学策略的缘故，基于计算局势分经过优化而选择棋步的棋软很难得出正解。用奇兵测试，即使不限制搜索时间和搜索层数也是临败几步前才算到结果，而对于大多数的充满陷阱的江湖棋局，是比较容易可以得到正解的：例如下面的对称的排局，大家可以试试，它叫五鼠闹东京；</p>
+
+<p><a href="http://hmgle.com/wp-content/uploads/2008/08/five_mice.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/08/five_mice.jpg" alt="" />
+</a>几个介绍Nim游戏的链接：<a href="http://en.wikipedia.org/wiki/Nim">http://en.wikipedia.org/wiki/Nim</a>
+<a href="http://www.cut-the-knot.org/ctk/May2001.shtml">http://www.cut-the-knot.org/ctk/May2001.shtml</a>
+<a href="http://mathworld.wolfram.com/Nim.html">http://mathworld.wolfram.com/Nim.html</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-05T21:45:00+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/拾零/'>拾零</a>, <a class='category' href='/blog/categories/流入/'>流入</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hmgle.github.com/blog/2008/08/05/e8b1a1e6a38be68e92e5b180efbc9ae5b086nime6b8b8e6888fe7ad96e795a5e5ba94e794a8e585b6e4b8ad/" data-via="" data-counturl="http://hmgle.github.com/blog/2008/08/05/e8b1a1e6a38be68e92e5b180efbc9ae5b086nime6b8b8e6888fe7ad96e795a5e5ba94e794a8e585b6e4b8ad/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/06/18/e4b880e4ba9be5858de8b4b9e79a84efbc88e983a8e58886e698afe5bc80e6ba90e79a84e7949ae887b3e887aae794b1e79a84efbc89e69c89e99990e58583e58886/" title="Previous Post: 一些免费的（部分是开源的甚至自由的）有限元分析软件">&laquo; 一些免费的（部分是开源的甚至自由的）有限元分析软件</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/03/15/kiwi/" title="Next Post: Kiwi">Kiwi &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/">手机号码patch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/">ARM平台下位域结构体的问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/">递归中的改进</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/26/e4b880e6aca1e99da2e8af95/">一次面试</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/">看了这样的makefile</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>一道题的证明 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="原题来源：http://www.eaglefantasy.cn/archives/196本文遵从cc-by-nc-sa版权协议 今天在Eagle_Fantasy的站点上偶然看到一道有意思的小数学题，原题如下：汽油危机已经来临，大家都在叫油荒。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hmgle.github.com/blog/2008/05/31/e4b880e98193e9a298e79a84e8af81e6988e">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hmgle.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">一道题的证明</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-31T19:43:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>原题来源：<a href="http://www.eaglefantasy.cn/archives/196">http://www.eaglefantasy.cn/archives/196</a>本文遵从<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh">cc-by-nc-sa版权协议</a></p>
+
+<p>今天在Eagle_Fantasy的站点上偶然看到一道有意思的小数学题，原题如下：汽油危机已经来临，大家都在叫油荒。分散在长长的环形公路各处的加油站所存的油量仅仅够你跑一圈而无点滴富余。请证明，如果你在一个合适的加油站开始启程，把空油箱加足了汽油，你有充分把握可以跑完一圈，不会中途抛锚。</p>
+
+<p>Eagle_Fantasy给出的解答是：设想你在第一站带上足够的燃料，沿着公路环行，每到一处，便做好记录油箱里还有多少油，并把那里的汽油全部倒进油箱。当你回到第一站时，你将发现，油箱里的剩油与出发时一样多。总有一站油箱里的油量最小，我们就从这站开始启程，这样保证环行一周途中不愁汽油断档。</p>
+
+<p>Eagle_Fantasy给出的解答更像一个解法，当然我们可以进一步证明它的确是可行的，这将在后面看到。下面是我的不严格阐述：</p>
+
+<p>设共有n站，从任意一个站点开始按顺序编号，第i站可加油量为A[i],从第i站跑到第(i+1)站需耗掉的油量为a[i] (a[n]表示从第n站到第一站)，由题设可知：</p>
+
+<p>sum(A[i],i=1..n) = sum(a[i],i=1..n)        (1)</p>
+
+<p>我们采用反证法：假设不存在可完成不中途抛锚行程的站点，即对于任意站点i，至少存在一个正整数j(0&lt;j&lt;n)，使得：从第i站出发，在第(i+j) mod(n)站前耗尽油抛锚，即最后加油的一站是[i+j-1]站,于是有</p>
+
+<p>A[i]>=a[i]    (2),</p>
+
+<p>A[i]+A[i+1]>=a[i]+a[i+1]    (3),</p>
+
+<p>&#8230;,</p>
+
+<p>A[i]+A[i+1]+&#8230;+A[i+j-2]>=a[i]+a[i+1]+&#8230;+a[i+j-2]    (4),</p>
+
+<p>A[i]+A[i+1]+&#8230;+A[i+j-1]&lt;a[i]+a[i+1]+&#8230;+a[i+j-1]    (5),</p>
+
+<p>由上面(2),(3),(4),(5)式得</p>
+
+<p>A[i+1]+A[i+2]+&#8230;+A[i+j-1]&lt;a[i+1]+a[i+2]+&#8230;+a[i+j-1]    ,</p>
+
+<p>A[i+2]+A[i+3]+&#8230;+A[i+j-1]&lt;a[i+2]+a[i+2]+&#8230;+a[i+j-1]    ,</p>
+
+<p>&#8230;,</p>
+
+<p>A[i+j-1]&lt;a[i+j-1],</p>
+
+<p>它说明从第i,(i+1),(i+2),&#8230;,直至第(i+j-1)站出发，都是无法到达第(i+j)站的。</p>
+
+<p>好，我们从第1站出发，可以找到第k(1&lt;k&lt;=n)站使得在k站前抛锚，若从第k站出发，可以找到中途抛锚未到达的p站，依次类推，直到找到一站最接近第n站的q(q&lt;=n)站。编号在q之前的所有站点作为出发点，都是不可能到达q站的。根据假设，我们一定可以找到一站p(0&lt;p&lt;q),使得从q站出发，在p站之前因耗尽油而抛锚。p编号在q之前，故从p站出发，也是不能到达q站的。即</p>
+
+<p>A[q]+A[q+1]+&#8230;+A[n]+A[1]+A[2]+&#8230;+A[p-1]&lt;a[q]+a[q+1]+&#8230;+a[n]+a[1]+a[2]+&#8230;+a[p-1]    (6),</p>
+
+<p>A[p]+A[p+1]+&#8230;+A[q-1]&lt;a[p]+a[p+1]+&#8230;+a[q-1]    (7),</p>
+
+<p>由(6),(7)得</p>
+
+<p>A[1]+A[2]+&#8230;+A[n]&lt;a[1]+a[2]+&#8230;+a[n],</p>
+
+<p>即sum(A[i],i=1..n)&lt;sum(a[i],i=1..n),与题设(1)矛盾，于是假设不成立。</p>
+
+<p>得证。</p>
+
+<p>为什么Eagle_Fantasy给出的解答是合理可行的呢？</p>
+
+<p>以纵坐标表示油量，我们假设不受油量限制可以一直行驶，我们可以画出如下的油量变化图.
+<a href="http://hmgle.com/wp-content/uploads/2008/05/youliang_xingcheng.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/05/youliang_xingcheng.jpg" alt="" /></a></p>
+
+<p>它要求起点和终点的纵坐标一样，如果我们选择纵坐标为最小值的点为起点，就可以保证油量曲线在x轴上方了，即油量一直大于等于零，就可以顺利绕环行路一周了。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-31T19:43:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/流入/'>流入</a>, <a class='category' href='/blog/categories/逐浪/'>逐浪</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hmgle.github.com/blog/2008/05/31/e4b880e98193e9a298e79a84e8af81e6988e/" data-via="" data-counturl="http://hmgle.github.com/blog/2008/05/31/e4b880e98193e9a298e79a84e8af81e6988e/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/05/31/e6999ae4b88ae8b5b4e587a4e587b0/" title="Previous Post: 晚上赴凤凰">&laquo; 晚上赴凤凰</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2008/06/03/e59b9ee69da5e4ba86/" title="Next Post: 回来了">回来了 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/">手机号码patch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/">ARM平台下位域结构体的问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/">递归中的改进</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/26/e4b880e6aca1e99da2e8af95/">一次面试</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/">看了这样的makefile</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

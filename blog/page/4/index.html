@@ -1,0 +1,2336 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="出自Zbigniew Michalewicz与David B. Fogel合著的《如何求解问题——现代启发式方法》的“绳子有多长”的问题（见上一篇），经重做得出是题目有误的结论。在此对之前的武断感到惭愧：我根本没有计算就根据作者得出唯一解的这个错误事实和而得出“ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hmgle.github.com/blog/page/4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hmgle.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/03/30/e4b88de79bb8e5aeb9e28094e28094e4b88ae4b880e7af87e4b98be7baa0e6ada3/">不相容——上一篇之纠正</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-30T23:48:00+08:00" pubdate data-updated="true">Mar 30<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p> 出自Zbigniew Michalewicz与David B. Fogel合著的《如何求解问题——现代启发式方法》的“绳子有多长”的问题（<a href="http://hi.baidu.com/hmgle/blog/item/3a6e66ee960f6dffb3fb9504.html">见上一篇</a>），经重做得出是题目有误的结论。在此对之前的武断感到惭愧：我根本没有计算就根据作者得出唯一解的这个错误事实和而得出“它的系数矩阵和增广矩阵的秩相等且等于9”的结论。</p>
+
+<p>  这道题不知是翻译有误还是原来就有问题（如第二段“当处于猴妈妈的过去年龄时，猴妈妈的年龄是前一段中猴子的年龄的3倍”和第三段“当处于猴妈妈的过去年龄时，猴妈妈的年龄是第一段中猴子年龄的3倍”明显重复。而且，如果按照书中的解法：</p>
+
+<p>     变量：</p>
+
+<p>          x —— 猴子的年龄</p>
+
+<p>          y —— 猴哥哥的年龄</p>
+
+<p>          z —— 猴妈妈的年龄</p>
+
+<p>          W —— 重物的重量</p>
+
+<p>          r —— 绳子的长度</p>
+
+<p>          A，B，C，D —— 某年龄间隔</p>
+
+<p>     方程：</p>
+
+<p>          z - y = y - x</p>
+
+<p>          z - A = 2 * (x - A)</p>
+
+<p>          z - A = 0.5 * (x + B)</p>
+
+<p>          x + B = 3 * (z - C)</p>
+
+<p>          z - C = 3 * x</p>
+
+<p>          W - r/4 = x - A</p>
+
+<p>          z - A = 2 * (y - A)</p>
+
+<p>          z - B = 0.5 * (y + C)</p>
+
+<p>          y + C = 3 * (z - D)</p>
+
+<p>          z - D = 3 * x</p>
+
+<p>          x + z = 4</p>
+
+<p>          W + r/4 = 3 * z/2</p>
+
+<p>     得到齐次线性方程组系数矩阵为</p>
+
+<p>          [-3 ,  0 ,  1 ,  0 ,  0 ,  0 , -1 , 0 , 0]</p>
+
+<p>                 [                                         ]</p>
+
+<p>                 [1 ,  0 ,  1 ,  0 ,  0 ,  0 ,  0 ,  0 , 0]</p>
+
+<p>                 [                                         ]</p>
+
+<p>                 [1 ,  -2 ,  1 ,  0 ,  0 ,  0 ,  0 , 0 , 0]</p>
+
+<p>                 [                                         ]</p>
+
+<p>                 [0 ,  1 ,  -3 ,  0 ,  0 ,  1 ,  3 , 0 , 0]</p>
+
+<p>                 [                                         ]</p>
+
+<p>                 [-2 ,  0 ,  1 ,  1 ,  0 ,  0 ,  0 , 0 , 0]</p>
+
+<p>                 [                                         ]</p>
+
+<p>                 [-0.5 , 0 , 1 , -1 , -0.5 , 0 , 0 , 0 , 0]</p>
+
+<p>             A = [                                         ]</p>
+
+<p>                 [-3 ,  0 ,  1 ,  0 ,  0 ,  -1 , 0 , 0 , 0]</p>
+
+<p>                 [                                         ]</p>
+
+<p>                 [-1 ,  0 ,  0 ,  1 , 0 , 0 , 0 , 1 , -1/4]</p>
+
+<p>                 [                                         ]</p>
+
+<p>                 [0 ,  -2 ,  1 ,  -1 ,  2 ,  0 , 0 , 0 , 0]</p>
+
+<p>                 [                                         ]</p>
+
+<p>                 [0 , -0.5 , 1 , 0 , -1 , -0.5 , 0 , 0 , 0]</p>
+
+<p>                 [                                         ]</p>
+
+<p>                 [1 ,  0 ,  -3 ,  0 ,  1 ,  3 ,  0 , 0 , 0]</p>
+
+<p>                 [                                         ]</p>
+
+<p>                 [0 ,  0 ,  -3/2 , 0 , 0 , 0 , 0 , 1 , 1/4]</p>
+
+<p>     它的秩为 rank(A) = 9,</p>
+
+<p>     增广矩阵为</p>
+
+<p>          [-3 ,  0 ,  1 ,  0 ,  0 ,  0 ,  -1 ,  0 , 0 , 0]</p>
+
+<p>          [                                               ]</p>
+
+<p>          [1 ,  0 ,  1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  4]</p>
+
+<p>          [                                               ]</p>
+
+<p>          [1 ,  -2 ,  1 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 , 0]</p>
+
+<p>          [                                               ]</p>
+
+<p>          [0 ,  1 ,  -3 ,  0 ,  0 ,  1 ,  3 ,  0 ,  0 , 0]</p>
+
+<p>          [                                               ]</p>
+
+<p>          [-2 ,  0 ,  1 ,  1 ,  0 ,  0 ,  0 ,  0 ,  0 , 0]</p>
+
+<p>          [                                               ]</p>
+
+<p>          [-0.5 , 0 , 1 , -1 , -0.5 , 0 , 0 , 0 , 0 , -0.]</p>
+
+<p>          B = [                                               ]</p>
+
+<p>          [-3 ,  0 ,  1 ,  0 ,  0 ,  -1 ,  0 ,  0 , 0 , 0]</p>
+
+<p>          [                                               ]</p>
+
+<p>          [-1 ,  0 ,  0 ,  1 ,  0 ,  0 , 0 , 1 , -1/4 , 0]</p>
+
+<p>          [                                               ]</p>
+
+<p>          [0 ,  -2 ,  1 ,  -1 ,  2 ,  0 ,  0 ,  0 , 0 , 0]</p>
+
+<p>          [                                               ]</p>
+
+<p>          [0 , -0.5 , 1 , 0 , -1 , -0.5 , 0 , 0 , 0 , -0.]</p>
+
+<p>          [                                               ]</p>
+
+<p>          [1 ,  0 ,  -3 ,  0 ,  1 ,  3 ,  0 ,  0 ,  0 , 0]</p>
+
+<p>          [                                               ]</p>
+
+<p>          [0 ,  0 ,  -3/2 ,  0 ,  0 , 0 , 0 , 1 , 1/4 , 0]</p>
+
+<p>     增广矩阵的秩为 rank(B) = 10。</p>
+
+<p>     方程组不相容，无解。</p>
+
+<p>     另：当方程组不相容时，用Maple求最小二乘解x，即使得向量Ax - b的模的值最小，为        </p>
+
+<p>          leastsqrs(A, b,&#8217;optimize&#8217;)</p>
+
+<p>          A —— matrix</p>
+
+<p>          b —— vector</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/11/e5868de69da5e4b880e98193e69c89e585b3e78cb4e5ad90e38081e7bbb3e5ad90e79a84e8b6a3e9a298/">再来一道有关猴子、绳子的趣题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-11T23:31:00+08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>       在Zbigniew Michalewicz与David B. Fogel合著的《如何求解问题&#8211;现代启发式方法》（中译本）里看到的一道趣题：</p>
+
+<p>       一根绳子绕过滑轮，一端是一只猴子，另一端是一个重物，绳子的两端保持平衡。绳子的重量是每英尺四分之一磅，猴子与猴妈妈的年龄之和为4，猴子的重量加上绳子的重量等于猴妈妈的1.5倍。</p>
+
+<p>       重物的重量超过绳子的重量的磅数等于猴子的过去年龄：当处于猴子的过去年龄时，猴妈妈的年龄等于猴哥哥的过去年龄的两倍；当处于猴哥哥的过去年龄时，猴妈妈的年龄是猴哥哥的将来年龄的1/2；当处于猴哥哥的将来年龄时，猴哥哥的年龄是猴妈妈的过去年龄的3倍；当处于猴妈妈的过去年龄时，猴妈妈的年龄是前一段中猴子的年龄的3倍。</p>
+
+<p>       （你明白了我们所说的“事情并非总是直接了当的”这句话的含义了吧？）</p>
+
+<p>       猴妈妈的过去年龄是猴子的过去年龄的2倍；当处于猴子的过去年龄时，猴妈妈的年龄是猴子的将来年龄的1/2；当处于猴子的将来年龄时，猴子的年龄是猴妈妈的过去年龄的3倍；当处于猴妈妈的过去年龄时，猴妈妈的年龄是第一段中猴子年龄的3倍。</p>
+
+<p>       猴妈妈超过猴哥哥的年龄数等于猴哥哥超过猴子的年龄数。</p>
+
+<p>       问题是：这根绳子有多长？（这个问题中的未知数可以不必为整数，猴子的年龄可能如10/3之类的分数）</p>
+
+<p>       条件很多，需要足够耐心。</p>
+
+<p>其实没什么技巧这题，将所有的信息翻译成等式就是了，引入9个变量，得到包含12个方程的非齐次线性方程组，它的系数矩阵和增广矩阵的秩相等且等于9，所以有唯一解。不过不能直接用Maple等数学符号软件求解，我用maple（d版）、maxima试过都不行，mathematica没试过,不知道为什么。所以只好手算了。最后答案为绳长12/17英尺。</p>
+
+<p>另外发现该书第34页的解答是错误的（我看的是第一版）。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/07/e58fa6e4b880e7a78de696b9e5bc8fe6809de88083e78cb4e5ad90e788ace7bbb3e8b6a3e9a298/">另一种方式思考猴子爬绳趣题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-07T23:09:00+08:00" pubdate data-updated="true">Jan 7<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.szkp.org.cn/shuxueshijie/funquestion/1-22-1.htm"><img src="http://hmgle.com/wp-content/uploads/2008/01/monkey.jpg" alt="" /></a></p>
+
+<p>据说是写《爱丽丝漫游奇境记》的牛津大学数学家刘易斯·卡罗尔提出的趣题：设一绳子挂在一个无摩擦力的滑轮上，绳的一端悬挂一砝码，它正好与紧抓在绳子另一端的猴子相平衡。假设这猴子开始向上爬，将有什么结果？</p>
+
+<p>下面的话是否真实已无从考证：</p>
+
+<p>_&#8221;真奇怪，&#8221;卡罗尔写道，&#8221;许多优秀的数学家给出了截然不同的答案。普赖斯认为砝码将向上升，而且速度越来越快。克利夫顿(还有哈考特)则认为，砝码将以与猴子一样的速度向上升起，然而桑普森却说，砝码将会向下降!&#8221;</p>
+
+<p>一位杰出的机械工程师说&#8221;这不会比苍蝇在绳子上爬更起作用&#8221;，而一位科学家却认为&#8221;砝码的上升或下降将取决于猴子 吃苹果速度的倒数&#8221;，然而还得从中求出猴子尾巴的平方根。严肃地说，这道题目非常有趣，值得认真推敲。它很能说明趣题与力学问题之间的紧密联系。</p>
+
+<p>_但是在经典力学普及的今天如果忽略滑轮与绳子的重量应该是很容易得出答案的。</p>
+
+<p>作用于猴子的向上的合力是T-W，W是猴子的重量，T是猴子那端的绳子张力，作用于砝码上的向上的合力是T&#8217;-W&#8217;，T&#8217;是平衡物那边的那部分绳子的张力，W&#8217;是砝码的重量，T=T&#8217;，由题干可知W=W&#8217;,作用在猴子上的向上的合力等于砝码上向上的合力，这两个物体的加速度在任意时刻都是相等的。假设两物体从停在一水平线上开始运动，则它们始终保持在一水平线上，这是由绳子张力处处相等决定的。</p>
+
+<p>我们可以用另一种方式思考：把滑轮转化为光滑的水平面，问题等价于在光滑水平面上通过绳子或轻质杆连接的两个相同质量的小球，由动量守恒定律很容易得出两小球任意时刻的位移相反。因为整体质心守恒。</p>
+
+<p>如果记入滑轮的重量（仍省略绳子的重量），将要用到转动方程，结果是砝码上升的距离等于猴子上升的距离的一半。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/12/31/hmglee58fafe883bde698afe4b88de58fafe8b083e5928ce79a84e58fb3e88491e6b4bbe8b783e58886e5ad90/">Hmgle可能是不可调和的右脑活跃分子</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-12-31T21:38:00+08:00" pubdate data-updated="true">Dec 31<span>st</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://hmgle.com/wp-content/uploads/2007/12/woman_spin.gif"><img src="http://hmgle.com/wp-content/uploads/2007/12/woman_spin.gif" alt="" /></a>
+看到上面的图出自<a href="http://www.news.com.au/perthnow/story/0,21598,22492511-5005375,00.html">http://www.news.com.au/perthnow/story/0,21598,22492511-5005375,00.html</a></p>
+
+<p>图片地址:http://www.news.com.au/common/imagedata/0,,5675247,00.gif</p>
+
+<p>你看到mm是顺时针旋转还是逆时针旋转？如果顺时针，你的右脑可能更活跃，逆时针的话你的左脑可能更活跃。大部分的人看到的是逆时针旋转尽管下意识地试图强迫自己向顺时针方向看。</p>
+
+<p>左脑功能（特点）          右脑特点（功能）</p>
+
+<p>逻辑的                    直觉的</p>
+
+<p>把握事物细节的            看事物整体的</p>
+
+<p>现实的                    想象的</p>
+
+<p>掌管文字和语言能力        掌管图像和想象能力</p>
+
+<p>向过去看的                向未来看的</p>
+
+<p>数学和科学                哲学和宗教</p>
+
+<p>可理解的(can comprehend) can &#8220;get it&#8221; (i.e. meaning)</p>
+
+<p>知识                      信仰</p>
+
+<p>稳健的                    冒险的</p>
+
+<p>实际的                    冲动的</p>
+
+<p>制定策略                  幻想的</p>
+
+<p>对着mm盯半天怎么看都是顺时针转，理所当然属于右脑活跃分子了。不过令人奇怪的是我知道你可以把自己的影子看成是正面对向你的也可以把它看成是背向你的（来源于小时候停电时点蜡烛的顿悟），如果把mm头向右偏时的状态看成是mm背向你的话你看到的是顺时针，看成是面向你的话看到的是逆时针，我在mm静止时完全可以在面对我还是背向我两种情况间转换，但mm一旋转我就不行了，只能看到顺时针了。少部分人看旋转的mm也能在顺逆转动间自由转换，这种境界是我等凡人望尘莫及的。</p>
+
+<p>更新: 科学控告诉我们: 这跟左右脑完全没有联系. 见<a href="http://mindhacks.cn/">刘未鹏</a>的<a href="http://mindhacks.cn/2009/03/15/preconception-explained/">逃出你的肖申克（二）：仁者见仁智者见智？从视觉错觉到偏见</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/12/18/e69e81e99990e58fa0e69ca8e59d97/">极限叠木块</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-12-18T23:55:00+08:00" pubdate data-updated="true">Dec 18<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>    先来看一道中学物理题：把<em>n</em>块完全相同的光滑的均质木块叠放在桌子边缘，要木块伸出桌子边缘最多，木块应如何叠放？木块伸出桌子边缘的最大水平距离是多少（设木块最长边为1，不考虑斜着放）？</p>
+
+<p>传统的解法是从最顶端考虑，要使最顶端木块刚好不倒，最顶端的木块的重心必须位于次顶端的木块的边缘延长线上，己顶端伸出次顶端木块的最大长度为1/2。依次类推，次顶端离下面的木块最大长度为1/4。以后的依次为1/6，1/8，…，1/<em>n</em>。求和约为(1/2)<strong>ln </strong><em>n.</em>一个结论是只要给定足够的木块，可以达到任意长度，因为调和级数是发散的。图中给出了<em>n__＝</em>10的情况。
+<a href="http://hmgle.com/wp-content/uploads/2007/12/block_0.jpg"><img src="http://hmgle.com/wp-content/uploads/2007/12/block_0.jpg" alt="" /></a></p>
+
+<p>    这类求叠放物体伸长的最大长度的题的历史可以追溯到19世纪中期，之后被许多人津津乐道，频繁地出现在各种娱乐杂志、报刊等，一般叫做overhang问题。题目或者限定了木块（书本，砖块等）叠放形式，或者暗示了一层只放一块木块（书本，砖块等），几乎所有人都对这个最佳摆放形式深信不疑，直到20世纪五十年代陆续有Sutton [1], Drive [2], Ainley [3] 等突破一层放一块(one-on-one)模式并考虑了几种只有少量木块的情况下的最佳解。图中给出了3和4块时的摆放位置以及和传统式的对比。
+<a href="http://hmgle.com/wp-content/uploads/2007/12/block_1.jpg"><img src="http://hmgle.com/wp-content/uploads/2007/12/block_1.jpg" alt="" /></a></p>
+
+<p>    最近，Hall [4] 用所谓的multiwide stacks模式将问题提高到一个层次，并给出了一系列未经证明的但被作者声称的最佳解。遗憾的是当n大于十九时他的解答被Mike Paterson和Uri Zwick等牛人否定了[5]。Mike Paterson等人引入了一些定义：将所有的木块分为支柱部分(support set)（图中用浅色表示）和平衡部分(balancing set)（图中用深色表示）。支柱部分递归地定义为：1、伸出最外边缘的那个木块属于支柱部分；2、如果一个木块属于支柱部分，那么在它下面与它直接接触的木块也属于支柱部分。除支柱部分外余下的木块都属于平衡部分。如果达到最外边缘的木块及以下的每一层都只有一个木块属于支柱部分，就称该结构为凸起的(spinal)。从图中可以看到当n小于20时垒起的木块都是凸起(spinal)的，但令人惊讶的是当n大于等于20时最佳摆放位置不再是凸起(spinal)了，这也正是Hall错误的根源。图中给出了n＝20及n＝30时的摆放位置。但同样地，Mike Paterson和Uri Zwick给出的解答也是未能证明的，但作者确信不会有更好的结果了（也许你还能更牛地再次推翻他们的结论）。
+<a href="http://hmgle.com/wp-content/uploads/2007/12/block_2.jpg"><img src="http://hmgle.com/wp-content/uploads/2007/12/block_2.jpg" alt="" /></a></p>
+
+<p>    <a href="http://hmgle.com/wp-content/uploads/2007/12/block_3.jpg"><img src="http://hmgle.com/wp-content/uploads/2007/12/block_3.jpg" alt="" /></a>
+<a href="http://hmgle.com/wp-content/uploads/2007/12/block_4.jpg"><img src="http://hmgle.com/wp-content/uploads/2007/12/block_4.jpg" alt="" /></a>
+我们还可以让木块竖起来放，但这又依赖于木块比例了，问题将变得更加复杂。</p>
+
+<p>来源：</p>
+
+<p>[1] R. Sutton, A problem of balancing, Amer. J. Phys. 23 (1955) 547.
+[2]J. E. Hearnshaw and M. S. Paterson, Problems drive, Eureka 27 (1964) 6{8 and 39{40. Avail-able at     <a href="http://archim.org.uk/eureka/27/problems.html">http://archim.org.uk/eureka/27/problems.html</a> and &#8230;/27/solutions.html.
+[3]S. Ainley, Finely balanced, Mathematical Gazette 63 (1979) 272.</p>
+
+<p>[4]J. F. Hall, Fun with stacking blocks, Amer. J. Phys. 73 (2005) 1107{1116.</p>
+
+<p>[5]M. Paterson, Y. Peres, M. Thorup, P. Winkler, and U. Zwick, Maximum overhang, available at http://arXiv.org/pdf/0707.0093. An extended abstract is to appear in Proceedings of the 19th Annual ACM-SIAM Symposium on Discrete Algorithm (SODA&#8217;08).</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/12/02/e7bb88e4ba8ee58fafe4bba5e4b88ae7bd91e4ba86efbc81/">终于可以上网了！</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-12-02T17:03:00+08:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>承众多linux用户的帮助，该死的校园网用的华为认证客户端（h3c802.1xClient）总算搞定了。需要linux下的客户端的同学可以在Ubuntu的中文论坛等地方下载，或留下邮箱我发给你（们），无论静态ip还是学校动态分配的ip都可通过认证，我们学校的是静态ip的。设置好后按照附带的readme文件使用。</p>
+
+<p>第一次在Ubuntu下发博客，存图留念一下 ：
+<a href="http://hmgle.com/wp-content/uploads/2007/12/Screenshot.png"><img src="http://hmgle.com/wp-content/uploads/2007/12/Screenshot.png" alt="" /></a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/11/09/e695b0e79086e980bbe8be91efbc9aif-p-then-q/">数理逻辑：if P Then Q</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-09T20:37:00+08:00" pubdate data-updated="true">Nov 9<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If A is true then B is true</p>
+
+<p>1、如果[[如果我在说真话，那么我并非永远说谎]是真命题]，那么[[[我（永远/并非永远）说谎]v[我在说（真话/谎）]]是假命题]。</p>
+
+<p>2、如果[[如果[[如果我说一句谎话，那么我的鼻子将长一寸]是真命题]]，那么[如果我说：“明天太阳从西边升起”后还是原来的塌鼻子]是真命题],那么[我说谎后，鼻子（会/不会）增长一寸]。</p>
+
+<p>提示：1.[]表示嵌套，借用Tcl语言的;</p>
+
+<p>2.p蕴含q的真假和p，q的真假关系定义如下：</p>
+
+<p>p->q假当且仅当p真q假。</p>
+
+<p>打开<a href="http://www.cut-the-knot.org/do_you_know/falsity.shtml">http://www.cut-the-knot.org/do_you_know/falsity.shtml</a>查看更多。<br/>
+<a href="http://www.cut-the-knot.org/">http://www.cut-the-knot.org/</a>一个非常有意思的网站。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/11/09/e5b9b3e99da2e6a181e69eb6e69cbae58aa8e58886e69e90e7a88be5ba8f/">平面桁架机动分析程序</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-09T20:22:00+08:00" pubdate data-updated="true">Nov 9<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/10/08/e794a8ce8afade8a880e694b9e58699e5b9b3e99da2e5889ae69eb6e99d99e58a9be58886e69e90e7a88be5ba8fefbc88e4b889efbc89/">用C语言改写平面刚架静力分析程序（三）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-08T22:46:00+08:00" pubdate data-updated="true">Oct 8<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>续2</p>
+
+<p>原来的用FORTRAN 77写的源程序：</p>
+
+<pre><code>C    PF.FOR (A program for analysis of plane frame)
+C    Version 4.3   1994
+C    Main program reads the control data &amp; organizes the whole
+C    calculation by calling subroutines.
+DIMENSION W(20000)
+CHARACTER IDFN*20,TITLE(5)*72
+READ (*,’(A12)’)IDFN
+OPEN (3,FILE=IDFN,STATUS=’OLD’)
+READ (3,’(A72)’)(TITLE(M),M=1,5)
+READ (3,*)E,NM,NJ,NS,NLC
+L1=1
+L2=L1+NM
+L3=L2+NM
+L4=L3+NM
+L11=L4+NM
+L12=L11+NJ
+L21=L12+NJ
+L22=L21+NS
+L31=L22+NS
+L41=L31+6*NM
+CALL IOMJS (TITLE,E,NM,NJ,NS,NLC,W(L1),W(L2),W(L3),
+      &amp;               W(L4),W(L11),W(L12),W(L21),W(L22))
+CALL LCVCT (NM,W(L1),W(L2),W(L31),NJ,N)
+CALL LCDIA (NM,N,W(L31),W(L41),W(L41),W(L41),MAXBDW,NA)
+L51=L41+N
+L52=L51+36
+L53=L52+NA*2
+L54=L53
+L61=L54+N*2
+NW=L61+6*NM-1
+    WRITE (*,1)NA,NW
+   1 FORMAT(/40X,’( NA=’,I6,’ )’
+      &amp;          /40X,’( NW=’,I6,’ )’)
+CALL FORMA (E,NM,NJ,N,NA,W(L1),W(L2),W(L3),W(L4),
+      &amp;               W(L11),W(L12),W(L31),W(L51),W(L41),W(L52))
+CALL AS (NS,N,NA,W(L21),W(L41),W(L52))
+CALL LDLT (N,NA,W(L41),W(L52),W(L53))
+DO 100 LC=1,NLC
+    READ (3,*)NLJ
+    L62=L61+NLJ
+    L63=L62+NLJ
+    L64=L63+NLJ
+    L71=L61
+    L81=L71+6*NM
+    CALL B0 (LC,N,NLJ,W(L54))
+    IF (NLJ.NE.0) CALL IOLJB (N,NLJ,W(L61),W(L62),
+      &amp;         W(L63),W(L64),W(L54))
+    READ (3,*)NLM
+    L82=L81+NLM
+    L83=L82+NLM
+    L84=L83+NLM
+    CALL F0 (NLM,NM,W(L71))
+    IF (NLM.NE.0) CALL IOLMFB (NM,NJ,N,NLM,W(L81),
+      &amp;         W(L82),W(L83),W(L84),W(L1),W(L2),W(L11),
+      &amp;         W(L12),W(L31),W(L71),W(L54))
+    CALL BS (NS,N,W(L21),W(L22),W(L54))
+    CALL SLVEQ (N,NA,MAXBDW,W(L41),W(L52),W(L54))
+    CALL OJD (NJ,N,W(L54))
+    CALL COTF (E,NM,NJ,N,W(L1),W(L2),W(L3),W(L4),
+      &amp;                W(L11),W(L12),W(L31),W(L54),W(L71))
+    NW=L84+NLM-1
+    WRITE (*,1)NA,NW
+100 CONTINUE
+WRITE (*,’(/)’)
+END
+SUBROUTINE IOMJS (TITLE,E,NM,NJ,NS,NLC,IST,IEN,
+      &amp;                     AR,RI,X,Y,IS,VS)
+C    Read data of members, joints, supports &amp; print them
+DIMENSION IST(NM),IEN(NM),AR(NM),RI(NM),
+      &amp;             X(NJ),Y(NJ),IS(NS),VS(NS)
+CHARACTER TITLE(5)*72
+WRITE (*,’(/)’)
+WRITE (*,1)(TITLE(M),M=1,5)
+   1 FORMAT(1X,A72)
+WRITE (*,2)E,NM,NJ,NS,NLC
+   2 FORMAT(/13X,’The Input Data’
+      &amp;          //10X,’The General Information’
+      &amp;          //6X,’E',9X,’NM’,5X,’NJ’,5X,’NS’,5X,’NLC’
+      &amp;          /1X,1PE10.3,4I7)
+READ   (3,*)(IST(M),IEN(M),AR(M),RI(M),M=1,NM)
+WRITE (*,3)
+   3 FORMAT(/10X,’The Information of Members’
+      &amp;          //1X,’member’,2X,’start’,2X,’end’,9X,’A',15X,’I')
+WRITE (*,4)(M,IST(M),IEN(M),AR(M),RI(M),M=1,NM)
+   4 FORMAT(1X,I4,I8,I6,1P2E16.6)
+READ   (3,*)(X(M),Y(M),M=1,NJ)
+WRITE (*,5)
+   5 FORMAT(/10X,’The Joint Coordinates’
+      &amp;          //1X,’joint’,11X,’X',17X,’Y')
+WRITE (*,6)(M,X(M),Y(M),M=1,NJ)
+   6 FORMAT(1X,I4,2F18.6)
+READ   (3,*)(IS(M),VS(M),M=1,NS)
+WRITE (*,7)
+   7 FORMAT(/10X,’The Information of Supports’
+      &amp;          //4X,’IS’,9X,’VS’)
+WRITE (*,8)(IS(M),VS(M),M=1,NS)
+   8 FORMAT(1X,I5,F16.6)
+RETURN
+END
+SUBROUTINE LCVCT (NM,IST,IEN,LV,NJ,N)
+C    Determine location vector of element
+DIMENSION IST(NM),IEN(NM),LV(6,NM)
+DO 100 M=1,NM
+    I=IST(M)*3
+    J=IEN(M)*3
+    LV(1,M)=I-2
+    LV(2,M)=I-1
+    LV(3,M)=I
+    LV(4,M)=J-2
+    LV(5,M)=J-1
+    LV(6,M)=J
+100      CONTINUE
+N=NJ*3
+RETURN
+END
+SUBROUTINE LCDIA (NM,N,LV,MIN,IBDW,LD,MAXBDW,NA)
+C    Determine location of diagonal elements of global stiffness
+C    matrix A
+DIMENSION LV(6,NM),MIN(N),IBDW(N),LD(N)
+DO 100 I=1,N
+    MIN(I)=I
+100 CONTINUE
+DO 400 M=1,NM
+    MINLV=LV(1,M)
+    DO 200 I=2,6
+      IF (LV(I,M).LT.MINLV) MINLV=LV(I,M)
+200    CONTINUE
+    DO 300 I=1,6
+      IF (MINLV.LT.MIN(LV(I,M))) MIN(LV(I,M))=MINLV
+300    CONTINUE
+400 CONTINUE
+MAXBDW=0
+DO 500 I=1,N
+    IBDW(I)=I-MIN(I)+1
+    IF (IBDW(I).GT.MAXBDW) MAXBDW=IBDW(I)
+500 CONTINUE
+LD(1)=IBDW(1)
+DO 600 I=2,N
+    LD(I)=LD(I-1)+IBDW(I)
+600 CONTINUE
+NA=LD(N)
+RETURN
+END
+SUBROUTINE RLCS (M,NM,NJ,IST,IEN,X,Y,RL,C,S)
+C    Calculate length, cosine &amp; sine of member
+DIMENSION IST(NM),IEN(NM),X(NJ),Y(NJ)
+I=IST(M)
+J=IEN(M)
+         X1=X(J)-X(I)
+         Y1=Y(J)-Y(I)
+RL=SQRT(X1*X1+Y1*Y1)
+C=X1/RL
+         S=Y1/RL
+RETURN
+END
+SUBROUTINE KEBAR (M,E,NM,NJ,IST,IEN,AR,RI,
+      &amp;                     X,Y,C,S,E1,E2,E3,E4)
+C    Calculate element stiffness matrix along local axes
+DIMENSION IST(NM),IEN(NM),X(NJ),Y(NJ),AR(NM),RI(NM)
+CALL RLCS (M,NM,NJ,IST,IEN,X,Y,RL,C,S)
+E1=E*AR(M)/RL
+E2=12.0*E*RI(M)/(RL*RL*RL)
+E3=0.5*E2*RL
+E4=0.6666667*E3*RL
+RETURN
+END
+SUBROUTINE KE (M,E,NM,NJ,IST,IEN,AR,RI,X,Y,AE)
+C    Calculate element stiffness matrix along global axes
+DIMENSION IST(NM),IEN(NM),AR(NM),RI(NM),
+      &amp;            X(NJ),Y(NJ),AE(6,6)
+CALL KEBAR (M,E,NM,NJ,IST,IEN,AR,RI,X,Y,C,S,E1,E2,E3,E4)
+A1=E1*C*C+E2*S*S
+A2=(E1-E2)*C*S
+A3=E1*S*S+E2*C*C
+A4=E3*S
+A5=E3*C
+A6=E4
+AE(1,1)=A1
+AE(2,1)=A2
+AE(2,2)=A3
+AE(3,1)=-A4
+AE(3,2)=A5
+AE(3,3)=A6
+AE(4,1)=-A1
+AE(4,2)=-A2
+AE(4,3)=A4
+AE(4,4)=A1
+AE(5,1)=-A2
+AE(5,2)=-A3
+AE(5,3)=-A5
+AE(5,4)=A2
+AE(5,5)=A3
+AE(6,1)=-A4
+AE(6,2)=A5
+AE(6,3)=0.5*A6
+AE(6,4)=A4
+AE(6,5)=-A5
+AE(6,6)=A6
+RETURN
+END
+SUBROUTINE FORMA (E,NM,NJ,N,NA,IST,IEN,AR,RI,
+      &amp;                     X,Y,LV,AE,LD,A)
+C    Form global stiffness matrix A
+DIMENSION IST(NM),IEN(NM),AR(NM),RI(NM),X(NJ),Y(NJ),
+      &amp;             LV(6,NM),AE(6,6),LD(N)
+DOUBLE PRECISION A(NA)
+DO 300 M=1,NM
+    CALL KE (M,E,NM,NJ,IST,IEN,AR,RI,X,Y,AE)
+    DO 200 I=1,6
+      DO 100 J=1,I
+        IF (LV(I,M).GE.LV(J,M)) THEN
+           A(LD(LV(I,M))-LV(I,M)+LV(J,M))
+      &amp;           =A(LD(LV(I,M))-LV(I,M)+LV(J,M))+AE(I,J)
+        ELSE
+           A(LD(LV(J,M))-LV(J,M)+LV(I,M))
+      &amp;           =A(LD(LV(J,M))-LV(J,M)+LV(I,M))+AE(I,J)
+        END IF
+100      CONTINUE
+200    CONTINUE
+300 CONTINUE
+RETURN
+END
+SUBROUTINE AS (NS,N,NA,IS,LD,A)
+C    Introduce support conditions into global stiffness matrix A
+DIMENSION IS(NS),LD(N)
+DOUBLE PRECISION A(NA)
+DO 100 M=1,NS
+    I=3*(IS(M)/10)-3+MOD(IS(M),10)
+    A(LD(I))=1D22
+100 CONTINUE
+RETURN
+END
+SUBROUTINE LDLT (N,NA,LD,A,T)
+C    Solve equations (1) – decomposition of matrix A
+DIMENSION LD(N)
+DOUBLE PRECISION A(NA),T(N),SUM
+DO 300 I=2,N
+    LDI=LD(I)
+    I1=I-LDI+LD(I-1)+1
+    DO 200 J=I1,I-1
+      LDJ=LD(J)
+      J1=J-LDJ+LD(J-1)+1
+      IF(I1.GT.J1) J1=I1
+      SUM=0.0D0
+      DO 100 K=J1,J-1
+        SUM=SUM+T(K)*A(LDJ-J+K)
+100      CONTINUE
+      T(J)=A(LDI-I+J)-SUM
+      A(LDI-I+J)=T(J)/A(LDJ)
+      A(LDI)=A(LDI)-T(J)*A(LDI-I+J)
+200    CONTINUE
+300 CONTINUE
+RETURN
+END
+SUBROUTINE SLVEQ (N,NA,MAXBDW,LD,A,B)
+C    Solve equations (2) – forward &amp; back substitution
+DIMENSION LD(N)
+DOUBLE PRECISION A(NA),B(N)
+DO 200 I=2,N
+    LDI=LD(I)
+    I1=I-LDI+LD(I-1)+1
+    DO 100 J=I1,I-1
+      B(I)=B(I)-A(LDI-I+J)*B(J)
+100    CONTINUE
+200 CONTINUE
+DO 300 I=1,N
+    B(I)=B(I)/A(LD(I))
+300 CONTINUE
+DO 500 I=N-1,1,-1
+    IMIN=I+MAXBDW
+    IF(IMIN.GT.N) IMIN=N
+    DO 400 J=I+1,IMIN
+      LDJ=LD(J)
+      J1=J-LDJ+LD(J-1)+1
+      IF(I.GE.J1) B(I)=B(I)-A(LDJ-J+I)*B(J)
+400    CONTINUE
+500 CONTINUE
+RETURN
+END
+SUBROUTINE B0 (LC,N,NLJ,B)
+C    Initialize joint load vector B
+DOUBLE PRECISION B(N)
+         WRITE (*,1)LC,NLJ
+   1 FORMAT(/15X,’Loading Case’,I3
+      &amp;          //10X,’The Loadings at Joints’
+      &amp;          //17X,’NLJ=’,I4)
+DO 100 I=1,N
+    B(I)=0.0D0
+100 CONTINUE
+         RETURN
+END
+SUBROUTINE IOLJB (N,NLJ,ILJ,PX,PY,PM,B)
+C    Read data of loading at joint &amp; form joint load vector B
+DIMENSION ILJ(NLJ),PX(NLJ),PY(NLJ),PM(NLJ)
+DOUBLE PRECISION B(N)
+         READ   (3,*)(ILJ(M),PX(M),PY(M),PM(M),M=1,NLJ)
+WRITE (*,1)
+   1      FORMAT(/2X,’ILJ’,11X,’PX’,14X,’PY’,15X,’PM’)
+WRITE (*,2)(ILJ(M),PX(M),PY(M),PM(M),M=1,NLJ)
+   2      FORMAT(1X,I4,2F16.4,F18.5)
+DO 100 M=1,NLJ
+    I=ILJ(M)*3
+    B(I-2)=PX(M)
+    B(I-1)=PY(M)
+    B(I)=PM(M)
+100 CONTINUE
+RETURN 
+END
+SUBROUTINE F0 (NLM,NM,F)
+C    Initialize terminal forces of members
+DIMENSION F(6,NM)
+WRITE (*,1) NLM
+   1      FORMAT(/10X,’The Loadings at Members’
+      &amp;          //17X,’NLM=’,I4)
+DO 200 J=1,NM
+    DO 100 I=1,6
+      F(I,J)=0.0
+100    CONTINUE
+200 CONTINUE
+         RETURN
+END
+SUBROUTINE IOLMFB (NM,NJ,N,NLM,ILM,ITL,PV,DST,
+      &amp;                      IST,IEN,X,Y,LV,F,B)
+C    Read data of loading at member &amp; calculate fixed-end forces,
+C    add equivalent joint loads to vector B
+DIMENSION ILM(NLM),ITL(NLM),PV(NLM),DST(NLM),IST(NM),
+      &amp;            IEN(NM),X(NJ),Y(NJ),LV(6,NM),F(6,NM)
+DOUBLE PRECISION B(N)
+READ   (3,*)(ILM(M),ITL(M),PV(M),DST(M),M=1,NLM)
+WRITE (*,1)
+   1 FORMAT(/2X,’ILM’,2X,’ITL’,11X,’PV’,12X,’DST’)
+WRITE (*,2)(ILM(M),ITL(M),PV(M),DST(M),M=1,NLM)
+   2 FORMAT(1X,I4,I5,F16.4,F16.6)
+DO 100 M=1,NLM
+    L=ILM(M)
+    CALL RLCS (L,NM,NJ,IST,IEN,X,Y,RL,C,S)
+    D1=DST(M)
+    D2=RL-D1
+    IF (ITL(M).EQ.1.OR.ITL(M).EQ.3) THEN
+      P1=PV(M)*C
+      P2=-PV(M)*S
+    END IF
+    IF (ITL(M).EQ.2.OR.ITL(M).EQ.4) THEN
+      P1=PV(M)*S
+      P2=PV(M)*C
+    END IF
+    IF (ITL(M).EQ.1.OR.ITL(M).EQ.2) THEN
+      F1=-P1*D2/RL
+      F4=-P1-F1
+      F2=-P2*D2*D2*(RL+2.0*D1)/(RL*RL*RL)
+      F5=-P2-F2
+      F3=-P2*D1*D2*D2/(RL*RL)
+      F6=P2*D1*D1*D2/(RL*RL)
+    END IF
+    IF (ITL(M).EQ.3.OR.ITL(M).EQ.4) THEN
+      G=P2*D1*D1/(12.0*RL*RL)
+      F3=-G*((6.0*RL-8.0*D1)*RL+3.0*D1*D1)
+      F6=G*D1*(4.0*RL-3.0*D1)
+      F5=-6.0*G*D1*(2.0-D1/RL)
+      F2=-P2*D1-F5
+      F4=-P1*D1*D1/(2.0*RL)
+      F1=-P1*D1-F4
+    END IF
+    F(1,L)=F(1,L)+F1
+    F(2,L)=F(2,L)+F2
+    F(3,L)=F(3,L)+F3
+    F(4,L)=F(4,L)+F4
+    F(5,L)=F(5,L)+F5
+    F(6,L)=F(6,L)+F6
+    B(LV(1,L))=B(LV(1,L))-F1*C+F2*S
+    B(LV(2,L))=B(LV(2,L))-F1*S-F2*C
+    B(LV(3,L))=B(LV(3,L))-F3
+    B(LV(4,L))=B(LV(4,L))-F4*C+F5*S
+    B(LV(5,L))=B(LV(5,L))-F4*S-F5*C
+    B(LV(6,L))=B(LV(6,L))-F6
+100 CONTINUE
+RETURN
+END
+SUBROUTINE BS (NS,N,IS,VS,B)
+C    Introduce support conditions into joint load vector B
+DIMENSION IS(NS),VS(NS)
+DOUBLE PRECISION B(N)
+DO 100 M=1,NS
+    I=3*(IS(M)/10)-3+MOD(IS(M),10)
+    B(I)=VS(M)*1D22
+100      CONTINUE
+RETURN
+END
+SUBROUTINE OJD (NJ,N,B)
+C    Print joint displacements
+DOUBLE PRECISION B(N)
+WRITE (*,1)
+   1     FORMAT(/13X,’The Results of Calculation’
+      &amp;          //10X,’The Joint Displacements’
+      &amp;          //1X,’joint’,8X,’u',15X,’v',14X,’phi’)
+WRITE (*,2)(M,B(3*M-2),B(3*M-1),B(3*M),M=1,NJ)
+   2      FORMAT(1X,I4,1P3E16.6)
+RETURN
+END
+SUBROUTINE COTF (E,NM,NJ,N,IST,IEN,AR,RI,X,Y,LV,B,F)
+C    Calculate &amp; print terminal forces of members
+DIMENSION IST(NM),IEN(NM),AR(NM),RI(NM),X(NJ),Y(NJ),
+      &amp;             LV(6,NM),F(6,NM)
+DOUBLE PRECISION B(N),U1,U2,U3,U4,U5,U6
+WRITE (*,1)
+   1      FORMAT(/10X,’The Terminal Forces’
+      &amp;          //1X,’member’,4X,’N(st)’,6X,’Q(st)’,7X,’M(st)’,
+      &amp;                        6X,’N(en)’,6X,’Q(en)’,7X,’M(en)’)
+DO 100 M=1,NM
+    CALL KEBAR (M,E,NM,NJ,IST,IEN,AR,RI,X,Y,C,S,E1,E2,E3,E4)
+    U1=B(LV(1,M))*C+B(LV(2,M))*S
+    U2=-B(LV(1,M))*S+B(LV(2,M))*C
+    U3=B(LV(3,M))
+    U4=B(LV(4,M))*C+B(LV(5,M))*S
+    U5=-B(LV(4,M))*S+B(LV(5,M))*C
+    U6=B(LV(6,M))
+    F(1,M)=F(1,M)+E1*(U1-U4)
+    F(2,M)=F(2,M)+E2*(U2-U5)+E3*(U3+U6)
+    F(3,M)=F(3,M)+E3*(U2-U5)+E4*(U3+0.5*U6)
+    F(4,M)=F(4,M)+E1*(U4-U1)
+    F(5,M)=F(5,M)+E2*(U5-U2)-E3*(U3+U6)
+    F(6,M)=F(6,M)+E3*(U2-U5)+E4*(0.5*U3+U6)
+    WRITE (*,2)M,F(1,M),F(2,M),F(3,M),
+      &amp;                  F(4,M),F(5,M),F(6,M)
+   2        FORMAT(1X,I4,2(2F11.3,F12.3))
+100      CONTINUE
+         RETURN
+END
+</code></pre>
+
+<p>（完）</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/10/08/e794a8ce8afade8a880e694b9e58699e5b9b3e99da2e5889ae69eb6e99d99e58a9be58886e69e90e7a88be5ba8fefbc88e4ba8cefbc89/">用C语言改写平面刚架静力分析程序（二）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-08T22:45:00+08:00" pubdate data-updated="true">Oct 8<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>续</p>
+
+<p>/<em>读入并输出杆件、结点及支承条件的数据</em>/</p>
+
+<p>void iomjs(int nm,int nj,int ns,int <em>ist,int </em>ien,float <em>ar,float </em>ri,float <em>x,float </em>y,int</p>
+
+<p><em>is,float </em>vs)</p>
+
+<p>{</p>
+
+<p>int i;</p>
+
+<p>for(i=0;i&lt;nm;i++)</p>
+
+<p>    {</p>
+
+<p>     fscanf(IDFP,&#8221;%d&#8221;,ist+i);</p>
+
+<p>     fscanf(IDFP,&#8221;%d&#8221;,ien+i);</p>
+
+<p>     fscanf(IDFP,&#8221;%f&#8221;,ar+i);</p>
+
+<p>     fscanf(IDFP,&#8221;%f&#8221;,ri+i);</p>
+
+<p>     CH=fgetc(IDFP);</p>
+
+<p>    }</p>
+
+<p>for(i=0;i&lt;nm;i++)</p>
+
+<p>    {</p>
+
+<p>     fprintf(OUTFP,&#8221;%4d&#8221;,i+1);</p>
+
+<p>     fprintf(OUTFP,&#8221;%8d&#8221;,*(ist+i));</p>
+
+<p>     fprintf(OUTFP,&#8221;%6d&#8221;,*(ien+i));</p>
+
+<p>      fprintf(OUTFP,&#8221;%16.6e&#8221;,*(ar+i));</p>
+
+<p>      fprintf(OUTFP,&#8221;%16.6e&#8221;,*(ri+i));</p>
+
+<p>fprintf(OUTFP,&#8221;\n&#8221;);</p>
+
+<p>    }</p>
+
+<p>fprintf(OUTFP,&#8221;           The joint Coordinates\n&#8221;);</p>
+
+<p>fprintf(OUTFP,&#8221;joint          X                 Y\n&#8221;);</p>
+
+<p>for(i=0;i&lt;nj;i++)</p>
+
+<p>    {</p>
+
+<p>     fscanf(IDFP,&#8221;%f&#8221;,x+i);</p>
+
+<p>     fscanf(IDFP,&#8221;%f&#8221;,y+i);</p>
+
+<p>     CH=fgetc(IDFP);</p>
+
+<p>    }</p>
+
+<p>for(i=0;i&lt;nj;i++)</p>
+
+<p>    {</p>
+
+<p>     fprintf(OUTFP,&#8221;%5d%16.6f%16.6f\n&#8221;,i+1,<em>(x+i),</em>(y+i));</p>
+
+<p>    }</p>
+
+<p>fprintf(OUTFP,&#8221;           The Information of Supports\n&#8221;);</p>
+
+<p>fprintf(OUTFP,&#8221;     IS          VS\n&#8221;);</p>
+
+<p>for(i=0;i&lt;ns;i++)</p>
+
+<p>    {</p>
+
+<p>     fscanf(IDFP,&#8221;%d&#8221;,is+i);</p>
+
+<p>     fscanf(IDFP,&#8221;%f&#8221;,vs+i);</p>
+
+<p>     CH=fgetc(IDFP);</p>
+
+<p>    }</p>
+
+<p>for(i=0;i&lt;ns;i++)</p>
+
+<p>    {</p>
+
+<p>      fprintf(OUTFP,&#8221;%5d&#8221;,*(is+i));</p>
+
+<p>      fprintf(OUTFP,&#8221;%15.6f\n&#8221;,*(vs+i));</p>
+
+<p>    }</p>
+
+<p>}</p>
+
+<p>/<em>确定独立未知量号</em>/</p>
+
+<p>void idun(int nj,int <em>n,int </em>iu,float <em>x,float </em>y)</p>
+
+<p>{</p>
+
+<p>int i,j,flag=0;</p>
+
+<p>float dx,dy;</p>
+
+<p>*(iu+0)=1;</p>
+
+<p>*(iu+1)=2;</p>
+
+<p>*(iu+2)=3;</p>
+
+<p>*n=3;</p>
+
+<p>for(j=1;j&lt;nj;j++)</p>
+
+<p>    {</p>
+
+<p>      for(i=j-1;i>=0;i&#8211;)</p>
+
+<p>       {</p>
+
+<p>          dx=(float)(fabs((double)(<em>(x+j)-</em>(x+i))));</p>
+
+<p>          dy=(float)(fabs((double)(<em>(y+j)-</em>(y+i))));</p>
+
+<p>          if(dx&lt;(1e-4)&amp;&amp;dy&lt;(1e-4))</p>
+
+<p>           {</p>
+
+<p>              flag=1;</p>
+
+<p>              <em>(iu+j</em>3+0)=<em>(iu+i</em>3+0);</p>
+
+<p>              <em>(iu+j</em>3+1)=<em>(iu+i</em>3+1);</p>
+
+<p>              <em>(iu+j</em>3+2)=*n+1;</p>
+
+<p>     <em>n=</em>(iu+j*3+2);</p>
+
+<p>           }</p>
+
+<p>    }</p>
+
+<p>      if(flag==0)</p>
+
+<p>       {</p>
+
+<p>          <em>(iu+j</em>3+0)=*n+1;</p>
+
+<p>          <em>(iu+j</em>3+1)=*n+2;</p>
+
+<p>          <em>(iu+j</em>3+2)=*n+3;</p>
+
+<p>          <em>n=</em>(iu+j*3+2);</p>
+
+<p>       }</p>
+
+<p>      flag=0;</p>
+
+<p>    }</p>
+
+<p>}</p>
+
+<p>/<em>确定单元定位向量</em>/</p>
+
+<p>void lcvct(int nm,int <em>ist,int </em>ien,int <em>lv,int </em>iu)</p>
+
+<p>{</p>
+
+<p>      int m,i,j;</p>
+
+<p>      for(m=0;m&lt;nm;m++)</p>
+
+<p>       {</p>
+
+<p>          i=*(ist+m);</p>
+
+<p>          j=*(ien+m);</p>
+
+<p>          <em>(lv+m</em>6+0)=<em>(iu+(i-1)</em>3+0);</p>
+
+<p>          <em>(lv+m</em>6+1)=<em>(iu+(i-1)</em>3+1);</p>
+
+<p>          <em>(lv+m</em>6+2)=<em>(iu+(i-1)</em>3+2);</p>
+
+<p>          <em>(lv+m</em>6+3)=<em>(iu+(j-1)</em>3+0);</p>
+
+<p>          <em>(lv+m</em>6+4)=<em>(iu+(j-1)</em>3+1);</p>
+
+<p>          <em>(lv+m</em>6+5)=<em>(iu+(j-1)</em>3+2);</p>
+
+<p>       }</p>
+
+<p>}</p>
+
+<p>/<em>确定总刚的对角元地址</em>/</p>
+
+<p>void lcdia(int nm,int n,int <em>lv,int </em>min,int <em>ibdw,int </em>ld,int <em>maxbdw,int </em>na)</p>
+
+<p>{</p>
+
+<p>      int i,m,minlv;</p>
+
+<p>      for(i=0;i&lt;n;i++)</p>
+
+<p>       {</p>
+
+<p>          *(min+i)=i+1;</p>
+
+<p>       }</p>
+
+<p>      for(m=0;m&lt;nm;m++)</p>
+
+<p>       {</p>
+
+<p>          minlv=<em>(lv+m</em>6+0);</p>
+
+<p>          for(i=1;i&lt;6;i++)</p>
+
+<p>           {</p>
+
+<p>              if(<em>(lv+m</em>6+i)&lt;minlv)</p>
+
+<p>              minlv=<em>(lv+m</em>6+i);</p>
+
+<p>           }</p>
+
+<p>          for(i=0;i&lt;6;i++)</p>
+
+<p>           {</p>
+
+<p>              if(minlv&lt;<em>(min+</em>(lv+m*6+i)-1))</p>
+
+<p>             <em>(min+</em>(lv+m*6+i)-1)=minlv;</p>
+
+<p>           }</p>
+
+<p>       }</p>
+
+<p>      *maxbdw=0;</p>
+
+<p>      for(i=0;i&lt;n;i++)</p>
+
+<p>       {</p>
+
+<p>          <em>(ibdw+i)=i-</em>(min+i)+2;</p>
+
+<p>          if(<em>(ibdw+i)></em>maxbdw)</p>
+
+<p>           {</p>
+
+<p>              <em>maxbdw=</em>(ibdw+i);</p>
+
+<p>           }</p>
+
+<p>       }</p>
+
+<p>      <em>ld=</em>ibdw;</p>
+
+<p>      for(i=1;i&lt;n;i++)</p>
+
+<p>       {</p>
+
+<p>          <em>(ld+i)=</em>(ld+i-1)+*(ibdw+i);</p>
+
+<p>       }</p>
+
+<p>      <em>na=</em>(ld+n-1);</p>
+
+<p>}</p>
+
+<p>/<em>计算杆件的杆长、余弦和正弦</em>/</p>
+
+<p>void lcs(int m,int <em>ist,int </em>ien,float <em>x,float </em>y,double <em>rl,double </em>c,double *s)</p>
+
+<p>{</p>
+
+<p>      int i,j;</p>
+
+<p>      double x1,y1;</p>
+
+<p>      i=*(ist+m)-1;</p>
+
+<p>      j=*(ien+m)-1;</p>
+
+<p>      x1=<em>(x+j)-</em>(x+i);</p>
+
+<p>      y1=<em>(y+j)-</em>(y+i);</p>
+
+<p>      <em>rl=sqrt(x1</em>x1+y1*y1);</p>
+
+<p>      <em>c=x1/(</em>rl);</p>
+
+<p>      <em>s=y1/(</em>rl);</p>
+
+<p>}</p>
+
+<p>/<em>计算局部坐标单刚</em>/</p>
+
+<p>void kebar(int m,float e,int <em>ist,int </em>ien,float <em>ar,float </em>ri,float <em>x,float</em>y,double</p>
+
+<p><em>c,double </em>s,double <em>e1,double </em>e2,double <em>e3,double </em>e4)</p>
+
+<p>{</p>
+
+<p>      double rl;</p>
+
+<p>      double *prl=&rl;</p>
+
+<p>      lcs(m,ist,ien,x,y,prl,c,s);</p>
+
+<p>      <em>e1=e</em>(*(ar+m))/rl;</p>
+
+<p>      <em>e2=12.0</em>e<em>(</em>(ri+m))/(rl<em>rl</em>rl);</p>
+
+<p>      <em>e3=0.5</em>(<em>e2)</em>rl;</p>
+
+<p>      <em>e4=4.0</em>e<em>(</em>(ri+m))/rl;</p>
+
+<p>}</p>
+
+<p>/<em>计算整体坐标单刚</em>/</p>
+
+<p>void ke(int m,float e,int <em>ist,int </em>ien,float <em>ar,float </em>ri,float <em>x,float </em>y,double *ae)</p>
+
+<p>{</p>
+
+<p>      double c,s,e1,e2,e3,e4,a1,a2,a3,a4,a5,a6;</p>
+
+<p>      double <em>pc=&amp;c,</em>ps=&amp;s,<em>pe1=&amp;e1,</em>pe2=&amp;e2,<em>pe3=&amp;e3,</em>pe4=&e4;</p>
+
+<p>      kebar(m,e,ist,ien,ar,ri,x,y,pc,ps,pe1,pe2,pe3,pe4);</p>
+
+<p>      a1=e1<em>c</em>c+e2<em>s</em>s;</p>
+
+<p>      a2=(e1-e2)<em>c</em>s;</p>
+
+<p>      a3=e1<em>s</em>s+e2<em>c</em>c;</p>
+
+<p>      a4=e3*s;</p>
+
+<p>      a5=e3*c;</p>
+
+<p>      a6=e4;</p>
+
+<p>      <em>(ae+0</em>6+0)=a1;</p>
+
+<p>      <em>(ae+0</em>6+1)=a2;</p>
+
+<p>      <em>(ae+1</em>6+1)=a3;</p>
+
+<p>      <em>(ae+0</em>6+2)=-a4;</p>
+
+<p>      <em>(ae+1</em>6+2)=a5;</p>
+
+<p>      <em>(ae+2</em>6+2)=a6;</p>
+
+<p>      <em>(ae+0</em>6+3)=-a1;</p>
+
+<p>      <em>(ae+1</em>6+3)=-a2;</p>
+
+<p>      <em>(ae+2</em>6+3)=a4;</p>
+
+<p>      <em>(ae+3</em>6+3)=a1;</p>
+
+<p>      <em>(ae+0</em>6+4)=-a2;</p>
+
+<p>      <em>(ae+1</em>6+4)=-a3;</p>
+
+<p>      <em>(ae+2</em>6+4)=-a5;</p>
+
+<p>      <em>(ae+3</em>6+4)=a2;</p>
+
+<p>      <em>(ae+4</em>6+4)=a3;</p>
+
+<p>      <em>(ae+0</em>6+5)=-a4;</p>
+
+<p>      <em>(ae+1</em>6+5)=a5;</p>
+
+<p>      <em>(ae+2</em>6+5)=0.5*a6;</p>
+
+<p>      <em>(ae+3</em>6+5)=a4;</p>
+
+<p>      <em>(ae+4</em>6+5)=-a5;</p>
+
+<p>      <em>(ae+5</em>6+5)=a6;</p>
+
+<p>}</p>
+
+<p>/<em>形成总刚</em>/</p>
+
+<p>void forma(float e,int nm,int <em>ist,int </em>ien,float <em>ar,float </em>ri,float <em>x,float </em>y,int</p>
+
+<p><em>lv,double </em>ae,int <em>ld,double </em>a)</p>
+
+<p>{</p>
+
+<p>      int m,i,j;</p>
+
+<p>      for(m=0;m&lt;nm;m++)</p>
+
+<p>       {</p>
+
+<p>          ke(m,e,ist,ien,ar,ri,x,y,ae);</p>
+
+<p>          for(i=0;i&lt;6;i++)</p>
+
+<p>           {</p>
+
+<p>              for(j=0;j&lt;=i;j++)</p>
+
+<p>               {</p>
+
+<p>                  if(<em>(lv+m</em>6+i)>=<em>(lv+m</em>6+j))</p>
+
+<p>                   {</p>
+
+<p>                      <em>(a+(</em>(ld+<em>(lv+m</em>6+i)-1)-1-<em>(lv+m</em>6+i)+1+<em>(lv+m</em>6+j)-1))+=<em>(ae+j</em>6+i);</p>
+
+<p>                   }</p>
+
+<p>                  else</p>
+
+<p>                   {</p>
+
+<p>                      <em>(a+(</em>(ld+<em>(lv+m</em>6+j)-1)-1-<em>(lv+m</em>6+j)+1+<em>(lv+m</em>6+i)-1))+=<em>(ae+j</em>6+i);</p>
+
+<p>                   }</p>
+
+<p>               }</p>
+
+<p>           }</p>
+
+<p>       }</p>
+
+<p>}</p>
+
+<p>/<em>总刚a引用支承条件</em>/</p>
+
+<p>void as(int ns,int <em>is,int </em>iu,int <em>ld,double </em>a)</p>
+
+<p>{</p>
+
+<p>      int m,j,i,k;</p>
+
+<p>      for(m=0;m&lt;ns;m++)</p>
+
+<p>       {</p>
+
+<p>          j=*(is+m)/10-1;</p>
+
+<p>          i=(*(is+m))%10-1;</p>
+
+<p>          k=<em>(iu+j</em>3+i);</p>
+
+<p>          <em>(a+</em>(ld+k-1)-1)=1e22;</p>
+
+<p>       }</p>
+
+<p>}</p>
+
+<p>/<em>解方程组之一    总刚分解</em>/</p>
+
+<p>void ldlt(int n,int <em>ld,double </em>a,double *t)</p>
+
+<p>{</p>
+
+<p>      double sum;</p>
+
+<p>      int i,i1,j,j1,ldi,ldj,k;</p>
+
+<p>      for(i=1;i&lt;n;i++)</p>
+
+<p>       {</p>
+
+<p>          ldi=*(ld+i);</p>
+
+<p>          i1=i+1-ldi+*(ld+i-1)+1;</p>
+
+<p>          for(j=i1-1;j&lt;i;j++)</p>
+
+<p>           {</p>
+
+<p>              ldj=*(ld+j);</p>
+
+<p>              j1=j+1-ldj+*(ld+j-1)+1;</p>
+
+<p>              if(i1>j1)j1=i1;</p>
+
+<p>              sum=0.0e0;</p>
+
+<p>              for(k=j1-1;k&lt;j;k++)</p>
+
+<p>               {</p>
+
+<p>                  sum+=<em>(t+k)</em>(*(a+ldj-j+k-1));</p>
+
+<p>               }</p>
+
+<p>              <em>(t+j)=</em>(a+ldi-i+j-1)-sum;</p>
+
+<p>              <em>(a+ldi-i+j-1)=</em>(t+j)/(*(a+ldj-1));</p>
+
+<p>              <em>(a+ldi-1)-=</em>(t+j)<em>(</em>(a+ldi-i+j-1));</p>
+
+<p>           }</p>
+
+<p>       }</p>
+
+<p>}</p>
+
+<p>/<em>结点荷载列阵b置零</em>/</p>
+
+<p>void b0(int lc,int n,int nlj,double *b)</p>
+
+<p>{</p>
+
+<p>      int i;</p>
+
+<p>      fprintf(OUTFP,&#8221;                Loading Case%3d\n&#8221;,lc);</p>
+
+<p>      fprintf(OUTFP,&#8221;           The Loadings at Joints\n&#8221;);</p>
+
+<p>      fprintf(OUTFP,&#8221;                  NLJ=%4d\n&#8221;,nlj);</p>
+
+<p>      for(i=0;i&lt;n;i++)</p>
+
+<p>       {</p>
+
+<p>          *(b+i)=0.0e0;</p>
+
+<p>       }</p>
+
+<p>}</p>
+
+<p>/<em>读入并输出结点荷载，形成结点荷载列阵b</em>/</p>
+
+<p>void ioljb(int nlj,int <em>iu,int </em>lj,float <em>fx,float </em>fy,float <em>fm,double </em>b)</p>
+
+<p>{</p>
+
+<p>      int m,j;</p>
+
+<p>      fprintf(OUTFP,&#8221;joint          FX                FY                  FM\n&#8221;);</p>
+
+<p>      for(m=0;m&lt;nlj;m++)</p>
+
+<p>       {</p>
+
+<p>          fscanf(IDFP,&#8221;%d&#8221;,lj+m);</p>
+
+<p>          fscanf(IDFP,&#8221;%f&#8221;,fx+m);</p>
+
+<p>          fscanf(IDFP,&#8221;%f&#8221;,fy+m);</p>
+
+<p>          fscanf(IDFP,&#8221;%f&#8221;,fm+m);</p>
+
+<p>          CH=fgetc(IDFP);</p>
+
+<p>       }</p>
+
+<p>      for(m=0;m&lt;nlj;m++)</p>
+
+<p>       {</p>
+
+<p>          fprintf(OUTFP,&#8221;%4d%16.6f%16.6f%18.6f\n&#8221;,<em>(lj+m),</em>(fx+m),<em>(fy+m),</em>(fm+m));</p>
+
+<p>       }</p>
+
+<p>       for(m=0;m&lt;nlj;m++)</p>
+
+<p>        {</p>
+
+<p>           j=*(lj+m)-1;</p>
+
+<p>           <em>(b+</em>(iu+j<em>3+0)-1)=</em>(fx+m);</p>
+
+<p>           <em>(b+</em>(iu+j<em>3+1)-1)=</em>(fy+m);</p>
+
+<p>           <em>(b+</em>(iu+j<em>3+2)-1)=</em>(fm+m);</p>
+
+<p>        }</p>
+
+<p>}</p>
+
+<p>/<em>杆端力f置零</em>/</p>
+
+<p>void f0(int nlm,int nm,double *f)</p>
+
+<p>{</p>
+
+<p>      int i,j;</p>
+
+<p>      fprintf(OUTFP,&#8221;           The Loadings at Members\n&#8221;);</p>
+
+<p>      fprintf(OUTFP,&#8221;                  NLM=%4d\n&#8221;,nlm);</p>
+
+<p>      for(j=0;j&lt;nm;j++)</p>
+
+<p>       {</p>
+
+<p>          for(i=0;i&lt;6;i++)</p>
+
+<p>           {</p>
+
+<p>              <em>(f+j</em>6+i)=0.0e0;</p>
+
+<p>           }</p>
+
+<p>    }  </p>
+
+<p>}</p>
+
+<p>/<em>读入并输出非结点荷载，计算固端力，计算等效结点荷载并叠加到结点荷载列阵b中</em>/</p>
+
+<p>void iolmfb(int nlm,int <em>lm,int </em>lt,float <em>vf,float </em>dst,int <em>ist,int </em>ien,float *x,float</p>
+
+<p><em>y,int </em>lv,double <em>f,double </em>b)</p>
+
+<p>{</p>
+
+<p>      int m,l;</p>
+
+<p>      double d1,d2,p1,p2,f1,f2,f3,f4,f5,f6,g;</p>
+
+<p>      double rl,c,s;</p>
+
+<p>      double <em>prl=&amp;rl,</em>pc=&amp;c,*ps=&s;</p>
+
+<p>      fprintf(OUTFP,&#8221;membet    type           VF                DST\n&#8221;);</p>
+
+<p>      for(m=0;m&lt;nlm;m++)</p>
+
+<p>       {</p>
+
+<p>          fscanf(IDFP,&#8221;%d&#8221;,lm+m);</p>
+
+<p>          fscanf(IDFP,&#8221;%d&#8221;,lt+m);</p>
+
+<p>          fscanf(IDFP,&#8221;%f&#8221;,vf+m);</p>
+
+<p>          fscanf(IDFP,&#8221;%f&#8221;,dst+m);</p>
+
+<p>          CH=fgetc(IDFP);</p>
+
+<p>       }</p>
+
+<p>      for(m=0;m&lt;nlm;m++)</p>
+
+<p>       {</p>
+
+<p>          fprintf(OUTFP,&#8221;%4d%7d %16.6f%16.6f\n&#8221;,<em>(lm+m),</em>(lt+m),<em>(vf+m),</em>(dst+m));</p>
+
+<p>       }</p>
+
+<p>      for(m=0;m&lt;nlm;m++)</p>
+
+<p>       {</p>
+
+<p>          l=*(lm+m);</p>
+
+<p>          lcs(l,ist,ien,x,y,prl,pc,ps);</p>
+
+<p>          d1=*(dst+m);</p>
+
+<p>          d2=rl-d1;</p>
+
+<p>          if(<em>(lt+m)==1||</em>(lt+m)==3)</p>
+
+<p>           {</p>
+
+<p>              p1=<em>(vf+m)</em>c;</p>
+
+<p>              p2=-(<em>(vf+m)</em>s);</p>
+
+<p>           }</p>
+
+<p>          if(<em>(lt+m)==2||</em>(lt+m)==4)</p>
+
+<p>           {</p>
+
+<p>              p1=<em>(vf+m)</em>s;</p>
+
+<p>              p2=<em>(vf+m)</em>c;</p>
+
+<p>           }</p>
+
+<p>          if(<em>(lt+m)==1||</em>(lt+m)==2)</p>
+
+<p>           {</p>
+
+<p>              f1=-p1*d2/rl;</p>
+
+<p>              f4=-p1-f1;</p>
+
+<p>              f2=-p2<em>d2</em>d2<em>(rl+2.0</em>d1)/(rl<em>rl</em>rl);</p>
+
+<p>              f5=-p2-f2;</p>
+
+<p>              f3=-p2<em>d1</em>d2<em>d2/(rl</em>rl);</p>
+
+<p>              f6=p2<em>d1</em>d1<em>d2/(rl</em>rl);</p>
+
+<p>           }</p>
+
+<p>          if(<em>(lt+m)==3||</em>(lt+m)==4)</p>
+
+<p>           {</p>
+
+<p>              g=p2<em>d1</em>d1/(12.0<em>rl</em>rl);</p>
+
+<p>              f3=-g<em>((6.0</em>rl-8.0<em>d1)</em>rl+3.0<em>d1</em>d1);</p>
+
+<p>              f6=g<em>d1</em>(4.0<em>rl-3.0</em>d1);</p>
+
+<p>              f5=-6.0<em>g</em>d1*(2.0-d1/rl);</p>
+
+<p>              f2=-p2*d1-f5;</p>
+
+<p>              f4=-p1*d1-f5;</p>
+
+<p>              f1=-p1*d1-f4;</p>
+
+<p>           }</p>
+
+<p>          l&#8211;;</p>
+
+<p>          <em>(f+l</em>6+0)+=f1;</p>
+
+<p>          <em>(f+l</em>6+1)+=f2;</p>
+
+<p>          <em>(f+l</em>6+2)+=f3;</p>
+
+<p>          <em>(f+l</em>6+3)+=f4;</p>
+
+<p>          <em>(f+l</em>6+4)+=f5;</p>
+
+<p>          <em>(f+l</em>6+5)+=f6;</p>
+
+<p>          <em>(b+</em>(lv+l<em>6+0)-1)-=f1</em>c-f2*s;</p>
+
+<p>          <em>(b+</em>(lv+l<em>6+1)-1)-=f1</em>s+f2*c;</p>
+
+<p>          <em>(b+</em>(lv+l*6+2)-1)-=f3;</p>
+
+<p>          <em>(b+</em>(lv+l<em>6+3)-1)-=f4</em>c-f5*s;</p>
+
+<p>          <em>(b+</em>(lv+l<em>6+4)-1)-=f4</em>s+f5*c;</p>
+
+<p>          <em>(b+</em>(lv+l*6+5)-1)-=f6;</p>
+
+<p>       }</p>
+
+<p>}</p>
+
+<p>/<em>结点荷载列阵b引入支承条件</em>/</p>
+
+<p>void bs(int ns,int <em>is,float </em>vs,int <em>iu,double </em>b)</p>
+
+<p>{</p>
+
+<p>      int i,j,k,m;</p>
+
+<p>      for(m=0;m&lt;ns;m++)</p>
+
+<p>       {</p>
+
+<p>          j=*(is+m)/10-1;</p>
+
+<p>          i=(*(is+m)%10)-1;</p>
+
+<p>          k=<em>(iu+j</em>3+i)-1;</p>
+
+<p>          <em>(b+k)=</em>(vs+m)*1e22;</p>
+
+<p>       }</p>
+
+<p>}</p>
+
+<p>/<em>解方程组之二    向前和向后回代</em>/</p>
+
+<p>void slveq(int n,int maxbdw,int <em>ld,double </em>a,double *b)</p>
+
+<p>{</p>
+
+<p>      int i,j,ldi,ldj,i1,imin,j1;</p>
+
+<p>      for(i=1;i&lt;n;i++)</p>
+
+<p>       {</p>
+
+<p>          ldi=*(ld+i);</p>
+
+<p>          i1=i+1-ldi+*(ld+i-1)+1;</p>
+
+<p>          for(j=i1-1;j&lt;i;j++)</p>
+
+<p>           {</p>
+
+<p>              <em>(b+i)-=</em>(a+ldi-1-i+j)<em>(</em>(b+j));</p>
+
+<p>           }</p>
+
+<p>    }  </p>
+
+<p>      for(i=0;i&lt;n;i++)</p>
+
+<p>       {</p>
+
+<p>          <em>(b+i)/=</em>(a+*(ld+i)-1);</p>
+
+<p>       }</p>
+
+<p>      for(i=n-2;i>=0;i&#8211;)</p>
+
+<p>       {</p>
+
+<p>          imin=i+1+maxbdw;</p>
+
+<p>          if(imin>n)imin=n;</p>
+
+<p>          for(j=i+1;j&lt;imin;j++)</p>
+
+<p>           {</p>
+
+<p>              ldj=*(ld+j);</p>
+
+<p>              j1=j+1-ldj+*(ld+j-1)+1;</p>
+
+<p>              if(i+1>=j1)</p>
+
+<p>     {</p>
+
+<p>      <em>(b+i)=</em>(b+i)-(<em>(a+ldj-j+i-1)</em>(*(b+j)));</p>
+
+<p>     }</p>
+
+<p>           }</p>
+
+<p>       }</p>
+
+<p>}</p>
+
+<p>/<em>输出结点位移</em>/</p>
+
+<p>void ojd(int nj,int <em>iu,double </em>b)</p>
+
+<p>{</p>
+
+<p>      int j;</p>
+
+<p>      fprintf(OUTFP,&#8221;              The Results of Calculation\n&#8221;);</p>
+
+<p>      fprintf(OUTFP,&#8221;           The Joint Displacements\n&#8221;);</p>
+
+<p>      fprintf(OUTFP,&#8221;joint          u                 v              rotation\n&#8221;);</p>
+
+<p>      for(j=0;j&lt;nj;j++)</p>
+
+<p>       {</p>
+
+<p>          fprintf(OUTFP,&#8221;%4d%16.6e%16.6e%16.6e\n&#8221;,j+1,<em>(b+</em>(iu+j<em>3+0)-1),</em>(b+<em>(iu+j</em>3+1)-1),*</p>
+
+<p>(b+<em>(iu+j</em>3+2)-1));</p>
+
+<p>       }</p>
+
+<p>}</p>
+
+<p>/<em>计算并输出杆端力</em>/</p>
+
+<p>void cotf(float e,int nm,int <em>ist,int </em>ien,float <em>ar,float </em>ri,float <em>x,float </em>y,int</p>
+
+<p><em>lv,double </em>b,double *f)</p>
+
+<p>{</p>
+
+<p>      int m;</p>
+
+<p>      double c,s,e1,e2,e3,e4,u1,u2,u3,u4,u5,u6;</p>
+
+<p>      double <em>pc=&amp;c,</em>ps=&amp;s,<em>pe1=&amp;e1,</em>pe2=&amp;e2,<em>pe3=&amp;e3,</em>pe4=&e4;</p>
+
+<p>      fprintf(OUTFP,&#8221;           The Terminal Forces\n&#8221;);</p>
+
+<p>      fprintf(OUTFP,&#8221;member                    FN                FS                  M\n&#8221;);</p>
+
+<p>      for(m=0;m&lt;nm;m++)</p>
+
+<p>       {</p>
+
+<p>          kebar(m,e,ist,ien,ar,ri,x,y,pc,ps,pe1,pe2,pe3,pe4);</p>
+
+<p>          u1=<em>(b+</em>(lv+m<em>6+0)-1)</em>c+<em>(b+</em>(lv+m<em>6+1)-1)</em>s;</p>
+
+<p>          u2=-<em>(b+</em>(lv+m<em>6+0)-1)</em>s+<em>(b+</em>(lv+m<em>6+1)-1)</em>c;</p>
+
+<p>          u3=<em>(b+</em>(lv+m*6+2)-1);</p>
+
+<p>          u4=<em>(b+</em>(lv+m<em>6+3)-1)</em>c+<em>(b+</em>(lv+m<em>6+4)-1)</em>s;</p>
+
+<p>          u5=-<em>(b+</em>(lv+m<em>6+3)-1)</em>s+<em>(b+</em>(lv+m<em>6+4)-1)</em>c;</p>
+
+<p>          u6=<em>(b+</em>(lv+m*6+5)-1);</p>
+
+<p>          <em>(f+m</em>6+0)+=e1*(u1-u4);</p>
+
+<p>          <em>(f+m</em>6+1)+=e2<em>(u2-u5)+e3</em>(u3+u6);</p>
+
+<p>          <em>(f+m</em>6+2)+=e3<em>(u2-u5)+e4</em>(u3+0.5*u6);</p>
+
+<p>          <em>(f+m</em>6+3)+=e1*(u4-u1);</p>
+
+<p>          <em>(f+m</em>6+4)+=e2<em>(u5-u2)-e3</em>(u3+u6);</p>
+
+<p>          <em>(f+m</em>6+5)+=e3<em>(u2-u5)+e4</em>(0.5*u3+u6);</p>
+
+<p>          fprintf(OUTFP,&#8221;%4d    start%4d%16.6f%16.6f%18.6f\n&#8221;,m+1,<em>(ist+m),</em>(f+m<em>6+0),</em></p>
+
+<p>(f+m<em>6+1),</em>(f+m*6+2));</p>
+
+<p>          fprintf(OUTFP,&#8221;          end%4d%16.6f%16.6f%18.6f\n&#8221;,<em>(ien+m),</em>(f+m<em>6+3),</em>(f+m<em>6+4),</em></p>
+
+<p>(f+m*6+5));</p>
+
+<p>       }</p>
+
+<p>}</p>
+
+<p>/<em>主函数 读入并输出控制数据，分配动态数组地址，并通过调用各个函数来调用整个计算</em>/</p>
+
+<p>int main()</p>
+
+<p>{</p>
+
+<p>int</p>
+
+<p>l1,l2,l3,l4,l11,l12,l21,l22,l31,l32,l41,l51,l52,l53,l54,l61,l62,l63,l64,l71,l81,l82,l83,l84;</p>
+
+<p>int lc;</p>
+
+<p>char idfn[13],outfn[13];</p>
+
+<p>printf(&#8220;Input Data File Name:\n&#8221;);</p>
+
+<p>gets(idfn);</p>
+
+<p>if((IDFP=fopen(idfn,&#8221;r&#8221;))==NULL)</p>
+
+<p>    {</p>
+
+<p>     printf(&#8220;can not open Data File!\n&#8221;);</p>
+
+<p>     exit (0);</p>
+
+<p>    }</p>
+
+<p>printf(&#8220;Output File Name:\n&#8221;);</p>
+
+<p>gets(outfn);</p>
+
+<p>if((OUTFP=fopen(outfn,&#8221;w+&#8221;))==NULL)</p>
+
+<p>    {</p>
+
+<p>     printf(&#8220;can not open Output File!\n&#8221;);</p>
+
+<p>     exit (0);</p>
+
+<p>    }</p>
+
+<p>fprintf(OUTFP,&#8221;Input Data File Name:%s\n&#8221;,idfn);</p>
+
+<p>fprintf(OUTFP,&#8221;Output File Name:%s\n&#8221;,outfn);</p>
+
+<p>    {</p>
+
+<p>     int i=0;</p>
+
+<p>     do</p>
+
+<p>      {</p>
+
+<p>    CH=fgetc(IDFP);</p>
+
+<p>    fputc(CH,OUTFP);</p>
+
+<p>    if(CH==&#8217;\n&#8217;)i++;</p>
+
+<p>}</p>
+
+<p>     while(i&lt;5);</p>
+
+<p>    }</p>
+
+<p>fprintf(OUTFP,&#8221;\n&#8221;);</p>
+
+<p>fprintf(OUTFP,&#8221;                  The Input Data\n&#8221;);</p>
+
+<p>fprintf(OUTFP,&#8221;             The General Information\n&#8221;);</p>
+
+<p>fprintf(OUTFP,&#8221;       E           NM       NJ       NS       NLC\n&#8221;);</p>
+
+<p>fscanf(IDFP,&#8221;%f&#8221;,&amp;E);</p>
+
+<p>fscanf(IDFP,&#8221;%d&#8221;,&amp;NM);</p>
+
+<p>fscanf(IDFP,&#8221;%d&#8221;,&amp;NJ);</p>
+
+<p>fscanf(IDFP,&#8221;%d&#8221;,&amp;NS);</p>
+
+<p>fscanf(IDFP,&#8221;%d&#8221;,&amp;NLC);</p>
+
+<p>fprintf(OUTFP,&#8221;%10.3e&#8221;,E);</p>
+
+<p>fprintf(OUTFP,&#8221;%7d&#8221;,NM);</p>
+
+<p>fprintf(OUTFP,&#8221;%7d&#8221;,NJ);</p>
+
+<p>fprintf(OUTFP,&#8221;%7d&#8221;,NS);</p>
+
+<p>fprintf(OUTFP,&#8221;%7d\n&#8221;,NLC);</p>
+
+<p>fprintf(OUTFP,&#8221;           The Information of Members\n&#8221;);</p>
+
+<p>fprintf(OUTFP,&#8221;member    start    end           A                 I\n&#8221;);</p>
+
+<p>l1=0;</p>
+
+<p>l2=l1+NM;</p>
+
+<p>l3=0;</p>
+
+<p>l4=l3+NM;</p>
+
+<p>l11=l4+NM;</p>
+
+<p>l12=l11+NJ;</p>
+
+<p>l21=l2+NM;</p>
+
+<p>l22=l12+NJ;</p>
+
+<p>l31=l21+NS;</p>
+
+<p>l32=l31+3*NJ;</p>
+
+<p>l41=l32+6*NM;</p>
+
+<p>iomjs(NM,NJ,NS,W1+l1,W1+l2,W2+l3,W2+l4,W2+l11,W2+l12,W1+l21,W2+l22);</p>
+
+<p>idun(NJ,PN,W1+l31,W2+l11,W2+l12);</p>
+
+<p>lcvct(NM,W1+l1,W1+l2,W1+l32,W1+l31);</p>
+
+<p>lcdia(NM,N,W1+l32,W1+l41,W1+l41,W1+l41,PMAXBDW,PNA);</p>
+
+<p>l51=0;</p>
+
+<p>l52=l51+72;</p>
+
+<p>l53=l52+NA*2;</p>
+
+<p>l54=l53;</p>
+
+<p>l61=l41+N;</p>
+
+<p>forma(E,NM,W1+l1,W1+l2,W2+l3,W2+l4,W2+l11,W2+l12,W1+l32,W3+l51,W1+l41,W3+l52);</p>
+
+<p>as(NS,W1+l21,W1+l31,W1+l41,W3+l52);</p>
+
+<p>ldlt(N,W1+l41,W3+l52,W3+l53);</p>
+
+<p>for(lc=1;lc&lt;=NLC;lc++)</p>
+
+<p>    {</p>
+
+<p>     fscanf(IDFP,&#8221;%d&#8221;,&amp;NLJ);</p>
+
+<p>     CH=fgetc(IDFP);</p>
+
+<p>     l62=l22+NS;</p>
+
+<p>     l63=l62+NLJ;</p>
+
+<p>     l64=l63+NLJ;</p>
+
+<p>     l71=l54+N*2;</p>
+
+<p>     l81=l61+NLJ;</p>
+
+<p>     b0(lc,N,NLJ,W3+l54);</p>
+
+<p>     if(NLJ!=0)</p>
+
+<p>      ioljb(NLJ,W1+l31,W1+l61,W2+l62,W2+l63,W2+l64,W3+l54);</p>
+
+<p>     fscanf(IDFP,&#8221;%d&#8221;,&amp;NLM);</p>
+
+<p>     CH=fgetc(IDFP);</p>
+
+<p>     l82=l81+NLM;</p>
+
+<p>     l83=l64+NLJ;</p>
+
+<p>     l84=l83+NLM;</p>
+
+<p>     f0(NLM,NM,W3+l71);</p>
+
+<p>     if(NLM!=0)</p>
+
+<p>      iolmfb(NLM,W1+l81,W1+l82,W2+l83,W2+l84,W1+l1,W1+l2,W2+l11,W2+l12,W1+l32,W3+l71,W3+l54);</p>
+
+<p>     bs(NS,W1+l21,W2+l22,W1+l31,W3+l54);</p>
+
+<p>     slveq(N,MAXBDW,W1+l41,W3+l52,W3+l54);</p>
+
+<p>     ojd(NJ,W1+l31,W3+l54);</p>
+
+<p>     cotf(E,NM,W1+l1,W1+l2,W2+l3,W2+l4,W2+l11,W2+l12,W1+l32,W3+l54,W3+l71);</p>
+
+<p>     fprintf(OUTFP,&#8221;              (NA=%4d)\n&#8221;,NA);</p>
+
+<p>    }</p>
+
+<p>fclose(IDFP);</p>
+
+<p>fclose(OUTFP);</p>
+
+<p>printf(&#8220;处理完毕\n&#8221;);</p>
+
+<p>system(&#8220;pause&#8221;);</p>
+
+<p>return (0);</p>
+
+<p>}</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/">手机号码patch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/">ARM平台下位域结构体的问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/">递归中的改进</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/26/e4b880e6aca1e99da2e8af95/">一次面试</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/">看了这样的makefile</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

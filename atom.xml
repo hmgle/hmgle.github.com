@@ -1,101 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>My Octopress Blog</title>
-  <meta name="author" content="Your Name">
-
-  
-  <meta name="description" content="昨天更换手机号码了. 原号码不再使用. 如何获取我的新号码 如果存有我原来的号码: 以原号码为参数运行下面的脚本
-[php lang_name=&#8221;shell&#8221;] !/bin/sh if [ &#8220;$#&#8221; -ne 1 ] ; then
-echo &# &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://hmgle.github.com">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">My Octopress Blog</a></h1>
-  
-    <h2>A blogging framework for hackers.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:hmgle.github.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[My Octopress Blog]]></title>
+  <link href="http://hmgle.github.com/atom.xml" rel="self"/>
+  <link href="http://hmgle.github.com/"/>
+  <updated>2012-05-26T13:57:58+08:00</updated>
+  <id>http://hmgle.github.com/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/">手机号码patch</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2012-05-01T00:50:10+08:00" pubdate data-updated="true">May 1<span>st</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>昨天更换手机号码了. 原号码不再使用.</p>
+  <entry>
+    <title type="html"><![CDATA[手机号码patch]]></title>
+    <link href="http://hmgle.github.com/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/"/>
+    <updated>2012-05-01T00:50:10+08:00</updated>
+    <id>http://hmgle.github.com/blog/2012/05/01/e6898be69cbae58fb7e7a081patch</id>
+    <content type="html"><![CDATA[<p>昨天更换手机号码了. 原号码不再使用.</p>
 
 <h3>如何获取我的新号码</h3>
 
@@ -120,42 +43,15 @@ echo <code>expr $1 + \</code>echo -n MjI2MDgyMDIxNgo= | base64 -d&#8220;
 </li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/">ARM平台下位域结构体的问题</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-17T15:25:22+08:00" pubdate data-updated="true">Mar 17<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>最近在做个IP camera, 开发板是Hi3511的. 在写h.264码流封装成rtp包进行网络传输时, 出问题了: 在客户端用vlc看不到期待的画面. 用wireshark抓包, 把源源不断的rtp包拆包一看, 竟然没有fu-a包, 全是单个的nal包. 而输入的nalu基本都是大于最大传输单元MTU的, 需要分解成fu-a包的形式. 通过测试发现, 问题出现在设置fu分片包的indicator和header上. 再往下分析, 得到在ARM平台下令人惊奇的现象. 假如我们有下面代码:</p>
+  <entry>
+    <title type="html"><![CDATA[ARM平台下位域结构体的问题]]></title>
+    <link href="http://hmgle.github.com/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/"/>
+    <updated>2012-03-17T15:25:22+08:00</updated>
+    <id>http://hmgle.github.com/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298</id>
+    <content type="html"><![CDATA[<p>最近在做个IP camera, 开发板是Hi3511的. 在写h.264码流封装成rtp包进行网络传输时, 出问题了: 在客户端用vlc看不到期待的画面. 用wireshark抓包, 把源源不断的rtp包拆包一看, 竟然没有fu-a包, 全是单个的nal包. 而输入的nalu基本都是大于最大传输单元MTU的, 需要分解成fu-a包的形式. 通过测试发现, 问题出现在设置fu分片包的indicator和header上. 再往下分析, 得到在ARM平台下令人惊奇的现象. 假如我们有下面代码:</p>
 
 <p>[php lang_name=&#8221;C&#8221;]</p>
 
@@ -221,42 +117,15 @@ ldmfd sp, {fp, sp, pc}
 <p>总结: 位域这种结构移植性是非常差的. C语言参考手册说了: 依赖于存储策略是危险的, 原因有几个. 1, 不同的计算机对数据类型的对齐限制不同. 2, 位字段宽度的限制不同. 3, 字节序不同. 甚至比特序也不同, 像上面的例子在arm平台就在同一个结构体上出现了截然相反的比特序. 如处于移植性考虑, 尽量不要用位域这种结构体来实现设置位的操作, 而是直接用按位操作.</p>
 
 <p>另: 从这个<a href="http://www.linuxforum.net/forum/printthread.php?Cat=&amp;Board=embedded&amp;main=535759&amp;type=thread">帖子</a>来看, 这个问题还和GCC的版本有关.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/">递归中的改进</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-12T04:57:30+08:00" pubdate data-updated="true">Jan 12<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在<a href="http://hmgle.com/archives/204">上一篇</a>(<a href="http://hmgle.com/archives/204">一次面试</a>)中, 我用递归实现了输出所有可接受序列的排队方法. 后来, 我意识到, 在递归中, 频繁地申请内存来存储新增加的可接受序列的字符串, 再释放掉这片存储区域的方法是不必要的. 因为在递归中每调用一次新的递归后, 这时的可接受序列的字符串前面部分是一样的, 可以每次调用递归函数都用这块存储区域. 这时我们就不能用strcat()函数来加入新的字符了, 而是要先计算出目前要修改的字符的位置(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)), 然后直接在这个位置上修改要加入的字符. 改进后的代码如下:
+  <entry>
+    <title type="html"><![CDATA[递归中的改进]]></title>
+    <link href="http://hmgle.github.com/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/"/>
+    <updated>2012-01-12T04:57:30+08:00</updated>
+    <id>http://hmgle.github.com/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b</id>
+    <content type="html"><![CDATA[<p>在<a href="http://hmgle.com/archives/204">上一篇</a>(<a href="http://hmgle.com/archives/204">一次面试</a>)中, 我用递归实现了输出所有可接受序列的排队方法. 后来, 我意识到, 在递归中, 频繁地申请内存来存储新增加的可接受序列的字符串, 再释放掉这片存储区域的方法是不必要的. 因为在递归中每调用一次新的递归后, 这时的可接受序列的字符串前面部分是一样的, 可以每次调用递归函数都用这块存储区域. 这时我们就不能用strcat()函数来加入新的字符了, 而是要先计算出目前要修改的字符的位置(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)), 然后直接在这个位置上修改要加入的字符. 改进后的代码如下:
 [php lang_name=&#8221;C&#8221;]</p>
 
 <h1>include</h1>
@@ -413,42 +282,15 @@ return 0;
 [/php]</p>
 
 <p>不过, 频繁的申请, 释放内存并不是这个程序的瓶颈. 修改后的程序运行时间基本是和原来一样的. 原因之一是每一次调用malloc申请到的其实是同一片区域, 没有调用到sbrk()申请过一片大的存储区域. 另一个原因是递归实在是效率低下, 没有留给别的东西当瓶颈的机会.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/26/e4b880e6aca1e99da2e8af95/">一次面试</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-26T15:19:52+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>上周六(12.24)去X公司面试, 打了趟酱油. 收获还是有的.</p>
+  <entry>
+    <title type="html"><![CDATA[一次面试]]></title>
+    <link href="http://hmgle.github.com/blog/2011/12/26/e4b880e6aca1e99da2e8af95/"/>
+    <updated>2011-12-26T15:19:52+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/12/26/e4b880e6aca1e99da2e8af95</id>
+    <content type="html"><![CDATA[<p>上周六(12.24)去X公司面试, 打了趟酱油. 收获还是有的.</p>
 
 <p>上午十点来到X公司. 先是笔试: 题目类型是Linux C++的, 120分钟. 题目还记得些.</p>
 
@@ -554,42 +396,15 @@ int main(int argc, char **argv)
 <p>最后一题问的是如何排查一个程序的瓶颈. 很惭愧我不知道.</p>
 
 <p>下午项目面试: 走进X公司的内部, 里面环境出乎我意料: 像个饭馆, 看上去挺惬意的, 不过里面没有人逗留. 最后面试官问了如何用多路复用改进我目前接触的项目(面试官技术不错, 听我稍微介绍完项目后就看出用定时轮询的方式耗资源).只要和网络开发有关的一般都会问到多路复用: select和poll机制. 这次果然也是. 结果没答明白. 拿了盒冬瓜茶就被叫回去了.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/">看了这样的makefile</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-11T04:23:18+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>GNU make是个非常好的工具. 大部分Linux程序员都自己编写Makefile, 再利用make构建工程. 优秀的程序员编写层次分明的代码, 将它们放在合适的位置, 优雅地用make生成目标文件以及管理工程. 不过, 再好的工具和材料, 到了笨拙建造师手里, 也有可能造出丑陋的建筑. 我就看了这样一个例子.</p>
+  <entry>
+    <title type="html"><![CDATA[看了这样的makefile]]></title>
+    <link href="http://hmgle.github.com/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/"/>
+    <updated>2011-12-11T04:23:18+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile</id>
+    <content type="html"><![CDATA[<p>GNU make是个非常好的工具. 大部分Linux程序员都自己编写Makefile, 再利用make构建工程. 优秀的程序员编写层次分明的代码, 将它们放在合适的位置, 优雅地用make生成目标文件以及管理工程. 不过, 再好的工具和材料, 到了笨拙建造师手里, 也有可能造出丑陋的建筑. 我就看了这样一个例子.</p>
 
 <p>这个工程共有 3 层目录: 顶层有一个makefile. 要编译某个平台的目标文件首先要进入这个以这个平台名字命名的子目录, 比如 &#8220;Linux-x86-xx&#8221;. 子目录&#8221;Linux-x86-xx&#8221;内也有个makefile, 打开一看, 部分语句是这样的:</p>
 
@@ -612,42 +427,15 @@ cd ..
 <p>先进入&#8221;obj&#8221;这个子目录, 这样&#8221;makefile&#8221; 里面的&#8221;$(MAKE) -f ../../makefile xos.o&#8221; 其实是调用上层目录的makefile了. 看得我都吐血了. 往下看发现依然现象严重, 写这个makefile的哥儿们竟全用名字诸如&#8221;makeobj&#8221;, &#8220;makexox&#8221;, &#8220;maketarget&#8221;等脚本调用make的, 关键是在脚本里每次调用之前都先cd到另外一个目录里, 在makefile根本不知道这条命令是在哪个目录里执行的. &#8220;goto&#8221;都不能比肩.</p>
 
 <p>这么好的make就这样给糟蹋了.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/18/e5b58ce585a5e5bc8flinuxe59fbae4ba8eframebuffere79a84jpege6a0bce5bc8fe69cace59cb0lcde5b18fe698bee7a4ba/">嵌入式Linux基于framebuffer的jpeg格式本地LCD屏显示</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-18T07:20:31+08:00" pubdate data-updated="true">Oct 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在基于Linux的视频监控采集系统中,摄像头采集到的一帧视频图像数据一般都是经过硬件自动压缩成jpeg格式的,然后再保存到摄像头设备的缓冲区.如果要把采集到的jpeg格式显示在本地LCD屏上,由于我们的Linux系统没有移植任何GUI系统,就要考虑以下方面:
+  <entry>
+    <title type="html"><![CDATA[嵌入式Linux基于framebuffer的jpeg格式本地LCD屏显示]]></title>
+    <link href="http://hmgle.github.com/blog/2011/10/18/e5b58ce585a5e5bc8flinuxe59fbae4ba8eframebuffere79a84jpege6a0bce5bc8fe69cace59cb0lcde5b18fe698bee7a4ba/"/>
+    <updated>2011-10-18T07:20:31+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/10/18/e5b58ce585a5e5bc8flinuxe59fbae4ba8eframebuffere79a84jpege6a0bce5bc8fe69cace59cb0lcde5b18fe698bee7a4ba</id>
+    <content type="html"><![CDATA[<p>在基于Linux的视频监控采集系统中,摄像头采集到的一帧视频图像数据一般都是经过硬件自动压缩成jpeg格式的,然后再保存到摄像头设备的缓冲区.如果要把采集到的jpeg格式显示在本地LCD屏上,由于我们的Linux系统没有移植任何GUI系统,就要考虑以下方面:
 1. 将jpeg格式解压缩为位图格式,也就是jpeg解码.</p>
 
 <ol>
@@ -1363,42 +1151,15 @@ MODULE_LICENSE("GPL");
 <p>然后把它加入到内核,以静态加载的模式启动.</p>
 
 <p>最后,可以把读取内存jpeg格式数据输出到LCD屏的这部分整合到mjpg-stream或servfox去,就实现了采集图像本地显示了.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/11/servfoxe58886e69e90/">Servfox分析</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-09-11T13:57:20+08:00" pubdate data-updated="true">Sep 11<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1><a href="http://hmgle.com/wiki/servfox_ans.html">servfox分析</a></h1>
+  <entry>
+    <title type="html"><![CDATA[servfox分析]]></title>
+    <link href="http://hmgle.github.com/blog/2011/09/11/servfoxe58886e69e90/"/>
+    <updated>2011-09-11T13:57:20+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/09/11/servfoxe58886e69e90</id>
+    <content type="html"><![CDATA[<h1><a href="http://hmgle.com/wiki/servfox_ans.html">servfox分析</a></h1>
 
 <p>&#8211;by:hmgle Copyleft: <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh">CC BY-NC-SA</a></p>
 
@@ -1999,207 +1760,455 @@ if (ioctl (vd->fd, VIDIOCGCHAN, &amp;vd->videochan) == -1)     /<em> Get channel
 &#8230;&#8230;</li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/18/e8afbbe998bfe59f8ee5b08fe8afb4e698afe4b880e7a78de4baabe58f97/">读阿城小说是一种享受</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-18T13:57:41+08:00" pubdate data-updated="true">Jun 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>有时间的话，想读读阿城的小说。以前只读过他的《棋王》——多年前的事情了。
+  <entry>
+    <title type="html"><![CDATA[读阿城小说是一种享受]]></title>
+    <link href="http://hmgle.github.com/blog/2011/06/18/e8afbbe998bfe59f8ee5b08fe8afb4e698afe4b880e7a78de4baabe58f97/"/>
+    <updated>2011-06-18T13:57:41+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/06/18/e8afbbe998bfe59f8ee5b08fe8afb4e698afe4b880e7a78de4baabe58f97</id>
+    <content type="html"><![CDATA[<p>有时间的话，想读读阿城的小说。以前只读过他的《棋王》——多年前的事情了。
 附上豆瓣上的一篇评论链接：<a href="http://book.douban.com/review/1421693/">http://book.douban.com/review/1421693/</a>
 当然先要把那本《<a href="http://book.douban.com/subject/2175630/">8051微控制器和嵌入式系统</a>》看完。</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/02/28/e7a59ee5a587e79a84e7baa2e7bbbfe781af/">神奇的红绿灯</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-28T00:44:18+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>碰到这样的红绿灯，踌躇不前
+  <entry>
+    <title type="html"><![CDATA[神奇的红绿灯]]></title>
+    <link href="http://hmgle.github.com/blog/2011/02/28/e7a59ee5a587e79a84e7baa2e7bbbfe781af/"/>
+    <updated>2011-02-28T00:44:18+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/02/28/e7a59ee5a587e79a84e7baa2e7bbbfe781af</id>
+    <content type="html"><![CDATA[<p>碰到这样的红绿灯，踌躇不前
 <a href="http://hmgle.com/wp-content/uploads/2011/02/022611_002.jpg"><img src="http://hmgle.com/wp-content/uploads/2011/02/022611_002-300x240.jpg" alt="" /></a></p>
 
 <p><a href="http://hmgle.com/wp-content/uploads/2011/02/022611_002.jpg"></a>
 <a href="http://hmgle.com/wp-content/uploads/2011/02/022611_003.jpg"><img src="http://hmgle.com/wp-content/uploads/2011/02/022611_003-300x240.jpg" alt="" /></a>
 总算还有正常的状态：
 <a href="http://hmgle.com/wp-content/uploads/2011/02/022611_004.jpg"><img src="http://hmgle.com/wp-content/uploads/2011/02/022611_004-300x240.jpg" alt="" /></a></p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/02/15/hello-world/">Hello World！</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-15T11:58:26+08:00" pubdate data-updated="true">Feb 15<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>这是导入之前在<a href="http://hi.baidu.com/hmgle">百度空间</a>的博文后在这里写的第一篇文章。之前的文章其实是先将百度空间的内容搬到<a href="http://hmgle.blogbus.com/">blogbus</a>后再从blogbus内导出xml文件然后再在wordpress里安个修正blogbus的不规范的xml文件的导入插件后最后才导进来的，不过图片什么的都没有了。像百度空间之类的连数据导出这个blog必备的基本功能都没有，令人匪夷所思。</p>
+  <entry>
+    <title type="html"><![CDATA[Hello world！]]></title>
+    <link href="http://hmgle.github.com/blog/2011/02/15/hello-world/"/>
+    <updated>2011-02-15T11:58:26+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/02/15/hello-world</id>
+    <content type="html"><![CDATA[<p>这是导入之前在<a href="http://hi.baidu.com/hmgle">百度空间</a>的博文后在这里写的第一篇文章。之前的文章其实是先将百度空间的内容搬到<a href="http://hmgle.blogbus.com/">blogbus</a>后再从blogbus内导出xml文件然后再在wordpress里安个修正blogbus的不规范的xml文件的导入插件后最后才导进来的，不过图片什么的都没有了。像百度空间之类的连数据导出这个blog必备的基本功能都没有，令人匪夷所思。</p>
 
 <p>其实我基本不写什么blog，人太懒，而且也不太喜欢回忆，它太沉重了。思考过的东西只在脑子里流过，记下来也没有啥价值的，权当为我百无聊赖的生活抹上胡乱的一笔。大家不要在这里逗留太久，这里可没有什么闪烁的光芒，尽管它的名字叫调和的微光，如果是学生应该多上点图书馆，要上也要关注些优秀的blog，比如国内的<a href="http://www.ruanyifeng.com/blog/">阮一峰的网志</a>。要玩的话应该玩些消耗体力培养竞争意识的运动，例如足球篮球之类的，千万别沉迷于滑板魔方之类的伪geek游戏。跑题了，关于这个blog的未来我还是希望它能闪烁些火光出来。我关注人文、科学、哲学及艺术，远离<strong><a href="http://en.wikipedia.org/wiki/Politics">politics</a>。</strong></p>
 
 <p>关于火光，ukim在他的Heroes in my heart的帖子里引用过一个很好的事迹：在一次采访当中，作为数学家的Thom同两位古人类学家讨论问题。谈到远古的人们为什么要保存火种时，一个人类学家说，因为保存火种可以取暖御寒；另外一个人类学家说，因为保存火种可以烧出鲜美的肉食。而Thom说，因为夜幕来临之际，火光摇曳妩媚，灿烂多姿，是最美最美的。</p>
-</div>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[一次考研]]></title>
+    <link href="http://hmgle.github.com/blog/2011/01/17/e4b880e6aca1e88083e7a094/"/>
+    <updated>2011-01-17T22:43:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/01/17/e4b880e6aca1e88083e7a094</id>
+    <content type="html"><![CDATA[<p>昨天考完后，就像玩完了一个游戏，回味无穷。花一百六的入场费参与这场游戏真的很值，无论是抱着玩的态度还是以被玩的态度参加。我把它当成一场战斗，对于渴望战斗的人来说这是难得的一次体验，我喜欢硝烟的气氛，只恨它火药味还是太淡了点，时间太短了，转眼我现在又沦入了平淡无奇的生活。<br/>
+这是第二次考。去年没参加是个意外。这次早早来到考场静候。开考时人到了16个，本来是30个考生的。“真傻呀，如此有意义的活动竟然错过！”我暗地替14位缺考的考生惋惜半天。政治题目对我挺有挑战性，这正是它的魅力所在了，要没挑战性的活动我还来这鼓捣干嘛？今年的分析题很有趣呀，例如有道题问你怎样理解“温暖别人就是幸福自己”的。我的答案仅供参考：显然题目中温暖是个动词。先论证人的温暖别人这种的社会活动具有传递性、对称性和自反性。传递性：如果A温暖B，B温暖C，那么A温暖C是成立的。对称性：如果B接收到来至A的温暖，那么当A感到冷时B肯定会温暖A的，这叫知恩图报嘛，否则不合伦理之道。即A温暖B等价B温暖A。自反性：自己是温暖自己的，应该是生物的基本属性之一吧，就像植物吸收养分养活自己一样。温暖具有自反性。学过离散数学的都知道，具有这三性的就是一个等价关系。温暖是个等价关系，所以温暖关系定义了一个等价类，这个等价类集合的元素是社会上的人。接下来我们大概要阐述一下等价类的性质了，当然书上是找不到的，是我自己创造出来的一个性质：等价类里面的任意元素作用其他元素，会引起自身同样的效果。那么我们就可以理直气壮的说：温暖他人就是温暖自己。然后再加个条件：如果接受到温暖蕴含着感受到幸福的话，那么温暖他人就是幸福自己成立。哈哈，阅卷老师是不甘心入吾彀中的。老师告诫过我们：人生价值在于贡献，你得从这个角度回答。<br/>
+下午考英语，我盘算着除了作文之外供我发挥的方面太少了，就不去了。我躺在床上想着明年报什么专业。一年只能报一个专业太少了，我恨不得把所有喜欢的都报了。我是个务虚不务实的人，除了工科之外的我都很喜欢，这当然是受G·H·哈代那本《一个数学家的辩白》的毒害了，到现在我也坚信越优美的东西越没有实用性，庸俗实用的工科当然不在我的考虑范围之内了。后来迷迷糊糊就睡了一个下午了。<br/>
+第二天考专业课，上午数学分析，下午高等代数。广州大学的，由于之前我搜索过整个互联网也没有得到过这个学校的这两门试题，这次能一睹真容实在太激动了。数分果然很给力，比高数之类的深邃多了。我感激地先把所有题目抄下，等考完就带出去，然后再战战兢兢地答题。不过下午的高代就有点失望了，竟然还有填空题，明显浅了很多，于是就只抄了部分回去。有需要的尽管问我好了，不过是我自己手抄的，懒得输入电脑了，而且我又不会用Lex之类的排版。<br/>
+明年还考，想学哲学之类的，数理逻辑就很吸引我，当然不是讨厌的马毛邓之类的。</p>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[入手Kindle 3]]></title>
+    <link href="http://hmgle.github.com/blog/2011/01/13/e585a5e6898bkindle-3/"/>
+    <updated>2011-01-13T22:05:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/01/13/e585a5e6898bkindle-3</id>
+    <content type="html"><![CDATA[<p>淘宝买来Kindle 3。这玩意儿太合我胃口了，干净简洁利落。<br/>
+这两天一直下适合6英寸屏的电子书，已经下了百来本，加上之前电脑上的，按正常速度看的话，要几十年才能看完。当然按趋势来看，下载书的速度远远超过看书的速度，再过一阵下载回来的书我几辈子也看不完。我看书也就图个当时痛快，能记住的不多。<br/>
+发现有些txt格式和mobi格式的书每隔一定距离就添加换行，这在kindle上看起来就是画蛇添足。本来到屏幕边缘就自动换行了，现在多了许多难看的无意义的换行符，很影响阅读的。对于那些段落之间有空格分隔的文本还是有救的，解决方法：用<a href="http://man.chinaunix.net/newsoft/vi/doc/pattern.html">vim</a>的替换，输入:%s/\n\S\@=//g就搞定了。别的编辑器没试，<a href="http://hi.baidu.com/hmgle/blog/item/2f03bd8beef6b0c1fc1f1097.html">上次</a>也发现很多以前以为很牛逼的编辑器例如UE、Notepad++、emeditor等对正则表达式的查找和替换支持都不是很好，因此要用到正则表达式的时候我无视其它，直接用vim。vim是最牛逼的。对于所有段落都连在一起的一坨的文本是没救的。<br/>
+对于mobi格式，我还不知道用什么软件编辑它，txt转换mobi容易，mobi怎么转换成txt？</p>
 
-
-    </article>
+<p> </p>
+]]></content>
+  </entry>
   
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
+  <entry>
+    <title type="html"><![CDATA[跳过灵格斯词霸强制升级]]></title>
+    <link href="http://hmgle.github.com/blog/2011/01/03/e8b7b3e8bf87e781b5e6a0bce696afe8af8de99cb8e5bcbae588b6e58d87e7baa7/"/>
+    <updated>2011-01-03T21:12:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/01/03/e8b7b3e8bf87e781b5e6a0bce696afe8af8de99cb8e5bcbae588b6e58d87e7baa7</id>
+    <content type="html"><![CDATA[<p>by:hmgle</p>
+
+<p>灵格斯词霸是我用的比较频繁的一个软件。虽说词典软件还有星际译王，而且星际译王还是开源的，但它在Windows平台下运行有点慢，不知道是不是GTK的缘故，那个gedit在Windows下也是奇慢无比。</p>
+
+<p>2011年刚来，灵格斯给我们带来了新年礼物，就是那个讨厌的强制旧版本升级啦。不升级就自动退出。这样对灵格斯的某些用户来说是很扫兴的。<br/>
+当然，对灵格斯进行逆向分析，修改它的代码，是可以达到不升级继续使用的目的的，这活儿<a href="http://bbs.pediy.com/">看雪</a>的人在行。但这样做是违反<a href="http://www.lingoes.cn/zh/translator/license.htm">『灵格斯翻译家』最终用户许可协议</a>的（协议里面有一条：禁止反向工程、反向编译和反向汇编等等），而且别人写的补丁自己用起来的话心里也不踏实啊。那我们还是合法地在自己系统上做文章吧。灵格斯启动的时候应该是会先取得系统日期，然后和某个时间进行比较，超过这个时间的话它就强制升级（这只是我的猜测，绝对没有反向工程）。那我们就先把我们自己的系统日期改成一个较早的日子吧，早到灵格斯都还没出生的日子，等灵格斯启动之后再把系统日期改回来。可以用批处理这样做：</p>
+
+<pre><code>@echo off
+set oldyear=2004
+set oldmonth=01
+set oldday=01
+rem 上面是要改成的时间，早到能启动就行了
+set fileflag=0
+if exist getcurrentdate.nul (set fileflag=1
+copy getcurrentdate.nul /Y getcurrentdate.backup)
+date /t &gt; getcurrentdate.nul
+for /F “tokens=1,2,3 delims=- ” %%i in (getcurrentdate.nul) do (set currentyear=%%i
+set currentmonth=%%j
+set currentday=%%k)
+date %oldyear%-%oldmonth%-%oldday%
+if NOT errorlevel 0  (echo 设置时间时出错
+pause
+exit)
+date /t
+start “” /D”D:\Program Files\lingoes_portable_2.6.3_zh” Lingoes.exe
+rem  上面一行是运行灵格斯，D:\Program Files\lingoes_portable_2.6.3_zh是我电脑上的灵格斯安装目录路径，根据你自己的情况更改
+if NOT errorlevel 0 (echo 启动时出错
+pause
+gote end)
+ping 127.1 -n 7 &gt;nul
+rem 上面是为了延时，因为灵格斯启动时取得系统日期是要一定时间的，一般ping个三四次就够了，如果嫌慢自己改小点吧
+:end
+del getcurrentdate.nul
+if %fileflag% EQU 1 rename getcurrentdate.backup getcurrentdate.nul
+date %currentyear%-%currentmonth%-%currentday%
+exit
+</code></pre>
+
+<p> </p>
+
+<p>明白的话下面部分就没必要看了，就是：<br/>
+1.先看你的灵格斯是放在哪个目录，把这个目录路径记下，比如我的就是D:\Program Files\lingoes_portable_2.6.3_zh；<br/>
+2.新建一个文本文件，用文本编辑器打开，把上面批处理的内容复制进去，把start &#8220;&#8221; /D&#8221;D:\Program Files\lingoes_portable_2.6.3_zh&#8221; Lingoes.exe那一行（就是红色字体那一行）里面的目录路径（蓝色背景那部分）改成步骤1记下的目录路径，保存后把文件名改成bat结尾的形式，例如：lgs.bat;<br/>
+3.双击这个批处理文件就直接运行灵格斯词霸了。</p>
+
+<p>你可以把lgs.bat放在任意位置，也可以为它创建桌面快捷方式（这样可以改图标和用快捷键运行）。对常用的软件，我喜欢建个目录，然后为这个目录设置环境变量，在这个目录下创建启动常用软件的批处理，例如把上面那个lgs.bat放进来，这样用快捷键win+r后输入lgs就运行了。当然每个人操作习惯是不同的。</p>
+
+<p>这个批处理是有个bug的，就是如果你刚好在系统更换日期前的瞬间运行的话，例如在23点59分59秒运行这个批处理，运行后你的系统日期会后退一天。不过你应该也像我一样，不可能在那个时刻做这样的事情的。</p>
+
+<p>update:开机后第一次运行ping 127.1四五次是不够的，因为灵格斯会加载很多数据到内存。非第一次运行的话ping个三四次就够了，现在我把它改成7次。改了个错字（原来的@echo off写成@echo 0ff）。</p>
+
+<p>附：<a href="http://www.lingoes.cn/zh/translator/license.htm">『灵格斯翻译家』最终用户许可协议</a>（见http://www.lingoes.cn/zh/translator/license.htm）<br/>
+『灵格斯翻译家』最终用户许可协议<br/>
+Lingoes Translator End-User License Agreenent<br/>
+在使用本软件的同时，你已经默认接受了此协议。<br/>
+请仔细阅读以下使用许可，如果您不同意以下任何一点，请立即停止使用此软件。</p>
+
+<p>Kevin Yau 将本软件程序的最终使用许可权授予您，但您必须向 Kevin Yau 作以下保证：</p>
+
+<p>本《最终用户许可协议》(以下称《协议》)是您(个人或机构团体)与上述软件(以下称“软件”或“软件产品”)版权所有人 Kevin Yau 之间的法律协议。 在您使用本软件产品之前,请务必阅读此《协议》，任何与《协议》有关的软件、电子文档等都应是按本协议的条款而授予您的，同时本《协议》亦适用于任何有关本软件产品的后期发行和升级。 您一旦安装、复制、下载、访问或以其它方式使用本软件产品，即表示您同意接受本《协议》各项条款的约束。 如您不同意本《协议》的条款，那么，版权所有人 Kevin Yau 则不予将本软件产品的使用权授予您。 在这种情况下，您不得使用、复制或传播本软件产品。</p>
+
+<p>本《协议》中，将软件使用用途分为“个人非商业用途”和“商业用途”：个人用途指个人在非团体机构中使用本软件并用于非商业目的；商业用途指个人用于任何商业目的或团体机构出于任何目的使用本软件。本《协议》中对于个人非商业用途和商业用途将采用不同的授权范围和使用方式。</p>
+
+<p>本软件产品受著作权法及国际著作权条约和其它知识产权法及条约的保护。<br/>
+1. 许可证的授予. 本《协议》授予您下列权利<br/>
+安装和使用: <br/>
+对于个人非商业用途，即仅供个人用户用于非商业环境及非盈利活动，您可安装无限制数量的本软件产品来使用。 对于商业用途，你必须预先获得版权人授权许可后才能安装和使用本软件产品。</p>
+
+<p>复制、分发和传播: <br/>
+您可以复制、分发和传播无限制数量的软件产品, 但您必须保证每一份复制、分发和传播都必须是完整和真实的, 包括所有有关本软件产品的软件、电子文档, 版权和商标宣言, 亦包括本协议.</p>
+
+<p>本软件可以独立分发亦可随同其他软件一起分发, 但如因此而引起任何问题, 版权人将不予承担任何责任.</p>
+
+<ol>
+<li>其它权利和限制说明<br/>
+禁止反向工程、反向编译和反向汇编：<br/>
+您不得对本软件产品进行反向工程、反向编译和反向汇编，同时不得改动编译在程序文件内部的任何资源。 除非适用法律明文允许上述活动，否则您必须遵守此协议限制。</li>
+</ol>
+
+
+<p>组件的分隔：<br/>
+本软件产品是被当成一个单一产品而被授予许可使用，不得将各个部分分开用于任何目的行动。</p>
+
+<p>软件产品转让：<br/>
+您可以在不保留任何副本的情况下，将本“软件产品”(包括所有组成部分、媒体内容和印刷材料、任何更新版本、本《协议》等)全部转让，并且受让人接受本《协议》的各项条件下，您可永久转让您在本《协议》下的所有权利。 如果本“软件产品”为更新版本，转让时必须包括本“软件产品”所有前版本。</p>
+
+<p>终止：<br/>
+如您未遵守本《协议》的各项条件，在不损害其它权利的情况下，版权人可将本《协议》终止。 如发生此种情况，则您必须销毁“软件产品”及其各部分的所有副本。</p>
+
+<p>商标：<br/>
+本《协议》不授予您由版权人 Kevin Yau 所拥有的任何商标或服务商标有关的任何权利。</p>
+
+<p>使用方式：<br/>
+对于个人非商业用途，本软件产品准许个人用户免费使用。凡用于商业用途，均须得到版权人授权许可。</p>
+
+<p>本软件产品不能用于销售或随同旨在获益的软件产品或产品包一起分发，但本软件可包含在任何免费或非赢利性的软件产品或产品包里. 同时您必须保证所分发的软件包含全部文件, 并且未作任何修改。</p>
+
+<p>个别授权: <br/>
+如有任何组织或个人利用本软件以任何方式为公众服务并同时满足其自身特定目的而分发、复制和传播本软件产品, 均须得到版权人授权同意后方可进行, 否则视为侵权.</p>
+
+<ol>
+<li>版权<br/>
+本软件产品（包括但不限于本软件产品中所含的任何图象、照片、动画、文字和附加程序，不包含本软件可访问的词典及其内容）、随附的印刷材料、及本软件产品的任何副本的一切所有权和知识产权，均由版权人 Kevin Yau 拥有。</li>
+</ol>
+
+
+<p>通过使用本“软件产品”可访问的词典及其内容的一切所有权和知识产权，均属于各自内容的所有者拥有，并可能受适用著作权或其它知识产权法律和条约的保护，本《协议》不授予您使用这些内容的权利。如果您需要使用，应当另外取得词典及其内容所有者的同意和授权。</p>
+
+<ol>
+<li>有限保证<br/>
+无保证：<br/>
+本软件版权人 Kevin Yau 特此申明对本软件产品之使用不提供任何保证。 版权人将不对任何用户保证本软件产品的适用性，不保证无故障产生；亦不对任何用户使用此软件所遭遇到的任何理论上的或实际上的损失承担负责。</li>
+</ol>
+
+
+<p>对造成损失无责任：<br/>
+本软件版权人对本软件产品可能或已知问题造成的意外，连续，直接或间接损失不承担任何责任(包括利益损失，商业中断，信息丢失或其他任何经济上的损失)。</p>
+
+<ol>
+<li>其它<br/>
+本软件版权人 Kevin Yau 对本协议拥有最终解释权。</li>
+</ol>
+
+
+<p> 2006-2007 Kevin Yau 版权所有，保留所有权利。</p>
+]]></content>
+  </entry>
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/">手机号码patch</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/">ARM平台下位域结构体的问题</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/">递归中的改进</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/12/26/e4b880e6aca1e99da2e8af95/">一次面试</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/">看了这样的makefile</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-
+  <entry>
+    <title type="html"><![CDATA[文本编辑器的正则表达式]]></title>
+    <link href="http://hmgle.github.com/blog/2010/12/25/e69687e69cace7bc96e8be91e599a8e79a84e6ada3e58899e8a1a8e8bebee5bc8f/"/>
+    <updated>2010-12-25T22:46:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2010/12/25/e69687e69cace7bc96e8be91e599a8e79a84e6ada3e58899e8a1a8e8bebee5bc8f</id>
+    <content type="html"><![CDATA[<p>我之前主要用gedit和Notepad++。现在发现在编辑器里搜索像(?&lt;!\d)\d{3}这样的模式，试了很多文本编辑器都有问题，例如emeditor,MadEdit,UltraEdi都是同样的问题：零宽度断言部分和后面部分同样类型的时候就不行了，而notepad++好像不支持零宽度断言。另外MadEdit v0.2.9.1版使用正则表达式搜索<sup>的话，计算次数时会直接死掉。VIM倒是可以做到，用/(\d)\@&lt;!\d{3}，但VIM不好上手。问在Windows下，除了Vim和Emacs外，还有别的文本编辑器（不用插件）可以匹配到这种模式吗？</sup></p>
+]]></content>
+  </entry>
   
-</aside>
+  <entry>
+    <title type="html"><![CDATA[手机号码更换]]></title>
+    <link href="http://hmgle.github.com/blog/2010/09/07/e6898be69cbae58fb7e7a081e69bb4e68da2/"/>
+    <updated>2010-09-07T18:41:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2010/09/07/e6898be69cbae58fb7e7a081e69bb4e68da2</id>
+    <content type="html"><![CDATA[<p>上个月我换了个手机号码。事情是这样的：换了台Palm手机，换SIM卡的时候需要输入Pin码（我自己设置的，对于一个对信息极度敏感的人设置Pin口令是正常的），前两次输错，在明知道我已经找不到PUK码的情况下我还是贸然地将宝贵的最后一次Pin码输错了。这事坏就坏在我知道我的Keepass里是保存有Pin码的，回去打开Keepass一看发现PIN码原来只有四位数，而我全都输了六位数，前面四位是对的！造成这个悲剧的根本原因是对自己记忆力的错误估计。号码是找不回了，教训还当记着。花代价所换来的一点才智，抵过别人传授的数倍不止（富兰克林语）。我将记得截止到2010年SIM卡的PIN码只能是四位的。悲痛之余换了现在的新号码。</p>
 
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Your Name -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
+<p>我的大部分联系人的号码都存储在原来的SIM卡内，本人才疏学浅未能破解SIM卡密码体系，无法把你们一一挖出来。因此写了个程序让大伙找到我。假如你有我原来的手机号码，或者即使没有原来的号码但掌握了我一些个人信息，都可以通过该程序得到我的新的手机号码。</p>
 
-</footer>
+<p>基于安全考虑，当然不能采用下面的方法来获得新的号码：</p>
+
+<p>1.验证问题答案;</p>
+
+<p>2.if (Answer is correct) then</p>
+
+<p>output new_num</p>
+
+<p>3.else then</p>
+
+<p>output &#8220;you fail&#8221;;</p>
+
+<p>4.return.</p>
+
+<p>因为上面的代码运行时其实计算机已经把新号码存储在内存了，计算机知道的任何秘密，我们有办法是她告诉我们。通过逆向分析，使用几个跳转指令就是号码显示出来了。大概也没有人愿意吧秘密藏在程序里吧。我们可以构造一个具有以下性质的函数f：</p>
+
+<p>f(待验证的信息) = 新号码 当且仅当待验证的信息等于旧号码。</p>
+
+<p>对于从验证信息途径获取新号码的原理就是密码学中的秘密共享协议。组合数学有道常见的题目，大概意思是有个强盗把宝藏藏在一个其他人都不知道的山洞里，只有通过藏宝图才能找到。这个强盗有7个继承人，为避免宝藏被独吞，他打算这样分配藏宝图给7个继承人：任意4人所持的藏宝图部分都能拼凑成一幅完整的藏宝图，不足4人在场的情况下没有办法拼出完整的藏宝图。问他应该怎样实现他的设想。密码学把这叫做(4,7)门限秘密共享方案。我的程序参考了Mignotte门限方案，只不过随意修改了权重：有的需要回答两个问题就能解出新号码，有的要回答三个。Mignotte方案的核心是中国剩余定理，程序里只需写个解同余式组的函数就可以了。</p>
+
+<p>为了保持我的熵不过多流失，将信息隔离使它们单向通信是必须的。比如你通过正确回答问题A和问题B获得我的手机新号码，但你不能通过求出的新号码逆向得到其它问题的答案，也不能通过任何信息逆向获取我的原来的号码和其他任何你之前不知道的信息。这只要用单向函数就能实现了。因为你输入的任何信息都要散列成整数以便下一步运算，所以我只要选用一个单向的Hash函数就行了。简单的Hash函数有很多，比如elfhash、P.J.weinberger  Hash等，但大多数单向性不好，而MD5、SHA-1算法又过于复杂，用在这里显得大材小用了，最后选用了Blizzard在MPQ中的Hash算法，据说是One-way Hash，较简单，只是版权协议未知。我将其修改几个参数后挪来作为非商业目的使用，也不知有没有侵权，若侵权了我马上移除这个Hash部分并愿意赔偿甚至赔偿10块钱。为了减少被暴力破解出新号码的可能，我对Hash值再取某个较小的整数的模，相当于减少了Hash函数的值域，这样就造成了更多的碰撞，在大多数情况下碰撞是有害的。</p>
+
+<p>这个程序上传在我的<a href="http://cid-a062cb69b403730a.office.live.com/self.aspx/.Documents/GetMyNum.zip">SkyDrive</a>(地址:http://cid-a062cb69b403730a.office.live.com/self.aspx/.Documents/GetMyNum.zip 或<a href="http://goo.gl/ulcB">http://goo.gl/ulcB</a>)上（Google文件共享网站疑被墙，故新注册了Windows live帐号），压缩包md5值：78EF060E16269272DACF1733882206ED     。包括交互式的C版本和用Delphi写的有界面的版本。那个用Delphi写的是很难看的。程序没有自定义功能，只适用于我自己的号码，不支持设置成求解别人号码和自定义问题的功能，有时间的人可以扩展这个功能。除了暴雪那个Hash函数外，其他部分copyleft。</p>
+
+<p>如果你觉得这是个繁琐的过程或你确定是我的朋友但无法通过它找回我的号码，或有其它的疑问，可以发邮件到我的邮箱netsharec at gmail.com。</p>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[一维随机行走的距离期望]]></title>
+    <link href="http://hmgle.github.com/blog/2010/07/10/e4b880e7bbb4e99a8fe69cbae8a18ce8b5b0e79a84e8b79de7a6bbe69c9fe69c9b/"/>
+    <updated>2010-07-10T22:05:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2010/07/10/e4b880e7bbb4e99a8fe69cbae8a18ce8b5b0e79a84e8b79de7a6bbe69c9fe69c9b</id>
+    <content type="html"><![CDATA[<p>本文遵从<a href="http://creativecommons.org/licenses/by/2.5/cn/">CC版权协议</a> | by:<a href="http://sites.google.com/site/shangdang2917">hmgle</a></p>
 
+<p>一 问题描述   </p>
 
+<p>随机行走(Random walk)问题是许多现象的模型。下面是一个二维随机行走问题的描述：一个醉汉在空旷的广场游走。他走的每一步方向都是随机的，步长为L。经过n步之后，这个醉汉会在哪里？在《从一到无穷大》里，G.盖莫夫给出了离出发点可能的距离是L*sqrt(n)。</p>
 
+<p>对于一维随机行走的情况，我们考虑某个质点从数轴原点出发，每步以p=1/2的概率向正方向行走1个单位长度，同样以1/2的概率向负方向行走1个单位长度。这和抛一枚硬币出现正、反面事件的Bernoulli试验是一样的。以X表示行走n步后其中正方向的步数，由概率论的知识我们知道随机变量X服从参数为n,1/2的二项分布，即X~b(n,1/2),以K表示走了n步之后质点的位置坐标，则K := X - ( n - X )，即X := ( n + K )/2。 下面我们来求n步之后离原点的距离的数学期望E(abs(K))。</p>
 
+<p>二 问题分析</p>
 
+<p>n步之后处于坐标k处的走法有binomial(n,(n+i)/2)种，这可以从二项式分布的性质直接得到，这里不再赘述。由对称性知道走到坐标i和到坐标-i的走法是一样多的，再由数学期望的定义我们列出E(abs(K))的表达式</p>
 
+<p>E(abs(K)) = 1/2<sup>n</sup> * sum(binomial(n,(n+i)/2)<em>abs(i),i=-n..n) = 1/2<sup>(n-1)</sup> </em>sum(binomial(n,(n+i)/2)*i,i=1..n)</p>
 
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
+<p>引理2.1 sum(binomial(n,(n+i)/2)<em>i,i=1..n) = ceil(n/2)</em>binomial(n,ceil(n/2)),n∈Z+.</p>
 
+<p>证明:分别讨论n为偶数和n为奇数的情况：</p>
 
+<p>a.偶数时，考虑sum((binomial(2<em>n,(2</em>n+i)/2)<em>i,i=1..2</em>n),n∈Z+。</p>
 
+<p>sum((binomial(2<em>n,(2</em>n+i)/2)<em>i,i=1..2</em>n) = binomial(2<em>n,n+1)</em>2 + binomial(2<em>n,n+2)</em>4 + &#8230; + binomial(2<em>n,n+n)</em>2<em>n = 2</em>(binomial(2<em>n,n+1)</em>1 + binomial(2<em>n,n+2)</em>2 + &#8230; + binomial(2<em>n,n+n)</em>n)</p>
 
+<p>我们要用到牛顿二项式定理的一个推论：</p>
 
-</body>
-</html>
+<p>binomial(2<em>n,0)</em>0 + binomial(2<em>n,1)</em>1 + &#8230; + binomial(2<em>n,2</em>n)<em>2</em>n = n*2<sup>(2*n)</sup></p>
+
+<p>把上式左边分成两部分：</p>
+
+<p>binomial(2<em>n,0)</em>0 + binomial(2<em>n,1)</em>1 + &#8230; + binomial(2<em>n,2</em>n)<em>2</em>n = {binomial(2<em>n,1)</em>1 + binomial(2<em>n,2)</em>2 + &#8230; + binomial(2<em>n,n)</em>n} + {binomial(2<em>n,n+1)</em>(n+1) + binomial(2<em>n,n+2)</em>(n+2) + &#8230; + binomial(2<em>n,n+n)</em>(n+n)}</p>
+
+<p>可以证明被花括号分开的两部分是相等的：我们先证明一个恒等式：binomial(2<em>n,i)</em>i = binomial(2<em>n,2</em>n-i+1)<em>(2</em>n-i+1)。</p>
+
+<p>因为上式左边binomial(2<em>n,i)</em>i = (2<em>n)!/((i!)</em>(2<em>n-i)!)</em>i = (2<em>n)!/((i-1)!</em>(2*n-i)!),</p>
+
+<p>右边binomial(2<em>n,2</em>n-i+1)<em>(2</em>n-i+1) = (2<em>n)!/((2</em>n-i+1)!<em>(i-1)!)</em>(2<em>n-i+1) = (2</em>n)!/((i-1)!<em>(2</em>n-i)!),</p>
+
+<p>左边 = 右边，得证。</p>
+
+<p>于是binomial(2<em>n,1)</em>1 = binomial(2<em>n,n+n)</em>(n+n),binomial(2<em>n,2)</em>2 = binomial(2<em>n,n+n-1)</em>(2<em>n-1),&#8230;,binomial(2</em>n,n)<em>n = binomial(2</em>n,n+1)<em>(n+1),因此：binomial(2</em>n,1)<em>1 + binomial(2</em>n,2)<em>2 + &#8230; + binomial(2</em>n,n)<em>n = binomial(2</em>n,n+1)<em>(n+1) + binomial(2</em>n,n+2)<em>(n+2) + &#8230; + binomial(2</em>n,n+n)*(n+n)，</p>
+
+<p>这样我们得到这个等式：2<em>(binomial(2</em>n,n+1)<em>(n+1) + binomial(2</em>n,n+2)<em>(n+2) + &#8230; + binomial(2</em>n,n+n)<em>(n+n)) = binomial(2</em>n,0)<em>0 + binomial(2</em>n,1)<em>1 + &#8230; + binomial(2</em>n,2<em>n)</em>2<em>n = n</em>2<sup>(2*n)</sup></p>
+
+<p>为达到求解sum((binomial(2<em>n,(2</em>n+i)/2)<em>i,i=1..2</em>n)的目标，进一步分离，得</p>
+
+<p>2<em>(binomial(2</em>n,n+1)<em>(n+1) + binomial(2</em>n,n+2)<em>(n+2) + &#8230; + binomial(2</em>n,n+n)<em>(n+n)) = 2</em>(binomial(2<em>n,n+1)</em>1 +binomial(2<em>n,n+2)</em>2 + &#8230; + binomial(2<em>n,n+n)</em>n) + 2<em>n</em>(binomial(2<em>n,n+1) + binomial(2</em>n,n+2) + &#8230; + (2<em>n,n+n)) = n</em>2<sup>(2*n)   </sup> (1)</p>
+
+<p>由二项式定理我们知道</p>
+
+<p>sum(binomial(2<em>n,i),i=0..2</em>n) = binomial(2<em>n,0) + binomial(2</em>n,1) + &#8230; + binomial(2<em>n,2</em>n) = 2<sup>(2*n)</sup></p>
+
+<p>即</p>
+
+<p>{binomial(2<em>n,0) + binomial(2</em>n,1) + &#8230; + binomial(2<em>n,n-1)} + binomial(2</em>n,n) + {binomial(2<em>n,n+1) + binomial(2</em>n,n+2) + &#8230; + binomial(2<em>n,n+n)} = binomial(2</em>n,n) + 2<em>{binomial(2</em>n,n+1) + binomial(2<em>n,n+2) + &#8230; + binomial(2</em>n,n+n)} = 2<sup>(2*n)</sup></p>
+
+<p>从而</p>
+
+<p>2<em>{binomial(2</em>n,n+1) + binomial(2<em>n,n+2) + &#8230; + binomial(2</em>n,n+n)} = 2<sup>(2*n)</sup> - binomial(2*n,n)    (2)</p>
+
+<p>(2)式代入(1)式，得</p>
+
+<p>2<em>(binomial(2</em>n,n+1)<em>1 +binomial(2</em>n,n+2)<em>2 + &#8230; + binomial(2</em>n,n+n)<em>n) + n</em>(2<sup>(2*n)</sup> - binomial(2<em>n,n)) = n</em>2<sup>(2*n)   </sup> (3)</p>
+
+<p>由(3)式，得到</p>
+
+<p>2<em>(binomial(2</em>n,n+1)<em>1 + binomial(2</em>n,n+2)<em>2 + &#8230; + binomial(2</em>n,n+n)<em>n) = n</em>binomial(2*n,n)</p>
+
+<p>于是</p>
+
+<p>sum((binomial(2<em>n,(2</em>n+i)/2)<em>i,i=1..2</em>n) = n<em>binomial(2</em>n,n)</p>
+
+<p>b.奇数时也一样。考虑sum(binomial(2<em>n+1,(2</em>n+1+i)/2)<em>i,i=1..(2</em>n+1)),n∈{0,1,2,3,&#8230;}。</p>
+
+<p>sum(binomial(2<em>n+1,(2</em>n+1+i)/2)<em>i,i=1..(2</em>n+1)) = binomial(2<em>n+1,n+1)</em>1 + binomial(2<em>n+1,n+2)</em>3 + binomial(2<em>n+1,n+3)</em>5 + &#8230; + binomial(2<em>n+1,2</em>n+1)<em>(2</em>n+1)</p>
+
+<p>由二项式定理</p>
+
+<p>{binomial(2<em>n+1,0) + binomial(2</em>n+1,1) + &#8230; +binomial(2<em>n+1,n)} + {binomial(2</em>n+1,n+1) + binomial(2<em>n+1,n+2) + &#8230; + binomial(2</em>n+1,2*n+1)} = 2<sup>(2*n+1)</sup></p>
+
+<p>花括号分成的两部分相等，于是</p>
+
+<p>{binomial(2<em>n+1,n+1) + binomial(2</em>n+1,n+2) + &#8230; + binomial(2<em>n+1,2</em>n+1)} = 2<sup>(2*n)</sup></p>
+
+<p>所以</p>
+
+<p>binomial(2<em>n+1,n+1)</em>1 + binomial(2<em>n+1,n+2)</em>3 + binomial(2<em>n+1,n+3)</em>5 + &#8230; + binomial(2<em>n+1,2</em>n+1)<em>(2</em>n+1) = (binomial(2<em>n+1,n+1)</em>1 + binomial(2<em>n+1,n+2)</em>2 + &#8230; + binomial(2<em>n+1,2</em>n+1)<em>(n+1))</em>2 - sum(binomial(2<em>n+1,n+i),i=1..n+1) = (binomial(2</em>n+1,n+1)<em>1 + binomial(2</em>n+1,n+2)<em>2 + &#8230; + binomial(2</em>n+1,2<em>n+1)</em>(n+1))*2 - 2<sup>(2*n)</sup></p>
+
+<p>下面我们求(binomial(2<em>n+1,n+1)</em>1 + binomial(2<em>n+1,n+2)</em>2 + &#8230; + binomial(2<em>n+1,2</em>n+1)*(n+1))这部分：</p>
+
+<p>我们知道</p>
+
+<p>sum(binomial(2<em>n+1,i)</em>i,i=0..2<em>n+1) = (2</em>n+1)*2<sup>(2*n)</sup></p>
+
+<p>上式左边可化为相等的两部分与中间项binomial(2<em>n+1,n+1)</em>(n+1)之和</p>
+
+<p>sum(binomial(2<em>n+1,i)</em>i,i=0..2<em>n+1) = 2</em>(sum(binomial(2<em>n+1,n+i)</em>(n+i),i=2..n+1)) + binomial(2<em>n+1,n+1)</em>(n+1) = (2<em>n+1)</em>2<sup>(2*n)</sup></p>
+
+<p>我们就得到了</p>
+
+<p>sum(binomial(2<em>n+1,n+i)</em>i,i=1..n+1) = (2<sup>(2<em>n)+binomial(2</em>n+1,n+1)*(n+1))/2</sup></p>
+
+<p>最后有</p>
+
+<p>sum(binomial(2<em>n+1,n+i)</em>(2<em>i-1),i=1..n+1) = binomial(2</em>n+1,n+1)*(n+1)</p>
+
+<p>综合a,b两种情况，就证明了sum(binomial(n,(n+i)/2)<em>i,i=1..n) = ceil(n/2)</em>binomial(n,ceil(n/2)),n∈Z+.    (QED)</p>
+
+<p>根据引理2.1，我们得到</p>
+
+<p>E(abs(K)) = 1/2<sup>n</sup> * sum(binomial(n,(n+i)/2)<em>abs(i),i=-n..n) = 1/2<sup>(n-1)</sup> </em>sum(binomial(n,(n+i)/2)<em>i,i=1..n) = ceil(n/2)</em>binomial(n,ceil(n/2))/2<sup>(n-1).</sup></p>
+
+<p>当n趋向于无穷大时，由<a href=":http://zh.wikipedia.org/zh-cn/%E6%96%AF%E7%89%B9%E9%9D%88%E5%85%AC%E5%BC%8F">Stirling公式</a>(link:http://zh.wikipedia.org/zh-cn/%E6%96%AF%E7%89%B9%E9%9D%88%E5%85%AC%E5%BC%8F)我们又得到</p>
+
+<p>limit(E(abs(K)),n=infinity) = sqrt(2/pi)*sqrt(n)。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[求大数阶乘的最后一个非零数字]]></title>
+    <link href="http://hmgle.github.com/blog/2009/10/31/e6b182e5a4a7e695b0e998b6e4b998e79a84e69c80e5908ee4b880e4b8aae99d9ee99bb6e695b0e5ad97/"/>
+    <updated>2009-10-31T22:04:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2009/10/31/e6b182e5a4a7e695b0e998b6e4b998e79a84e69c80e5908ee4b880e4b8aae99d9ee99bb6e695b0e5ad97</id>
+    <content type="html"><![CDATA[<p><a href="http://www.mathpages.com/home/kmath489.htm">http://www.mathpages.com/home/kmath489.htm</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Kiwi]]></title>
+    <link href="http://hmgle.github.com/blog/2009/03/15/kiwi/"/>
+    <updated>2009-03-15T17:27:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2009/03/15/kiwi</id>
+    <content type="html"><![CDATA[<p>来源：http://www.youtube.com/watch?v=sdUUx5FdySs</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[象棋排局：将Nim游戏策略应用其中]]></title>
+    <link href="http://hmgle.github.com/blog/2008/08/05/e8b1a1e6a38be68e92e5b180efbc9ae5b086nime6b8b8e6888fe7ad96e795a5e5ba94e794a8e585b6e4b8ad/"/>
+    <updated>2008-08-05T21:45:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2008/08/05/e8b1a1e6a38be68e92e5b180efbc9ae5b086nime6b8b8e6888fe7ad96e795a5e5ba94e794a8e585b6e4b8ad</id>
+    <content type="html"><![CDATA[<p><a href="http://hmgle.com/wp-content/uploads/2008/08/nim_0.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/08/nim_0.jpg" alt="" /></a></p>
+
+<p>上面的这局对称的排局不知来源于古谱还是现代排局，曾经在一本国内科普读物（</p>
+
+<p>现在忘记叫什么了，电子版的，在我的硬盘上有，可惜晾在家里了 是谈祥柏的《趣味对策论》，蒋声的《趣味代数》也有,最早可能是古谱《竹香斋》</p>
+
+<p>）看过，如果是出自古谱那原作者就相当不简单了，要知道Nim游戏理论建立到现在不过100多年时间。象棋不属于Nim游戏，因为Nim游戏的一个必要条件是对于游戏的任一种局面，可移动的集合只取决于当前局面而与游戏者无关，但这个局面的确可用Nim游戏策略来解决。</p>
+
+<p>从棋局中我们看到，每方可移动棋子只有三种：两个炮，边兵（卒），对应的位于同一纵线上，且不能离开当前的纵线。我们把可移动棋子所在的三条线分成三组，炮所在的组中，我们j记下对应棋子的间隔数，兵（卒）所在的组中，因为间隔一格后就不能再前进了，所以把间隔数减一。考虑棋子后退（把间隔数增大，相当于Nim游戏中放入石块到堆中）是有限的，再想想Nim游戏的模型，这不正好是3-堆Nim取物游戏吗？各堆大小分别是1，4，4。表示成二进制为001，100，100，是非平衡的Nim游戏，即N-position，先手有必胜策略，可以炮七退一变成101、100，001或挺兵变成000，100，100这样的P-position局面，以下无论后手方如何走都将把局面导向N-position位置。</p>
+
+<p>这是一局少见的排局，可能因为存在数学策略的缘故，基于计算局势分经过优化而选择棋步的棋软很难得出正解。用奇兵测试，即使不限制搜索时间和搜索层数也是临败几步前才算到结果，而对于大多数的充满陷阱的江湖棋局，是比较容易可以得到正解的：例如下面的对称的排局，大家可以试试，它叫五鼠闹东京；</p>
+
+<p><a href="http://hmgle.com/wp-content/uploads/2008/08/five_mice.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/08/five_mice.jpg" alt="" />
+</a>几个介绍Nim游戏的链接：<a href="http://en.wikipedia.org/wiki/Nim">http://en.wikipedia.org/wiki/Nim</a>
+<a href="http://www.cut-the-knot.org/ctk/May2001.shtml">http://www.cut-the-knot.org/ctk/May2001.shtml</a>
+<a href="http://mathworld.wolfram.com/Nim.html">http://mathworld.wolfram.com/Nim.html</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一些免费的（部分是开源的甚至自由的）有限元分析软件]]></title>
+    <link href="http://hmgle.github.com/blog/2008/06/18/e4b880e4ba9be5858de8b4b9e79a84efbc88e983a8e58886e698afe5bc80e6ba90e79a84e7949ae887b3e887aae794b1e79a84efbc89e69c89e99990e58583e58886/"/>
+    <updated>2008-06-18T15:40:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2008/06/18/e4b880e4ba9be5858de8b4b9e79a84efbc88e983a8e58886e698afe5bc80e6ba90e79a84e7949ae887b3e887aae794b1e79a84efbc89e69c89e99990e58583e58886</id>
+    <content type="html"><![CDATA[<p>有限元法是以变分发为基础的，它的思想是将物体离散化进而达到求解目的，打个比方：我们要求圆的面积，但不知道圆的面积公式，而三角形的面积我们是熟悉并能精确求解的，我们可以以圆心为中心近似地把圆分割成有限个三角形（离散化），每个三角形就被称之为单元，将单元的集合称为网格，引入单元的计算面积的方程（单元方程），然后集合单元方程，就可以得到圆的面积的近似解，只要网格划分得足够细，就可以确保得到足够精确的解。</p>
+
+<p>有限元分析（FEA）软件随着有限元理论的完善和计算机的发展而出现并发展。目前已有大量的可进行结构、流体、热、电场、磁场、声场分析的大型商业通用有限元分析软件。最早的Adina是开放源代码的（那个时代没有开源之说，微软诞生后开始变糟糕），Hacker将其改进并继续自由发放。微软来了，在利益的驱动下，商人来了，大量技术人员被聚集起来，于是出现MSC，Nastran，Abaqus，Ansys，LS-DYNA，……Cracker随着微软的诞生而兴起，他们沉溺于破坏和破解中不可自拔，于是盗版肆虐。对此我感到矛盾，我们应该持什么的态度？唾弃？别忘了我们机房的主机、教育机构的ftp站点、你的个人电脑里装的是什么（不用Windows的跳过，并致以崇高的敬意），这不完全是我们的错……</p>
+
+<p>用<a href="http://www.google.com">Google</a>搜索“<a href="http://www.google.cn/search?complete=1&amp;hl=zh-CN&amp;q=free+fea&amp;btnG=Google+%E6%90%9C%E7%B4%A2&amp;meta=&amp;aq=f">free fea</a>”，还是可以找到一些免费的（尽管我们期望free是自由的）有限元分析软件。打开<a href="http://www.freebyte.com/cad/fea.htm">http://www.freebyte.com/cad/fea.htm</a>页面可以看到，它们之中很多只有Windows版本的。对比商业的你可能不屑，功能少又不稳定，cpu占用奇高，输错一个数字可能使你的电脑死机，一顿折腾后可能给你一个匪夷所思的结果，但我推荐它们仅仅因为它们不是私有的，有的还是开源的，特别是Linux平台上的，使用它们你不再产生像使用盗版时产生的负罪感，你阅读它们的源代码，学习他们的优点，找出程序中的bug并改进它们，自由发放给别的用户使用，分享你的所得，你就又达到一个新境界了。</p>
+
+<p>下面的<a href="http://impact.sourceforge.net/">Impact</a>，采用GPL协议，你要先安装java环境才能使用。支持大变形分析。
+<a href="http://hmgle.com/wp-content/uploads/2008/06/Impact.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/06/Impact.jpg" alt="" /></a></p>
+
+<p><a href="http://www.autofea.com/Download-FEA-software.htm">JL-Analyzer</a>：仅仅免费，具有良好的建模功能，支持非线性和热分析。例如分析一机械部件：</p>
+
+<p>1.建立有限元模型并加载，如图：
+<a href="http://hmgle.com/wp-content/uploads/2008/06/JL-Analyzer_0.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/06/JL-Analyzer_0.jpg" alt="" /></a></p>
+
+<p>2.求解；</p>
+
+<p>3.读取结果：</p>
+
+<p>位移：
+<a href="http://hmgle.com/wp-content/uploads/2008/06/results1.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/06/results1.jpg" alt="" /></a></p>
+
+<p>y方向应力：
+<a href="http://hmgle.com/wp-content/uploads/2008/06/results2.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/06/results2.jpg" alt="" /></a></p>
+
+<p><a href="http://www.cuylaerts.net/">Analysis for Windows</a>：这个其实只用到矩阵位移法，用Delphi开发的，支持杆单元，<a href="http://www.freebyte.com/cad/screen/analysisforwindows.jpg">空间结构</a>。这里给出的是没有交互界面的版本（只支持平面结构），我通过计算上次的<a href="http://hi.baidu.com/hmgle/blog/item/46569b0f04c3a9eeaa645750.html">一个算例</a>得出一个不大正确的结果：
+<a href="http://hmgle.com/wp-content/uploads/2008/06/ana1.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/06/ana1.jpg" alt="" />
+</a>
+<a href="http://hmgle.com/wp-content/uploads/2008/06/ana2.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/06/ana2.jpg" alt="" /></a></p>
+
+<p><a href="http://hmgle.com/wp-content/uploads/2008/06/ana3.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/06/ana3.jpg" alt="" /></a> </p>
+
+<p>和理论解相差百分之十以上。</p>
+]]></content>
+  </entry>
+  
+</feed>

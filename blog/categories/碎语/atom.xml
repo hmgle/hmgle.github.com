@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 碎语 | My Octopress Blog]]></title>
+  <link href="http://hmgle.github.com/blog/categories/碎语/atom.xml" rel="self"/>
+  <link href="http://hmgle.github.com/"/>
+  <updated>2012-05-26T13:57:58+08:00</updated>
+  <id>http://hmgle.github.com/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[看了这样的makefile]]></title>
+    <link href="http://hmgle.github.com/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/"/>
+    <updated>2011-12-11T04:23:18+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile</id>
+    <content type="html"><![CDATA[<p>GNU make是个非常好的工具. 大部分Linux程序员都自己编写Makefile, 再利用make构建工程. 优秀的程序员编写层次分明的代码, 将它们放在合适的位置, 优雅地用make生成目标文件以及管理工程. 不过, 再好的工具和材料, 到了笨拙建造师手里, 也有可能造出丑陋的建筑. 我就看了这样一个例子.</p>
+
+<p>这个工程共有 3 层目录: 顶层有一个makefile. 要编译某个平台的目标文件首先要进入这个以这个平台名字命名的子目录, 比如 "Linux-x86-xx". 子目录"Linux-x86-xx"内也有个makefile, 打开一看, 部分语句是这样的:</p>
+
+<pre><code># makefile
+compilevos: generateconfigfiles
+        $(MAKE) -f ../../makefile xos.o
+generateconfigfiles: runtailor
+runtailor:
+    ...
+</code></pre>
+
+<p>发现上两层目录已经不属于这个工程了. 又看了下readme才知道要编译目标得先运行这个"Linux-x86-xx"目录里面的一个脚本"makelib", 部分语句是这样的:</p>
+
+<pre><code># makelib
+cd obj
+make -f ../makefile compilelibs
+cd ..
+</code></pre>
+
+<p>先进入"obj"这个子目录, 这样"makefile" 里面的"$(MAKE) -f ../../makefile xos.o" 其实是调用上层目录的makefile了. 看得我都吐血了. 往下看发现依然现象严重, 写这个makefile的哥儿们竟全用名字诸如"makeobj", "makexox", "maketarget"等脚本调用make的, 关键是在脚本里每次调用之前都先cd到另外一个目录里, 在makefile根本不知道这条命令是在哪个目录里执行的. "goto"都不能比肩.</p>
+
+<p>这么好的make就这样给糟蹋了.</p>
+]]></content>
+  </entry>
+  
+</feed>

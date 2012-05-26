@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 尘封 | My Octopress Blog]]></title>
+  <link href="http://hmgle.github.com/blog/categories/尘封/atom.xml" rel="self"/>
+  <link href="http://hmgle.github.com/"/>
+  <updated>2012-05-26T13:57:58+08:00</updated>
+  <id>http://hmgle.github.com/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[手机号码patch]]></title>
+    <link href="http://hmgle.github.com/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/"/>
+    <updated>2012-05-01T00:50:10+08:00</updated>
+    <id>http://hmgle.github.com/blog/2012/05/01/e6898be69cbae58fb7e7a081patch</id>
+    <content type="html"><![CDATA[<p>昨天更换手机号码了. 原号码不再使用.</p>
+
+<h3>如何获取我的新号码</h3>
+
+<ul>
+<li><ol>
+<li>如果存有我原来的号码: 以原号码为参数运行下面的脚本
+[php lang_name="shell"]
+
+<h1>!/bin/sh</h1>
+
+<p>if [ "$#" -ne 1 ] ; then
+echo "Usage: $0 my_old_num";
+exit 1;
+fi
+echo <code>expr $1 + \</code>echo -n MjI2MDgyMDIxNgo= | base64 -d``
+[/php]</p></li>
+</ol>
+</li>
+<li><ol>
+<li>如果没有我原来的号码: 在页面<a href="http_//hmgle.com/archives/21.html">手机号码更换</a>获取我以前的号码, 然后跳转到1.</li>
+</ol>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[手机号码更换]]></title>
+    <link href="http://hmgle.github.com/blog/2010/09/07/e6898be69cbae58fb7e7a081e69bb4e68da2/"/>
+    <updated>2010-09-07T18:41:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2010/09/07/e6898be69cbae58fb7e7a081e69bb4e68da2</id>
+    <content type="html"><![CDATA[<p>上个月我换了个手机号码。事情是这样的：换了台Palm手机，换SIM卡的时候需要输入Pin码（我自己设置的，对于一个对信息极度敏感的人设置Pin口令是正常的），前两次输错，在明知道我已经找不到PUK码的情况下我还是贸然地将宝贵的最后一次Pin码输错了。这事坏就坏在我知道我的Keepass里是保存有Pin码的，回去打开Keepass一看发现PIN码原来只有四位数，而我全都输了六位数，前面四位是对的！造成这个悲剧的根本原因是对自己记忆力的错误估计。号码是找不回了，教训还当记着。花代价所换来的一点才智，抵过别人传授的数倍不止（富兰克林语）。我将记得截止到2010年SIM卡的PIN码只能是四位的。悲痛之余换了现在的新号码。</p>
+
+<p>我的大部分联系人的号码都存储在原来的SIM卡内，本人才疏学浅未能破解SIM卡密码体系，无法把你们一一挖出来。因此写了个程序让大伙找到我。假如你有我原来的手机号码，或者即使没有原来的号码但掌握了我一些个人信息，都可以通过该程序得到我的新的手机号码。</p>
+
+<p>基于安全考虑，当然不能采用下面的方法来获得新的号码：</p>
+
+<p>1.验证问题答案;</p>
+
+<p>2.if (Answer is correct) then</p>
+
+<p>output new_num</p>
+
+<p>3.else then</p>
+
+<p>output "you fail";</p>
+
+<p>4.return.</p>
+
+<p>因为上面的代码运行时其实计算机已经把新号码存储在内存了，计算机知道的任何秘密，我们有办法是她告诉我们。通过逆向分析，使用几个跳转指令就是号码显示出来了。大概也没有人愿意吧秘密藏在程序里吧。我们可以构造一个具有以下性质的函数f：</p>
+
+<p>f(待验证的信息) = 新号码 当且仅当待验证的信息等于旧号码。</p>
+
+<p>对于从验证信息途径获取新号码的原理就是密码学中的秘密共享协议。组合数学有道常见的题目，大概意思是有个强盗把宝藏藏在一个其他人都不知道的山洞里，只有通过藏宝图才能找到。这个强盗有7个继承人，为避免宝藏被独吞，他打算这样分配藏宝图给7个继承人：任意4人所持的藏宝图部分都能拼凑成一幅完整的藏宝图，不足4人在场的情况下没有办法拼出完整的藏宝图。问他应该怎样实现他的设想。密码学把这叫做(4,7)门限秘密共享方案。我的程序参考了Mignotte门限方案，只不过随意修改了权重：有的需要回答两个问题就能解出新号码，有的要回答三个。Mignotte方案的核心是中国剩余定理，程序里只需写个解同余式组的函数就可以了。</p>
+
+<p>为了保持我的熵不过多流失，将信息隔离使它们单向通信是必须的。比如你通过正确回答问题A和问题B获得我的手机新号码，但你不能通过求出的新号码逆向得到其它问题的答案，也不能通过任何信息逆向获取我的原来的号码和其他任何你之前不知道的信息。这只要用单向函数就能实现了。因为你输入的任何信息都要散列成整数以便下一步运算，所以我只要选用一个单向的Hash函数就行了。简单的Hash函数有很多，比如elfhash、P.J.weinberger  Hash等，但大多数单向性不好，而MD5、SHA-1算法又过于复杂，用在这里显得大材小用了，最后选用了Blizzard在MPQ中的Hash算法，据说是One-way Hash，较简单，只是版权协议未知。我将其修改几个参数后挪来作为非商业目的使用，也不知有没有侵权，若侵权了我马上移除这个Hash部分并愿意赔偿甚至赔偿10块钱。为了减少被暴力破解出新号码的可能，我对Hash值再取某个较小的整数的模，相当于减少了Hash函数的值域，这样就造成了更多的碰撞，在大多数情况下碰撞是有害的。</p>
+
+<p>这个程序上传在我的<a href="http://cid-a062cb69b403730a.office.live.com/self.aspx/.Documents/GetMyNum.zip">SkyDrive</a>(地址:http://cid-a062cb69b403730a.office.live.com/self.aspx/.Documents/GetMyNum.zip 或<a href="http://goo.gl/ulcB">http://goo.gl/ulcB</a>)上（Google文件共享网站疑被墙，故新注册了Windows live帐号），压缩包md5值：78EF060E16269272DACF1733882206ED     。包括交互式的C版本和用Delphi写的有界面的版本。那个用Delphi写的是很难看的。程序没有自定义功能，只适用于我自己的号码，不支持设置成求解别人号码和自定义问题的功能，有时间的人可以扩展这个功能。除了暴雪那个Hash函数外，其他部分copyleft。</p>
+
+<p>如果你觉得这是个繁琐的过程或你确定是我的朋友但无法通过它找回我的号码，或有其它的疑问，可以发邮件到我的邮箱netsharec at gmail.com。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[残存在记忆的电视剧]]></title>
+    <link href="http://hmgle.github.com/blog/2008/06/03/e6ae8be5ad98e59ca8e8aeb0e5bf86e79a84e794b5e8a786e589a7/"/>
+    <updated>2008-06-03T23:55:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2008/06/03/e6ae8be5ad98e59ca8e8aeb0e5bf86e79a84e794b5e8a786e589a7</id>
+    <content type="html"><![CDATA[<p>《海灯法师》是有残留记忆的最早的电视剧，那时还没念幼儿园吧，隐约只记得一个模糊的情景了：和尚，门，血，手指，一声惨叫（不太确定）。</p>
+
+<p>看《西游记》时大概三四岁，现在回想起来还很清晰：第一个镜头是在黄（还是王？）土根的铺子（那时叫合作社）里看的，姐姐带我，一大群人在里面，那时孙悟空在单手（绝对是单手）舞棍，很得意的样子。</p>
+
+<p>《封神榜》和《绝代双骄》哪个先看已不记得，只记得看《封神榜》第一集是是非常无趣的，纣王祭祀仪式，八点开始播放，我当时看得眼睛都睁不开了，但还要坚持到结束。之后幼儿园分为两帮，我方称呼我为大王，可惜老被干。</p>
+
+<p>《绝代双骄》开了港产片在大陆流行的先河，剧情虽超出我的理解力，但觉得好看，有点印象的片段是好像是黑夜里小鱼儿在一个亭子里对不知哪个说：我抵死（该死）。不知为啥对这句话记得这么清楚。</p>
+
+<p>《雪山飞狐》也是在幼儿园期间看到（我四岁到六岁这三年都在幼儿园混），以后上小学时又有机会看了一遍。等稍微懂得一点剧情的时候发现以后很少有机会看到了，现在证明果然如此。</p>
+
+<p>一年级《葫芦兄弟》。对动画卡通片记忆不深，连环画反倒很有印象，那里面的剑画得线条棱角分明，很锋利的样子。</p>
+
+<p>晚上《太极张三丰》。今天又听了十几遍主题歌：</p>
+
+<p>风中柳丝舒懒腰</p>
+
+<p>几点絮飞飘也飘</p>
+
+<p>谁能力抗劲风</p>
+
+<p>为何梁木折腰</p>
+
+<p>柳絮却可轻卸掉</p>
+
+<p>于世上</p>
+
+<p>也知颠沛未能料</p>
+
+<p>傲然笑</p>
+
+<p>冷观得失感玄妙</p>
+
+<p>风惊雨急自巍立</p>
+
+<p>扁舟也可渡狂潮</p>
+
+<p>以柔力博千斤</p>
+
+<p>淡然随遇变招</p>
+
+<p>雨后红日千里耀</p>
+
+<p>下面片头的情景当时羡慕无比，神幻飘逸的手法令人向往。</p>
+
+<p><a href="http://hmgle.com/wp-content/uploads/2008/06/shadow.jpg"><img src="http://hmgle.com/wp-content/uploads/2008/06/shadow.jpg" alt="" /></a></p>
+
+<p>小学：《小龙人》，他们都长大了吗？</p>
+
+<p>未完待续。期间杨栋在看《莲花争霸》，听着主题曲觉得熟悉，所以敲下以上文字。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[晚上赴凤凰]]></title>
+    <link href="http://hmgle.github.com/blog/2008/05/31/e6999ae4b88ae8b5b4e587a4e587b0/"/>
+    <updated>2008-05-31T13:10:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2008/05/31/e6999ae4b88ae8b5b4e587a4e587b0</id>
+    <content type="html"><![CDATA[<p>rt，游玩，兼实习。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[5.12地震]]></title>
+    <link href="http://hmgle.github.com/blog/2008/05/16/5-12e59cb0e99c87/"/>
+    <updated>2008-05-16T10:29:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2008/05/16/5-12e59cb0e99c87</id>
+    <content type="html"><![CDATA[<p>人间灾难莫过于此。</p>
+
+<p>默默地为人民祈祷，愿死者安息，生者平安。</p>
+
+<p>大家有钱出钱，有力出力，帮助灾区人民重建家园吧！</p>
+]]></content>
+  </entry>
+  
+</feed>

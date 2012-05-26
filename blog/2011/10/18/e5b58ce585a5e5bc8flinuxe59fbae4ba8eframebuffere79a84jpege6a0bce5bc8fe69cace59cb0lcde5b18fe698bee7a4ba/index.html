@@ -1,0 +1,935 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>嵌入式Linux基于framebuffer的jpeg格式本地LCD屏显示 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="在基于Linux的视频监控采集系统中,摄像头采集到的一帧视频图像数据一般都是经过硬件自动压缩成jpeg格式的,然后再保存到摄像头设备的缓冲区.如果要把采集到的jpeg格式显示在本地LCD屏上,由于我们的Linux系统没有移植任何GUI系统,就要考虑以下方面:
+1. 将jpeg格式解压缩为位图格式, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hmgle.github.com/blog/2011/10/18/e5b58ce585a5e5bc8flinuxe59fbae4ba8eframebuffere79a84jpege6a0bce5bc8fe69cace59cb0lcde5b18fe698bee7a4ba">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hmgle.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">嵌入式Linux基于framebuffer的jpeg格式本地LCD屏显示</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-18T07:20:31+08:00" pubdate data-updated="true">Oct 18<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>在基于Linux的视频监控采集系统中,摄像头采集到的一帧视频图像数据一般都是经过硬件自动压缩成jpeg格式的,然后再保存到摄像头设备的缓冲区.如果要把采集到的jpeg格式显示在本地LCD屏上,由于我们的Linux系统没有移植任何GUI系统,就要考虑以下方面:
+1. 将jpeg格式解压缩为位图格式,也就是jpeg解码.</p>
+
+<ol>
+<li><p>将解码出来的位图格式输出到本地的LCD屏上. 在Linux系统下是通过写入帧缓冲(framebuffer)来实现的.</p></li>
+<li><p>framebuffer相当于为LCD设备提供一个统一的接口,对framebuffer的操控会反映到LCD显示设备上去. 如果配置Linux内核时没有找到支持本地lcd屏这种型号的驱动,那我们要自己写lcd屏驱动,然后选择静态加入内核或以模块的形式加入内核动态加载.</p></li>
+</ol>
+
+
+<p>针对以上三点,我们逐一解决:</p>
+
+<h2>1. jpeg解码</h2>
+
+<p>先了解一下jpeg标准的编码过程:原始的一帧未压缩过的图像可以看成是RGB(红绿蓝)色彩空间上的一组向量集合,但在RGB空间是不利于数据压缩的,因此为了压缩先要把图像映射到利于压缩的YUV空间上(原因是因为人类的眼睛对于亮度差异的敏感度高于色彩变化,而YUV空间的一个基向量Y就是亮度), 这一步叫色彩空间转换.下一步可以在YUV空间上减少U(色调)和V(饱和度)的成分,也就是在亮度信息不减少的情况下移除部分色彩信息,谁叫人的眼睛对亮度的敏感优于对色彩的敏感呢.这一步叫缩减取样.下一步是将图像从色彩空间映射到频率空间,可以采用的变换方法有:离散余弦变换, 傅氏变换, 正弦变换等. 其中应用最广的是离散余弦变换(DCT).这一步是无损的,目的是为了在下一步称之为量化的过程中可以经过四舍五入删除高频量得到压缩后的矩阵.量化之后就是对这个矩阵的编码问题了.针对这个矩阵的分布特点, 采用&#8221;Z&#8221;字形的顺序扫描编排,然后进行RLE行程编码, 把大量连续重复的数据压缩.最后再用范式Huffman编码.要了解详细的过程,可以查看<a href="http://www.jpeg.org/">JPEG标准</a>.</p>
+
+<p>而解码就是以上编码的逆过程了.除非想要自己实现jpeg的编码和解码函数,我们可以不必细究这些过程,而是直接使用别人已经实现的jpeg编码解码库.在Linux平台下, 有libjpeg库, 它是完全用C语言编写的, 依照它的许可协议,可自由使用, 不是GPL协议,它可以用于商业目的.</p>
+
+<p>libjpeg的6b版本有个问题,就是解码接口,它只接受文件源.打开源的函数<code>jpeg_stdio_src(j_decompress_ptr cinfo, FILE *infile)</code>要求解码源infile是文件.而我们希望解码的是直接来自映射内存中的数据.要解码内存流的话就要修改libjpeg的源码了,可以参考这里:<a href="http://my.unix-center.net/~Simon_fu/?p=565">http://my.unix-center.net/~Simon_fu/?p=565</a> 目前libjpeg的最新版8c已经解决了这个接口不好的问题了,它增加了对内存流解码的支持.通过调用函数</p>
+
+<pre><code>jpeg_mem_src(&amp;cinfo, fdmem, st.st_size);
+</code></pre>
+
+<p>就可以将保存在内存的jpeg格式数据作为源输入了.因此我们就用libjpeg 8c这个版本来解码.</p>
+
+<p>用到的函数主要有:</p>
+
+<ol>
+<li><p>初始化jpeg解压对象:</p>
+
+<p> /<em> init jpeg decompress object error handler </em>/
+ cinfo.err = jpeg_std_error(&amp;jerr);
+ jpeg_create_decompress(&amp;cinfo);</p></li>
+<li><p>绑定jpeg解压对象到输入流:</p>
+
+<p>   /<em> bind jpeg decompress object to infile </em>/</p>
+
+<h1>if READ_FILE   // 从jpeg文件读入</h1>
+
+   jpeg_stdio_src(&amp;cinfo, infile);
+
+<h1>elif READ_MEM  // 从内存读入jpeg格式</h1>
+
+   jpeg_mem_src(&amp;cinfo, fdmem, st.st_size);
+
+<h1>endif</h1></li>
+<li><p>读取jpeg头部信息:</p>
+
+<p>   /<em> read jpeg header </em>/
+   jpeg_read_header(&amp;cinfo, TRUE);</p></li>
+<li><p>解压过程:</p>
+
+<p>   /<em> decompress process </em>/
+   jpeg_start_decompress(&amp;cinfo);</p></li>
+</ol>
+
+
+<p>调用这个函数之后,可以得到jpeg图像的下面几个参数:</p>
+
+<ol>
+<li><p>output_width // 图像的宽度</p></li>
+<li><p>output_height // 图像的高度</p></li>
+<li><p>output_components // 每个像素占用的字节数</p></li>
+</ol>
+
+
+<p>我们采用每扫描一行像素就输出到屏幕的方法的话,根据以上参数可以确定分配一行信息需要的缓冲区:</p>
+
+<pre><code>    buffer = (unsigned char *)malloc(cinfo.output_width *
+            cinfo.output_components);
+</code></pre>
+
+<p>总共需要扫描output_height行.</p>
+
+<ol>
+<li><p>读取一行扫描数据并输出到LCD屏幕:</p>
+
+<p>   y = 0;
+   while (cinfo.output_scanline &lt; cinfo.output_height) {</p>
+
+<pre><code>   jpeg_read_scanlines(&amp;cinfo, &amp;buffer, 1);
+   if (fb_depth == 16) {   // 如果显示设备色深是16位
+       ...
+   } else if (fb_depth == 24) {    // 如果显示设备色深是24位
+       ...
+   } else if (fb_depth == 32) {    // 如果显示设备色深是32位
+       ...
+   }
+   y++;
+</code></pre>
+
+<p>   }</p></li>
+<li><p>结束jpeg解码:</p>
+
+<p>   /<em> finish decompress, destroy decompress object </em>/
+   jpeg_finish_decompress(&amp;cinfo);
+   jpeg_destroy_decompress(&amp;cinfo);</p></li>
+<li><p>释放缓冲区:</p>
+
+<p>   /<em> release memory buffer </em>/
+   free(buffer);</p></li>
+</ol>
+
+
+<h2>2. 输出位图到LCD屏</h2>
+
+<p>通过framebuffer直接写屏的主要步骤有:</p>
+
+<ol>
+<li><p>打开framebuffer设备:</p>
+
+<p>   /<em> open framebuffer device </em>/
+   fbdev = fb_open(&#8220;/dev/fb0&#8221;);</p></li>
+<li><p>获取framebuffer设备参数:</p>
+
+<p>   /<em> get status of framebuffer device </em>/
+   fb_stat(fbdev, &amp;fb_width, &amp;fb_height, &amp;fb_depth);</p></li>
+<li><p>映射framebuffer设备到共享内存:</p>
+
+<p>   screensize = fb_width * fb_height * fb_depth / 8;
+   fbmem = fb_mmap(fbdev, screensize);</p></li>
+<li><p>直接对映射到那片内存进行写操作,LCD屏刷新刷新时就会反应到屏幕上去了.</p>
+
+<p>   y = 0;
+   while (cinfo.output_scanline &lt; cinfo.output_height) {</p>
+
+<pre><code>   jpeg_read_scanlines(&amp;cinfo, &amp;buffer, 1);
+   if (fb_depth == 16) {
+       unsigned short color;
+
+       for (x = 0; x &lt; cinfo.output_width; x++) {
+           color =
+               RGB888toRGB565(buffer[x * 3],
+                       buffer[x * 3 + 1], buffer[x * 3 + 2]);
+           fb_pixel(fbmem, fb_width, fb_height, x, y, color);
+       }
+   } else if (fb_depth == 24) {
+       memcpy((unsigned char *) fbmem + y * fb_width * 3,
+               buffer, cinfo.output_width * cinfo.output_components);
+   } else if (fb_depth == 32) {
+       // memcpy((unsigned char *) fbmem + y * fb_width * 4,
+               // buffer, cinfo.output_width * cinfo.output_components);
+       for (x = 0; x &lt; cinfo.output_width; x++) {
+           *(fbmem + y * fb_width * 4 + x * 4)     = (unsigned char) buffer[x * 3 + 2];
+           *(fbmem + y * fb_width * 4 + x * 4 + 1) = (unsigned char) buffer[x * 3 + 1];
+           *(fbmem + y * fb_width * 4 + x * 4 + 2) = (unsigned char) buffer[x * 3 + 0];
+           *(fbmem + y * fb_width * 4 + x * 4 + 3) = (unsigned char) 0;
+       }
+   }
+   y++;    // next scanline
+</code></pre>
+
+<p>   }</p></li>
+<li><p>卸载映射framebuffer的那部分内存:</p>
+
+<p>   /<em> unmap framebuffer&#8217;s shared memory </em>/
+   fb_munmap(fbmem, screensize);</p></li>
+<li><p>关闭framebuffer设备:</p>
+
+<p>   close(fbdev);</p></li>
+</ol>
+
+
+<p>根据以上两点,可以写一个测试程序,在不开X-window图形系统的情况下,将本地的jpeg文件直接显示到屏幕上.</p>
+
+<pre><code>#include    &lt;stdio.h&gt;
+#include    &lt;string.h&gt;
+#include    &lt;stdlib.h&gt;
+#include    &lt;unistd.h&gt;
+#include    &lt;sys/ioctl.h&gt;
+#include    &lt;sys/types.h&gt;
+#include    &lt;sys/stat.h&gt;
+#include    &lt;errno.h&gt;
+#include    &lt;fcntl.h&gt;
+#include    &lt;sys/mman.h&gt;
+#include    &lt;linux/fb.h&gt;
+#include    "jpeglib.h"
+#include    "jerror.h"
+
+#define FB_DEV  "/dev/fb0"
+#define __fnc__ __FUNCTION__
+
+#define debug           0
+#define debug_printf    0
+#define BYREAD          0
+#define BYMEM           1
+
+/* function deciaration */
+
+void usage(char *msg);
+unsigned short RGB888toRGB565(unsigned char red,
+        unsigned char green, unsigned char blue);
+int fb_open(char *fb_device);
+int fb_close(int fd);
+int fb_stat(int fd, unsigned int *width, unsigned int *height, unsigned int *    depth);
+void *fb_mmap(int fd, unsigned int screensize);
+void *fd_mmap(int fd, unsigned int filesize);
+int fb_munmap(void *start, size_t length);
+int fb_pixel(void *fbmem, int width, int height,
+        int x, int y, unsigned short color);
+
+#if(debug)
+void draw(unsigned char *fbp,
+        struct fb_var_screeninfo vinfo,
+        struct fb_fix_screeninfo finfo);
+#endif
+
+/* function implementation */
+
+int main(int argc, char **argv)
+{
+    struct jpeg_decompress_struct cinfo;
+    struct jpeg_error_mgr jerr;
+#if(BYREAD)
+    FILE *infile;
+#endif
+    int fd;
+    unsigned char *buffer;
+    struct stat st;
+
+    int fbdev;
+    char *fb_device;
+    unsigned char *fbmem;
+    unsigned char *fdmem;
+    unsigned int screensize;
+    unsigned int fb_width;
+    unsigned int fb_height;
+    unsigned int fb_depth;
+    register unsigned int x;
+    register unsigned int y;
+
+    /* check auguments */
+    if (argc != 2) {
+        usage("insuffient auguments");
+        exit(-1);
+    }
+
+    /* open framebuffer device */
+    if ((fb_device = getenv("FRAMEBUFFER")) == NULL)
+        fb_device = FB_DEV;
+    fbdev = fb_open(fb_device);
+
+    /* get status of framebuffer device */
+    fb_stat(fbdev, &amp;fb_width, &amp;fb_height, &amp;fb_depth);
+
+    /* map framebuffer device to shared memory */
+    screensize = fb_width * fb_height * fb_depth / 8;
+    fbmem = fb_mmap(fbdev, screensize);
+
+#if (BYREAD)
+    /* open input jpeg file */
+    if ((infile = fopen(argv[1], "rb")) == NULL) {
+        fprintf(stderr, "open %s failed\n", argv[1]);
+        exit(-1);
+    }
+#endif
+
+    if ((fd = open(argv[1], O_RDONLY)) &lt; 0) {
+        perror("open");
+        exit(-1);
+    }
+
+    if (fstat(fd, &amp;st) &lt; 0) {
+        perror("fstat");
+        exit(-1);
+    }
+
+    fdmem = fd_mmap(fd, st.st_size);
+
+    /* init jpeg decompress object error handler */
+    cinfo.err = jpeg_std_error(&amp;jerr);
+    jpeg_create_decompress(&amp;cinfo);
+
+    /* bind jpeg decompress object to infile */
+#if (BYREAD)
+    jpeg_stdio_src(&amp;cinfo, infile);
+#endif
+
+#if (BYMEM)
+    jpeg_mem_src(&amp;cinfo, fdmem, st.st_size);
+#endif
+
+    /* read jpeg header */
+    jpeg_read_header(&amp;cinfo, TRUE);
+
+    /* decompress process */
+    jpeg_start_decompress(&amp;cinfo);
+    if ((cinfo.output_width &gt; fb_width) ||
+            (cinfo.output_height &gt; fb_height)) {
+        printf("too large jpeg file, can't display\n");
+#if (0)
+        return -1;
+#endif
+    }
+
+    buffer = (unsigned char *) malloc(cinfo.output_width *
+            cinfo.output_components);
+
+    struct fb_fix_screeninfo fb_finfo;
+    struct fb_var_screeninfo fb_vinfo;
+
+    if (ioctl(fbdev, FBIOGET_FSCREENINFO, &amp;fb_finfo)) {
+        perror(__fnc__);
+        return -1;
+    }
+
+    if (ioctl(fbdev, FBIOGET_VSCREENINFO, &amp;fb_vinfo)) {
+        perror(__fnc__);
+        return -1;
+    }
+
+#if(debug)
+    draw(fbmem, fb_vinfo, fb_finfo);
+#endif
+    y = 0;
+    while (cinfo.output_scanline &lt; cinfo.output_height) {
+        jpeg_read_scanlines(&amp;cinfo, &amp;buffer, 1);
+        if (fb_depth == 16) {
+            unsigned short color;
+
+            for (x = 0; x &lt; cinfo.output_width; x++) {
+                color =
+                    RGB888toRGB565(buffer[x * 3],
+                            buffer[x * 3 + 1], buffer[x * 3 + 2]);
+                fb_pixel(fbmem, fb_width, fb_height, x, y, color);
+            }
+        } else if (fb_depth == 24) {
+            memcpy((unsigned char *) fbmem + y * fb_width * 3,
+                    buffer, cinfo.output_width * cinfo.output_components);
+        } else if (fb_depth == 32) {
+            // memcpy((unsigned char *) fbmem + y * fb_width * 4,
+                    // buffer, cinfo.output_width * cinfo.output_components);
+            for (x = 0; x &lt; cinfo.output_width; x++) {
+                * (fbmem + y * fb_width * 4 + x * 4)     = (unsigned char)       buffer[x * 3 + 2];
+                * (fbmem + y * fb_width * 4 + x * 4 + 1) = (unsigned char)       buffer[x * 3 + 1];
+                * (fbmem + y * fb_width * 4 + x * 4 + 2) = (unsigned char)       buffer[x * 3 + 0];
+                * (fbmem + y * fb_width * 4 + x * 4 + 3) = (unsigned char) 0;
+            }
+        }
+        y++;    // next scanline
+    }
+
+    /* finish decompress, destroy decompress object */
+    jpeg_finish_decompress(&amp;cinfo);
+    jpeg_destroy_decompress(&amp;cinfo);
+
+    /* release memory buffer */
+    free(buffer);
+
+#if (BYREAD)
+    /* close jpeg inputing file */
+    fclose(infile);
+#endif
+
+    /* unmap framebuffer's shared memory */
+    fb_munmap(fbmem, screensize);
+
+#if (BYMEM)
+    munmap(fdmem, (size_t) st.st_size);
+    close(fd);
+#endif
+
+    /* close framebuffer device */
+    fb_close(fbdev);
+
+    return 0;
+}
+
+void usage(char *msg)
+{
+    fprintf(stderr, "%s\n", msg);
+    printf("Usage: fv some-jpeg-file.jpg\n");
+}
+
+/* open framebuffer device.
+ * return positive file descriptor if success,
+ * else return -1
+ */
+int fb_open(char *fb_device)
+{
+    int fd;
+
+    if ((fd = open(fb_device, O_RDWR)) &lt; 0) {
+        perror(__fnc__);
+        return -1;
+    }
+    return fd;
+}
+
+int fb_close(int fd)
+{
+    return (close(fd));
+}
+
+/* get framebuffer's width, height, and depth.
+ * return 0 if success, else return -1.
+ */
+int fb_stat(int fd, unsigned int *width, unsigned int *height, unsigned int *    depth)
+{
+    struct fb_fix_screeninfo fb_finfo;
+    struct fb_var_screeninfo fb_vinfo;
+
+    if (ioctl(fd, FBIOGET_FSCREENINFO, &amp;fb_finfo)) {
+        perror(__fnc__);
+        return -1;
+    }
+
+    if (ioctl(fd, FBIOGET_VSCREENINFO, &amp;fb_vinfo)) {
+        perror(__fnc__);
+        return -1;
+    }
+
+    *width = fb_vinfo.xres;
+    *height = fb_vinfo.yres;
+    *depth = fb_vinfo.bits_per_pixel;
+
+    return 0;
+}
+
+/* map shared memory to framebuffer device.
+ * return maped memory if success
+ * else return -1, as mmap dose
+ */
+void *fb_mmap(int fd, unsigned int screensize)
+{
+    caddr_t fbmem;
+
+    if ((fbmem = mmap(0, screensize, PROT_READ | PROT_WRITE,
+                    MAP_SHARED, fd, 0)) == MAP_FAILED) {
+        perror(__func__);
+        return (void *) (-1);
+    }
+
+    return fbmem;
+}
+
+/* map shared memmory to a opened file */
+void *fd_mmap(int fd, unsigned int filesize)
+{
+    caddr_t fdmem;
+
+    if ((fdmem = mmap(0, filesize, PROT_READ,
+                    MAP_SHARED, fd, 0)) == MAP_FAILED) {
+        perror(__func__);
+        return (void *) (-1);
+    }
+
+    return fdmem;
+}
+
+/* unmap map memory for framebuffer device */
+int fb_munmap(void *start, size_t length)
+{
+    return (munmap(start, length));
+}
+
+/* convert 24bit RGB888 to 16bit RGB565 color format */
+unsigned short RGB888toRGB565(unsigned char red,
+        unsigned char green, unsigned char blue)
+{
+    unsigned short B = (blue &gt;&gt; 3) &amp; 0x001F;
+    unsigned short G = ((green &gt;&gt; 2) &lt;&lt; 5) &amp; 0x07E0;
+    unsigned short R = ((red &gt;&gt; 3) &lt;&lt; 11) &amp; 0xF800;
+
+    return (unsigned short) (R | G | B);
+}
+
+/* display a pixel on the framebuffer device.
+ * fbmem is the starting memory of framebuffer,
+ * width and height are dimension of framebuffer,
+ * width and height are dimension of framebuffer,
+ * x and y are the coordinates to display,
+ * color is the pixel's color value.
+ * return 0 if success, otherwise return -1.
+ */
+int fb_pixel(void *fbmem, int width, int height,
+        int x, int y, unsigned short color)
+{
+    if ((x &gt; width) || (y &gt; height))
+        return -1;
+
+    unsigned short *dst = ((unsigned short *) fbmem + y * width + x);
+
+    *dst = color;
+    return 0;
+}
+</code></pre>
+
+<h2>3. LCD驱动</h2>
+
+<p>我们用到的是一块东华3.5寸数字屏,型号为WXCAT35-TG3.下面的驱动程序是韦东山老师课堂上现场写的,如下:</p>
+
+<pre><code>#include &lt;linux/module.h&gt;
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/errno.h&gt;
+#include &lt;linux/string.h&gt;
+#include &lt;linux/mm.h&gt;
+#include &lt;linux/slab.h&gt;
+#include &lt;linux/delay.h&gt;
+#include &lt;linux/interrupt.h&gt;
+#include &lt;linux/fb.h&gt;
+#include &lt;linux/init.h&gt;
+#include &lt;linux/ioport.h&gt;
+#include &lt;linux/dma-mapping.h&gt;
+
+#include &lt;asm/uaccess.h&gt;
+#include &lt;asm/system.h&gt;
+#include &lt;asm/irq.h&gt;
+#include &lt;asm/setup.h&gt;
+
+/* WXCAT35-TG3 */
+struct s3c_lcd_regs {
+    unsigned long   lcdcon1;
+    unsigned long   lcdcon2;
+    unsigned long   lcdcon3;
+    unsigned long   lcdcon4;
+    unsigned long   lcdcon5;
+    unsigned long   lcdsaddr1;
+    unsigned long   lcdsaddr2;
+    unsigned long   lcdsaddr3;
+    unsigned long   redlut;
+    unsigned long   greenlut;
+    unsigned long   bluelut;
+    unsigned long   reserved[9];
+    unsigned long   dithmode;
+    unsigned long   tpal;
+    unsigned long   lcdintpnd;
+    unsigned long   lcdsrcpnd;
+    unsigned long   lcdintmsk;
+    unsigned long   lpcsel;
+};
+
+static u32 colregs[16];
+static struct fb_info *s3c_fb_info;
+static dma_addr_t s3c_fb_handle;
+static unsigned long fb_va;
+
+/* from pxafb.c */
+static inline unsigned int chan_to_field(unsigned int chan, struct fb_bitfield *bf)
+{
+    chan &amp;= 0xffff;
+    chan &gt;&gt;= 16 - bf-&gt;length;
+    return chan &lt;&lt; bf-&gt;offset;
+}
+
+static int s3cfb_setcolreg(unsigned regno,
+                   unsigned red, unsigned green, unsigned blue,
+                   unsigned transp, struct fb_info *info)
+{
+    unsigned int val;
+
+    /* dprintk("setcol: regno=%d, rgb=%d,%d,%d\n", regno, red, green, blue); */
+
+    /* true-colour, use pseuo-palette */
+
+    if (regno &lt; 16) {
+        u32 *pal = s3c_fb_info-&gt;pseudo_palette;
+
+        val  = chan_to_field(red,   &amp;s3c_fb_info-&gt;var.red);
+        val |= chan_to_field(green, &amp;s3c_fb_info-&gt;var.green);
+        val |= chan_to_field(blue,  &amp;s3c_fb_info-&gt;var.blue);
+
+        pal[regno] = val;
+    }
+
+    return 0;
+}
+
+static struct fb_ops s3cfb_ops = {
+    .owner      = THIS_MODULE,
+//  .fb_check_var   = clps7111fb_check_var,
+//  .fb_set_par = clps7111fb_set_par,
+//  .fb_setcolreg   = clps7111fb_setcolreg,
+//  .fb_blank   = clps7111fb_blank,
+
+    .fb_setcolreg   = s3cfb_setcolreg,
+    .fb_fillrect    = cfb_fillrect,
+    .fb_copyarea    = cfb_copyarea,
+    .fb_imageblit   = cfb_imageblit,
+};
+
+struct s3c_lcd_regs *s3c_lcd_regs;
+static volatile unsigned long *gpccon;
+static volatile unsigned long *gpdcon;
+static volatile unsigned long *gpgcon;
+
+int s3c_lcd_init(void)
+{
+    extern int debug_lcd;
+    /* 1. 分配一个fb_info结构体 */
+    s3c_fb_info = framebuffer_alloc(0, NULL);
+    printk("%s %d\n", __FUNCTION__, __LINE__);
+
+    /* 2. 设置fb_info结构体 */
+    /*
+       2.1 设置固定的信息
+       2.2 设置可变的信息
+       2.3 设置操作函数
+    */
+
+    /* 24BPP(bits per pixel), 会用到4字节, 其中浪费1字节 */
+    strcpy(s3c_fb_info-&gt;fix.id, "WXCAT35-TG3");
+    // s3c_fb_info-&gt;fix.smem_start // frame buffer's physical address
+    s3c_fb_info-&gt;fix.smem_len    = 320*240*32/8;
+    s3c_fb_info-&gt;fix.type        = FB_TYPE_PACKED_PIXELS;
+    s3c_fb_info-&gt;fix.visual      = FB_VISUAL_TRUECOLOR;
+    s3c_fb_info-&gt;fix.line_length = 320 * 4;
+
+    s3c_fb_info-&gt;var.xres             = 320;
+    s3c_fb_info-&gt;var.yres             = 240;
+    s3c_fb_info-&gt;var.xres_virtual     = 320;
+    s3c_fb_info-&gt;var.yres_virtual     = 240;
+    s3c_fb_info-&gt;var.bits_per_pixel   = 32;
+
+    s3c_fb_info-&gt;var.red.offset       = 16;
+    s3c_fb_info-&gt;var.red.length       = 8;
+
+    s3c_fb_info-&gt;var.green.offset     = 8;
+    s3c_fb_info-&gt;var.green.length     = 8;
+
+    s3c_fb_info-&gt;var.blue.offset      = 0;
+    s3c_fb_info-&gt;var.blue.length      = 8;
+
+    //s3c_fb_info-&gt;var.activate         = FB_ACTIVATE;
+
+    s3c_fb_info-&gt;fbops                = &amp;s3cfb_ops;
+    s3c_fb_info-&gt;pseudo_palette       = colregs;
+
+    /* 3. 硬件相关的操作 */
+    /* 配置GPIO */
+    gpccon     = ioremap(0x56000020, 4);
+    gpdcon     = ioremap(0x56000030, 4);
+    gpgcon     = ioremap(0x56000060, 4);
+    *gpccon = 0xaaaaaaaa;
+    *gpdcon = 0xaaaaaaaa;
+    *gpgcon |= (3&lt;&lt;8);  /* GPG4 use as lcd_pwren */
+    printk("%s %d\n", __FUNCTION__, __LINE__);
+
+    s3c_lcd_regs = ioremap(0X4D000000, sizeof(struct s3c_lcd_regs));
+
+    /*
+     * VCLK = HCLK / [(CLKVAL+1)x2] = 100M/[(CLKVAL+1)x2] = 6.4
+     * CLKVAL = 6.8 = 7
+     * TFT LCD panel
+     * 24bpp
+     */
+    s3c_lcd_regs-&gt;lcdcon1 = (7&lt;&lt;8)|(0&lt;&lt;7)|(3&lt;&lt;5)|(0x0d&lt;&lt;1)|(0&lt;&lt;0);
+    printk("%s %d\n", __FUNCTION__, __LINE__);
+
+    /* VBPD: 电子枪收到VSYNC信号后,"多长时间"才能跳回第1行
+     * VBPD=14,      LCD: tvb=15
+     * LINEVAL=239,  LCD: 有240行
+     * VFPD=11,      LCD: tvf=12  // 发出最后一行数据后,再过多长时间才发出VSYNC
+     * VSPW=2,       LCD: tvp=3   // VSYNC的宽度
+     */
+    s3c_lcd_regs-&gt;lcdcon2 = (14&lt;&lt;24)|(239&lt;&lt;14)|(11&lt;&lt;6)|(2&lt;&lt;0);
+
+    /* HBPD: 电子枪收到HSYNC信号后,"多长时间"才能跳回第1列
+     * HBPD=37,      LCD: thb=38
+     * HORVAL=319,   LCD: 有320行
+     * HFPD=19,      LCD: thf=20  // 发出最后一象素数据后,再过多长时间才发出HSYNC
+     * HSPW=29,      LCD: thp=30   // VSYNC的宽度
+     */
+    s3c_lcd_regs-&gt;lcdcon3 = (37&lt;&lt;19)|(319&lt;&lt;8)|(19&lt;&lt;0);
+    s3c_lcd_regs-&gt;lcdcon4 = 29;
+
+    /* bit10:  在VCLK上升沿取数据 
+     * bit9 :  VSYNC低电平有效
+     * bit8 :  HSYNC低电平有效
+     * bit5 :  PWREN低电平有效
+     */ 
+    s3c_lcd_regs-&gt;lcdcon5 = (1&lt;&lt;10)|(1&lt;&lt;9)|(1&lt;&lt;8)|(1&lt;&lt;5)|(0&lt;&lt;3);
+
+    /* 分配frame buffer */
+    fb_va = (unsigned long)dma_alloc_writecombine(NULL, s3c_fb_info-&gt;fix.smem_len, &amp;s3c_fb_handle, GFP_KERNEL);
+
+    printk("fb_va = 0x%x, pa = 0x%x\n", fb_va, s3c_fb_handle);
+    s3c_fb_info-&gt;fix.smem_start = s3c_fb_handle;
+    s3c_fb_info-&gt;screen_base    = fb_va;
+
+    /* 把framebuffer的地址告诉LCD控制器 */
+    s3c_lcd_regs-&gt;lcdsaddr1 = (s3c_fb_info-&gt;fix.smem_start &gt;&gt; 1);
+    s3c_lcd_regs-&gt;lcdsaddr2 = ((s3c_fb_info-&gt;fix.smem_start+320*240*4) &gt;&gt; 1) &amp; 0x1fffff;
+    s3c_lcd_regs-&gt;lcdsaddr3 = 320*4/2;
+
+    /* 使能LCD */
+    s3c_lcd_regs-&gt;lcdcon1 |= (1&lt;&lt;0);
+
+    /* 4. register_framebuffer */
+    printk("%s %d\n", __FUNCTION__, __LINE__);
+    //debug_lcd = 1;
+    register_framebuffer(s3c_fb_info);
+    printk("%s %d\n", __FUNCTION__, __LINE__);
+
+    return 0; 
+}
+
+void s3c_lcd_exit(void)
+{
+    unregister_framebuffer(s3c_fb_info);
+    dma_free_writecombine(NULL, s3c_fb_info-&gt;fix.smem_len, fb_va, s3c_fb_handle);
+    iounmap(s3c_lcd_regs);
+    iounmap(gpccon);
+    iounmap(gpdcon);
+    iounmap(gpgcon);
+    framebuffer_release(s3c_fb_info);
+}
+
+module_init(s3c_lcd_init);
+module_exit(s3c_lcd_exit);
+
+MODULE_LICENSE("GPL");
+</code></pre>
+
+<p>然后把它加入到内核,以静态加载的模式启动.</p>
+
+<p>最后,可以把读取内存jpeg格式数据输出到LCD屏的这部分整合到mjpg-stream或servfox去,就实现了采集图像本地显示了.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-18T07:20:31+08:00" pubdate data-updated="true">Oct 18<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/未分类/'>未分类</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hmgle.github.com/blog/2011/10/18/e5b58ce585a5e5bc8flinuxe59fbae4ba8eframebuffere79a84jpege6a0bce5bc8fe69cace59cb0lcde5b18fe698bee7a4ba/" data-via="" data-counturl="http://hmgle.github.com/blog/2011/10/18/e5b58ce585a5e5bc8flinuxe59fbae4ba8eframebuffere79a84jpege6a0bce5bc8fe69cace59cb0lcde5b18fe698bee7a4ba/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/09/11/servfoxe58886e69e90/" title="Previous Post: servfox分析">&laquo; servfox分析</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/" title="Next Post: 看了这样的makefile">看了这样的makefile &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/">手机号码patch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/">ARM平台下位域结构体的问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/">递归中的改进</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/26/e4b880e6aca1e99da2e8af95/">一次面试</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/">看了这样的makefile</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

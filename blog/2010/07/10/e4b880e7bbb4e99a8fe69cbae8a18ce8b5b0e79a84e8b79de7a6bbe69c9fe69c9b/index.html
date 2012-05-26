@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>一维随机行走的距离期望 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="本文遵从CC版权协议 | by:hmgle 一 问题描述    随机行走(Random walk)问题是许多现象的模型。下面是一个二维随机行走问题的描述：一个醉汉在空旷的广场游走。他走的每一步方向都是随机的，步长为L。经过n步之后，这个醉汉会在哪里？在《从一到无穷大》里，G. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hmgle.github.com/blog/2010/07/10/e4b880e7bbb4e99a8fe69cbae8a18ce8b5b0e79a84e8b79de7a6bbe69c9fe69c9b">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hmgle.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">一维随机行走的距离期望</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-10T22:05:00+08:00" pubdate data-updated="true">Jul 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>本文遵从<a href="http://creativecommons.org/licenses/by/2.5/cn/">CC版权协议</a> | by:<a href="http://sites.google.com/site/shangdang2917">hmgle</a></p>
+
+<p>一 问题描述   </p>
+
+<p>随机行走(Random walk)问题是许多现象的模型。下面是一个二维随机行走问题的描述：一个醉汉在空旷的广场游走。他走的每一步方向都是随机的，步长为L。经过n步之后，这个醉汉会在哪里？在《从一到无穷大》里，G.盖莫夫给出了离出发点可能的距离是L*sqrt(n)。</p>
+
+<p>对于一维随机行走的情况，我们考虑某个质点从数轴原点出发，每步以p=1/2的概率向正方向行走1个单位长度，同样以1/2的概率向负方向行走1个单位长度。这和抛一枚硬币出现正、反面事件的Bernoulli试验是一样的。以X表示行走n步后其中正方向的步数，由概率论的知识我们知道随机变量X服从参数为n,1/2的二项分布，即X~b(n,1/2),以K表示走了n步之后质点的位置坐标，则K := X - ( n - X )，即X := ( n + K )/2。 下面我们来求n步之后离原点的距离的数学期望E(abs(K))。</p>
+
+<p>二 问题分析</p>
+
+<p>n步之后处于坐标k处的走法有binomial(n,(n+i)/2)种，这可以从二项式分布的性质直接得到，这里不再赘述。由对称性知道走到坐标i和到坐标-i的走法是一样多的，再由数学期望的定义我们列出E(abs(K))的表达式</p>
+
+<p>E(abs(K)) = 1/2<sup>n</sup> * sum(binomial(n,(n+i)/2)<em>abs(i),i=-n..n) = 1/2<sup>(n-1)</sup> </em>sum(binomial(n,(n+i)/2)*i,i=1..n)</p>
+
+<p>引理2.1 sum(binomial(n,(n+i)/2)<em>i,i=1..n) = ceil(n/2)</em>binomial(n,ceil(n/2)),n∈Z+.</p>
+
+<p>证明:分别讨论n为偶数和n为奇数的情况：</p>
+
+<p>a.偶数时，考虑sum((binomial(2<em>n,(2</em>n+i)/2)<em>i,i=1..2</em>n),n∈Z+。</p>
+
+<p>sum((binomial(2<em>n,(2</em>n+i)/2)<em>i,i=1..2</em>n) = binomial(2<em>n,n+1)</em>2 + binomial(2<em>n,n+2)</em>4 + &#8230; + binomial(2<em>n,n+n)</em>2<em>n = 2</em>(binomial(2<em>n,n+1)</em>1 + binomial(2<em>n,n+2)</em>2 + &#8230; + binomial(2<em>n,n+n)</em>n)</p>
+
+<p>我们要用到牛顿二项式定理的一个推论：</p>
+
+<p>binomial(2<em>n,0)</em>0 + binomial(2<em>n,1)</em>1 + &#8230; + binomial(2<em>n,2</em>n)<em>2</em>n = n*2<sup>(2*n)</sup></p>
+
+<p>把上式左边分成两部分：</p>
+
+<p>binomial(2<em>n,0)</em>0 + binomial(2<em>n,1)</em>1 + &#8230; + binomial(2<em>n,2</em>n)<em>2</em>n = {binomial(2<em>n,1)</em>1 + binomial(2<em>n,2)</em>2 + &#8230; + binomial(2<em>n,n)</em>n} + {binomial(2<em>n,n+1)</em>(n+1) + binomial(2<em>n,n+2)</em>(n+2) + &#8230; + binomial(2<em>n,n+n)</em>(n+n)}</p>
+
+<p>可以证明被花括号分开的两部分是相等的：我们先证明一个恒等式：binomial(2<em>n,i)</em>i = binomial(2<em>n,2</em>n-i+1)<em>(2</em>n-i+1)。</p>
+
+<p>因为上式左边binomial(2<em>n,i)</em>i = (2<em>n)!/((i!)</em>(2<em>n-i)!)</em>i = (2<em>n)!/((i-1)!</em>(2*n-i)!),</p>
+
+<p>右边binomial(2<em>n,2</em>n-i+1)<em>(2</em>n-i+1) = (2<em>n)!/((2</em>n-i+1)!<em>(i-1)!)</em>(2<em>n-i+1) = (2</em>n)!/((i-1)!<em>(2</em>n-i)!),</p>
+
+<p>左边 = 右边，得证。</p>
+
+<p>于是binomial(2<em>n,1)</em>1 = binomial(2<em>n,n+n)</em>(n+n),binomial(2<em>n,2)</em>2 = binomial(2<em>n,n+n-1)</em>(2<em>n-1),&#8230;,binomial(2</em>n,n)<em>n = binomial(2</em>n,n+1)<em>(n+1),因此：binomial(2</em>n,1)<em>1 + binomial(2</em>n,2)<em>2 + &#8230; + binomial(2</em>n,n)<em>n = binomial(2</em>n,n+1)<em>(n+1) + binomial(2</em>n,n+2)<em>(n+2) + &#8230; + binomial(2</em>n,n+n)*(n+n)，</p>
+
+<p>这样我们得到这个等式：2<em>(binomial(2</em>n,n+1)<em>(n+1) + binomial(2</em>n,n+2)<em>(n+2) + &#8230; + binomial(2</em>n,n+n)<em>(n+n)) = binomial(2</em>n,0)<em>0 + binomial(2</em>n,1)<em>1 + &#8230; + binomial(2</em>n,2<em>n)</em>2<em>n = n</em>2<sup>(2*n)</sup></p>
+
+<p>为达到求解sum((binomial(2<em>n,(2</em>n+i)/2)<em>i,i=1..2</em>n)的目标，进一步分离，得</p>
+
+<p>2<em>(binomial(2</em>n,n+1)<em>(n+1) + binomial(2</em>n,n+2)<em>(n+2) + &#8230; + binomial(2</em>n,n+n)<em>(n+n)) = 2</em>(binomial(2<em>n,n+1)</em>1 +binomial(2<em>n,n+2)</em>2 + &#8230; + binomial(2<em>n,n+n)</em>n) + 2<em>n</em>(binomial(2<em>n,n+1) + binomial(2</em>n,n+2) + &#8230; + (2<em>n,n+n)) = n</em>2<sup>(2*n)   </sup> (1)</p>
+
+<p>由二项式定理我们知道</p>
+
+<p>sum(binomial(2<em>n,i),i=0..2</em>n) = binomial(2<em>n,0) + binomial(2</em>n,1) + &#8230; + binomial(2<em>n,2</em>n) = 2<sup>(2*n)</sup></p>
+
+<p>即</p>
+
+<p>{binomial(2<em>n,0) + binomial(2</em>n,1) + &#8230; + binomial(2<em>n,n-1)} + binomial(2</em>n,n) + {binomial(2<em>n,n+1) + binomial(2</em>n,n+2) + &#8230; + binomial(2<em>n,n+n)} = binomial(2</em>n,n) + 2<em>{binomial(2</em>n,n+1) + binomial(2<em>n,n+2) + &#8230; + binomial(2</em>n,n+n)} = 2<sup>(2*n)</sup></p>
+
+<p>从而</p>
+
+<p>2<em>{binomial(2</em>n,n+1) + binomial(2<em>n,n+2) + &#8230; + binomial(2</em>n,n+n)} = 2<sup>(2*n)</sup> - binomial(2*n,n)    (2)</p>
+
+<p>(2)式代入(1)式，得</p>
+
+<p>2<em>(binomial(2</em>n,n+1)<em>1 +binomial(2</em>n,n+2)<em>2 + &#8230; + binomial(2</em>n,n+n)<em>n) + n</em>(2<sup>(2*n)</sup> - binomial(2<em>n,n)) = n</em>2<sup>(2*n)   </sup> (3)</p>
+
+<p>由(3)式，得到</p>
+
+<p>2<em>(binomial(2</em>n,n+1)<em>1 + binomial(2</em>n,n+2)<em>2 + &#8230; + binomial(2</em>n,n+n)<em>n) = n</em>binomial(2*n,n)</p>
+
+<p>于是</p>
+
+<p>sum((binomial(2<em>n,(2</em>n+i)/2)<em>i,i=1..2</em>n) = n<em>binomial(2</em>n,n)</p>
+
+<p>b.奇数时也一样。考虑sum(binomial(2<em>n+1,(2</em>n+1+i)/2)<em>i,i=1..(2</em>n+1)),n∈{0,1,2,3,&#8230;}。</p>
+
+<p>sum(binomial(2<em>n+1,(2</em>n+1+i)/2)<em>i,i=1..(2</em>n+1)) = binomial(2<em>n+1,n+1)</em>1 + binomial(2<em>n+1,n+2)</em>3 + binomial(2<em>n+1,n+3)</em>5 + &#8230; + binomial(2<em>n+1,2</em>n+1)<em>(2</em>n+1)</p>
+
+<p>由二项式定理</p>
+
+<p>{binomial(2<em>n+1,0) + binomial(2</em>n+1,1) + &#8230; +binomial(2<em>n+1,n)} + {binomial(2</em>n+1,n+1) + binomial(2<em>n+1,n+2) + &#8230; + binomial(2</em>n+1,2*n+1)} = 2<sup>(2*n+1)</sup></p>
+
+<p>花括号分成的两部分相等，于是</p>
+
+<p>{binomial(2<em>n+1,n+1) + binomial(2</em>n+1,n+2) + &#8230; + binomial(2<em>n+1,2</em>n+1)} = 2<sup>(2*n)</sup></p>
+
+<p>所以</p>
+
+<p>binomial(2<em>n+1,n+1)</em>1 + binomial(2<em>n+1,n+2)</em>3 + binomial(2<em>n+1,n+3)</em>5 + &#8230; + binomial(2<em>n+1,2</em>n+1)<em>(2</em>n+1) = (binomial(2<em>n+1,n+1)</em>1 + binomial(2<em>n+1,n+2)</em>2 + &#8230; + binomial(2<em>n+1,2</em>n+1)<em>(n+1))</em>2 - sum(binomial(2<em>n+1,n+i),i=1..n+1) = (binomial(2</em>n+1,n+1)<em>1 + binomial(2</em>n+1,n+2)<em>2 + &#8230; + binomial(2</em>n+1,2<em>n+1)</em>(n+1))*2 - 2<sup>(2*n)</sup></p>
+
+<p>下面我们求(binomial(2<em>n+1,n+1)</em>1 + binomial(2<em>n+1,n+2)</em>2 + &#8230; + binomial(2<em>n+1,2</em>n+1)*(n+1))这部分：</p>
+
+<p>我们知道</p>
+
+<p>sum(binomial(2<em>n+1,i)</em>i,i=0..2<em>n+1) = (2</em>n+1)*2<sup>(2*n)</sup></p>
+
+<p>上式左边可化为相等的两部分与中间项binomial(2<em>n+1,n+1)</em>(n+1)之和</p>
+
+<p>sum(binomial(2<em>n+1,i)</em>i,i=0..2<em>n+1) = 2</em>(sum(binomial(2<em>n+1,n+i)</em>(n+i),i=2..n+1)) + binomial(2<em>n+1,n+1)</em>(n+1) = (2<em>n+1)</em>2<sup>(2*n)</sup></p>
+
+<p>我们就得到了</p>
+
+<p>sum(binomial(2<em>n+1,n+i)</em>i,i=1..n+1) = (2<sup>(2<em>n)+binomial(2</em>n+1,n+1)*(n+1))/2</sup></p>
+
+<p>最后有</p>
+
+<p>sum(binomial(2<em>n+1,n+i)</em>(2<em>i-1),i=1..n+1) = binomial(2</em>n+1,n+1)*(n+1)</p>
+
+<p>综合a,b两种情况，就证明了sum(binomial(n,(n+i)/2)<em>i,i=1..n) = ceil(n/2)</em>binomial(n,ceil(n/2)),n∈Z+.    (QED)</p>
+
+<p>根据引理2.1，我们得到</p>
+
+<p>E(abs(K)) = 1/2<sup>n</sup> * sum(binomial(n,(n+i)/2)<em>abs(i),i=-n..n) = 1/2<sup>(n-1)</sup> </em>sum(binomial(n,(n+i)/2)<em>i,i=1..n) = ceil(n/2)</em>binomial(n,ceil(n/2))/2<sup>(n-1).</sup></p>
+
+<p>当n趋向于无穷大时，由<a href=":http://zh.wikipedia.org/zh-cn/%E6%96%AF%E7%89%B9%E9%9D%88%E5%85%AC%E5%BC%8F">Stirling公式</a>(link:http://zh.wikipedia.org/zh-cn/%E6%96%AF%E7%89%B9%E9%9D%88%E5%85%AC%E5%BC%8F)我们又得到</p>
+
+<p>limit(E(abs(K)),n=infinity) = sqrt(2/pi)*sqrt(n)。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-10T22:05:00+08:00" pubdate data-updated="true">Jul 10<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/流入/'>流入</a>, <a class='category' href='/blog/categories/面壁/'>面壁</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hmgle.github.com/blog/2010/07/10/e4b880e7bbb4e99a8fe69cbae8a18ce8b5b0e79a84e8b79de7a6bbe69c9fe69c9b/" data-via="" data-counturl="http://hmgle.github.com/blog/2010/07/10/e4b880e7bbb4e99a8fe69cbae8a18ce8b5b0e79a84e8b79de7a6bbe69c9fe69c9b/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/10/31/e6b182e5a4a7e695b0e998b6e4b998e79a84e69c80e5908ee4b880e4b8aae99d9ee99bb6e695b0e5ad97/" title="Previous Post: 求大数阶乘的最后一个非零数字">&laquo; 求大数阶乘的最后一个非零数字</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/09/07/e6898be69cbae58fb7e7a081e69bb4e68da2/" title="Next Post: 手机号码更换">手机号码更换 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/">手机号码patch</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/">ARM平台下位域结构体的问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/">递归中的改进</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/26/e4b880e6aca1e99da2e8af95/">一次面试</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/">看了这样的makefile</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

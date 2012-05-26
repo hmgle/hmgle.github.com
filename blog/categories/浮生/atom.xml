@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 浮生 | My Octopress Blog]]></title>
+  <link href="http://hmgle.github.com/blog/categories/浮生/atom.xml" rel="self"/>
+  <link href="http://hmgle.github.com/"/>
+  <updated>2012-05-26T13:57:58+08:00</updated>
+  <id>http://hmgle.github.com/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[神奇的红绿灯]]></title>
+    <link href="http://hmgle.github.com/blog/2011/02/28/e7a59ee5a587e79a84e7baa2e7bbbfe781af/"/>
+    <updated>2011-02-28T00:44:18+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/02/28/e7a59ee5a587e79a84e7baa2e7bbbfe781af</id>
+    <content type="html"><![CDATA[<p>碰到这样的红绿灯，踌躇不前
+<a href="http://hmgle.com/wp-content/uploads/2011/02/022611_002.jpg"><img src="http://hmgle.com/wp-content/uploads/2011/02/022611_002-300x240.jpg" alt="" /></a></p>
+
+<p><a href="http://hmgle.com/wp-content/uploads/2011/02/022611_002.jpg"></a>
+<a href="http://hmgle.com/wp-content/uploads/2011/02/022611_003.jpg"><img src="http://hmgle.com/wp-content/uploads/2011/02/022611_003-300x240.jpg" alt="" /></a>
+总算还有正常的状态：
+<a href="http://hmgle.com/wp-content/uploads/2011/02/022611_004.jpg"><img src="http://hmgle.com/wp-content/uploads/2011/02/022611_004-300x240.jpg" alt="" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hello world！]]></title>
+    <link href="http://hmgle.github.com/blog/2011/02/15/hello-world/"/>
+    <updated>2011-02-15T11:58:26+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/02/15/hello-world</id>
+    <content type="html"><![CDATA[<p>这是导入之前在<a href="http://hi.baidu.com/hmgle">百度空间</a>的博文后在这里写的第一篇文章。之前的文章其实是先将百度空间的内容搬到<a href="http://hmgle.blogbus.com/">blogbus</a>后再从blogbus内导出xml文件然后再在wordpress里安个修正blogbus的不规范的xml文件的导入插件后最后才导进来的，不过图片什么的都没有了。像百度空间之类的连数据导出这个blog必备的基本功能都没有，令人匪夷所思。</p>
+
+<p>其实我基本不写什么blog，人太懒，而且也不太喜欢回忆，它太沉重了。思考过的东西只在脑子里流过，记下来也没有啥价值的，权当为我百无聊赖的生活抹上胡乱的一笔。大家不要在这里逗留太久，这里可没有什么闪烁的光芒，尽管它的名字叫调和的微光，如果是学生应该多上点图书馆，要上也要关注些优秀的blog，比如国内的<a href="http://www.ruanyifeng.com/blog/">阮一峰的网志</a>。要玩的话应该玩些消耗体力培养竞争意识的运动，例如足球篮球之类的，千万别沉迷于滑板魔方之类的伪geek游戏。跑题了，关于这个blog的未来我还是希望它能闪烁些火光出来。我关注人文、科学、哲学及艺术，远离<strong><a href="http://en.wikipedia.org/wiki/Politics">politics</a>。</strong></p>
+
+<p>关于火光，ukim在他的Heroes in my heart的帖子里引用过一个很好的事迹：在一次采访当中，作为数学家的Thom同两位古人类学家讨论问题。谈到远古的人们为什么要保存火种时，一个人类学家说，因为保存火种可以取暖御寒；另外一个人类学家说，因为保存火种可以烧出鲜美的肉食。而Thom说，因为夜幕来临之际，火光摇曳妩媚，灿烂多姿，是最美最美的。</p>
+]]></content>
+  </entry>
+  
+</feed>

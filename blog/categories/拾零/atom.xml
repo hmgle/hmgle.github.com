@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 拾零 | My Octopress Blog]]></title>
+  <link href="http://hmgle.github.com/blog/categories/拾零/atom.xml" rel="self"/>
+  <link href="http://hmgle.github.com/"/>
+  <updated>2012-05-26T13:57:58+08:00</updated>
+  <id>http://hmgle.github.com/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ARM平台下位域结构体的问题]]></title>
+    <link href="http://hmgle.github.com/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/"/>
+    <updated>2012-03-17T15:25:22+08:00</updated>
+    <id>http://hmgle.github.com/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298</id>
+    <content type="html"><![CDATA[<p>最近在做个IP camera, 开发板是Hi3511的. 在写h.264码流封装成rtp包进行网络传输时, 出问题了: 在客户端用vlc看不到期待的画面. 用wireshark抓包, 把源源不断的rtp包拆包一看, 竟然没有fu-a包, 全是单个的nal包. 而输入的nalu基本都是大于最大传输单元MTU的, 需要分解成fu-a包的形式. 通过测试发现, 问题出现在设置fu分片包的indicator和header上. 再往下分析, 得到在ARM平台下令人惊奇的现象. 假如我们有下面代码:</p>
+
+<p>[php lang_name="C"]</p>
+
+<h1>include &lt;stdint.h></h1>
+
+<p>typedef struct fu_indicator {</p>
+
+<pre><code>uint8_t type: 5;
+uint8_t nri: 2;
+uint8_t f: 1;
+</code></pre>
+
+<p>} fu_indicator_t;</p>
+
+<p>int main(int argc, char **argv)
+{</p>
+
+<pre><code>uint8_t n = 7;
+fu_indicator_t *pstf;
+
+pstf = (fu_indicator_t *) &amp;n;
+pstf-&gt;type = 0x0f;
+printf("now n is %d\n", n);
+return 0;
+</code></pre>
+
+<p>}
+[/php]
+以上代码在x86平台上运行结果正如预想的一样, 但在arm平台下就不一样了, 结果竟然是n变成0了. 看汇编内容:
+[php lang_name="C"]
+main:
+@ args = 0, pretend = 0, frame = 12
+@ frame_needed = 1, uses_anonymous_args = 0
+mov ip, sp
+stmfd sp!, {fp, ip, lr, pc}
+sub fp, ip, #4
+sub sp, sp, #12
+mov r3, #7
+strb r3, [fp, #-13]     @ 在内存单元[fp, #-13]地址上保存n=7
+sub r3, fp, #13         @ r3放n的地址
+str r3, [fp, #-20]      @ 将n的地址保存在内存单元[fp, #-20]上, 即pstf的地址
+ldr r2, [fp, #-20]      @ 将n的地址加载到r2上
+ldr r1, [r2, #0]        @ 将[r2, #0]的内容即n = 7加载到r1上
+str r1, [fp, #-24]      @ 将r1即n = 7保存在[fp, #-24]上
+ldr r1, [fp, #-24]      @ 加载地址[fp, #-24]的内容即n = 7到r1
+bic r3, r1, #16         @ 将n &amp; ~0x10 = 7 放在r3
+orr r3, r3, #15         @ 将7 | 15 = 15 放在r3
+str r3, [fp, #-24]      @ 将结果r3 = 15 保存在内存单元[fp, #-24]
+ldr r3, [fp, #-24]      @ 加载[fp, #-24] = 15 到r3
+str r3, [r2, #0]        @ 保存r3 = 15 到 n的地址[r2, #0]上, 之后n应该=15
+ldrb r3, [fp, #-13]     @ zero_extendqisi2
+mov r0, r3
+sub sp, fp, #12
+ldmfd sp, {fp, sp, pc}
+.size main, .-main
+.ident "GCC: (GNU) 3.4.3 (release) (CodeSourcery ARM Q3cvs 2004)"
+[/php]
+汇编代码文件看起来没有问题, 但问题是程序跑出来的结果n是不等于15的. 这说明出现问题的阶段是发生在编译阶段之后的, 也许是汇编阶段, 也许是链接阶段. 据老夫多年行医经验来看, 汇编阶段不过是将汇编指令的机器码查找出翻译成机器码就可以了, 像查英汉字典一样有固定解释, 很少有出错的可能, 基本可诊断为问题出现在链接阶段, 而像地址分配, 内存对齐,重定位等都在这一阶段完成.
+接下来用sizeof(fu_indicator_t)一看, 在ARM平台上竟然是4, 不是x86平台下的1了. 我试着改这个结构体里面各个位域的不同值发现, 各个位域的位置是随机的呀! 连顺序都会改变呢! 就是说这个结构体的位域的位置连顺序也不保证. 你见过一个结构体的比特序都会变化的吗? 当fu_indicator结构体里面的type位于后三个字节的时候当然就不是我预想的结果了.</p>
+
+<p>解决办法: 强制这个结构体按最紧凑的方式对齐, 可以在声明fu_indicator结构体后加入"<strong>attribute</strong> ((packed))" 或在Makefile里的加编译选项"-fpack-struct", 这样fu_indicator结构体的长度就为1字节了, 比特顺序也能得到保证. 或按最保险的方法: 放弃用位域这种结构, 而直接用按位操作来代替.</p>
+
+<p>总结: 位域这种结构移植性是非常差的. C语言参考手册说了: 依赖于存储策略是危险的, 原因有几个. 1, 不同的计算机对数据类型的对齐限制不同. 2, 位字段宽度的限制不同. 3, 字节序不同. 甚至比特序也不同, 像上面的例子在arm平台就在同一个结构体上出现了截然相反的比特序. 如处于移植性考虑, 尽量不要用位域这种结构体来实现设置位的操作, 而是直接用按位操作.</p>
+
+<p>另: 从这个<a href="http://www.linuxforum.net/forum/printthread.php?Cat=&amp;Board=embedded&amp;main=535759&amp;type=thread">帖子</a>来看, 这个问题还和GCC的版本有关.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[递归中的改进]]></title>
+    <link href="http://hmgle.github.com/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/"/>
+    <updated>2012-01-12T04:57:30+08:00</updated>
+    <id>http://hmgle.github.com/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b</id>
+    <content type="html"><![CDATA[<p>在<a href="http://hmgle.com/archives/204">上一篇</a>(<a href="http://hmgle.com/archives/204">一次面试</a>)中, 我用递归实现了输出所有可接受序列的排队方法. 后来, 我意识到, 在递归中, 频繁地申请内存来存储新增加的可接受序列的字符串, 再释放掉这片存储区域的方法是不必要的. 因为在递归中每调用一次新的递归后, 这时的可接受序列的字符串前面部分是一样的, 可以每次调用递归函数都用这块存储区域. 这时我们就不能用strcat()函数来加入新的字符了, 而是要先计算出目前要修改的字符的位置(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)), 然后直接在这个位置上修改要加入的字符. 改进后的代码如下:
+[php lang_name="C"]</p>
+
+<h1>include</h1>
+
+<h1>include</h1>
+
+<h1>include</h1>
+
+<h1>include</h1>
+
+<h1>define USEMALLOC   0</h1>
+
+<p>static unsigned int COUNT = 0;</p>
+
+<p>static void
+sale_ticket(int num_of_push_fiftycents, int sum_of_fiftycents_inbox, char *pstr, const int num_of_fiftycents)
+{</p>
+
+<pre><code>/*
+ * 若钱箱内五角钱币为空, 且还有五毛游客排队时, 
+ * 则下次只能接受五毛游客购票
+ */
+if (sum_of_fiftycents_inbox == 0 &amp;&amp; num_of_push_fiftycents &lt; num_of_fiftycents) {
+</code></pre>
+
+<h1>if USEMALLOC</h1>
+
+<pre><code>    strcat(pstr, "F");  /* 把"F"加到字符串尾部表示有五角进了售票员的钱箱 */
+</code></pre>
+
+<h1>else</h1>
+
+<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'F';
+</code></pre>
+
+<h1>endif</h1>
+
+<pre><code>    sale_ticket(num_of_push_fiftycents + 1, 1, pstr, num_of_fiftycents);
+}
+
+/*
+ * 若钱箱内五毛钱币非空, 且还有五毛游客排队,
+ * 则下次可以接受两种游客的购票请求
+ */
+if (sum_of_fiftycents_inbox &gt; 0 &amp;&amp; num_of_push_fiftycents &lt; num_of_fiftycents) {
+    /* 情况1: 下一张票卖给1元游客 */
+</code></pre>
+
+<h1>if USEMALLOC</h1>
+
+<pre><code>    strcat(pstr, "T");  /* 把"T"加到字符串尾部表示有1元进了售票员的钱箱 */
+</code></pre>
+
+<h1>else</h1>
+
+<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'T';
+</code></pre>
+
+<h1>endif</h1>
+
+<pre><code>    sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_inbox - 1, pstr, num_of_fiftycents);
+
+    /* 情况2: 下一张票卖给五毛游客 */
+</code></pre>
+
+<h1>if USEMALLOC</h1>
+
+<pre><code>    strcat(pstr, "F");
+</code></pre>
+
+<h1>else</h1>
+
+<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'F';
+</code></pre>
+
+<h1>endif</h1>
+
+<pre><code>    sale_ticket(num_of_push_fiftycents + 1, sum_of_fiftycents_inbox + 1, pstr, num_of_fiftycents);
+}
+
+/* 
+ * 排队的只剩下手持一元的游客,
+ * 下一张票只能卖给这类游客了
+ */
+if (sum_of_fiftycents_inbox &gt; 0 &amp;&amp; num_of_push_fiftycents == num_of_fiftycents) {
+</code></pre>
+
+<h1>if USEMALLOC</h1>
+
+<pre><code>    strcat(pstr, "T");
+</code></pre>
+
+<h1>else</h1>
+
+<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'T';
+</code></pre>
+
+<h1>endif</h1>
+
+<pre><code>    sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_inbox - 1, pstr, num_of_fiftycents);
+}
+
+/*
+ * 当所有游客都买到票了,
+ * 则输出之前记录的买票顺序字符串
+ */
+if (sum_of_fiftycents_inbox == 0 &amp;&amp; num_of_push_fiftycents &gt;= num_of_fiftycents) {
+    COUNT++;
+    printf("%s\n", pstr);
+    return;
+}
+</code></pre>
+
+<p>}</p>
+
+<p>int
+main(int argc, char **argv)
+{</p>
+
+<pre><code>char *prt;
+int max_push;   /* 五毛游客数, 即五毛进钱箱的最大次数 */
+
+if (argc &lt; 2) {
+    fprintf(stderr, "usage: %s num\n", argv[0]);
+    exit(0);
+}
+max_push = atoi(argv[1]);
+</code></pre>
+
+<h1>if 0</h1>
+
+<pre><code>if (max_push &lt;= 0) {
+    fprintf(stderr, "usage: %s num\n", argv[0]);
+    exit(0);
+}
+</code></pre>
+
+<h1>endif</h1>
+
+<pre><code>if ((prt = malloc(2 * max_push + 1)) == NULL) {
+    perror("main: malloc");
+    exit(1);
+}
+memset(prt, 0, 2 * max_push + 1);
+
+sale_ticket(0, 0, prt, max_push);
+printf("The total number is: %d\n", COUNT);
+free(prt);
+
+return 0;
+</code></pre>
+
+<p>}
+[/php]</p>
+
+<p>不过, 频繁的申请, 释放内存并不是这个程序的瓶颈. 修改后的程序运行时间基本是和原来一样的. 原因之一是每一次调用malloc申请到的其实是同一片区域, 没有调用到sbrk()申请过一片大的存储区域. 另一个原因是递归实在是效率低下, 没有留给别的东西当瓶颈的机会.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一次面试]]></title>
+    <link href="http://hmgle.github.com/blog/2011/12/26/e4b880e6aca1e99da2e8af95/"/>
+    <updated>2011-12-26T15:19:52+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/12/26/e4b880e6aca1e99da2e8af95</id>
+    <content type="html"><![CDATA[<p>上周六(12.24)去X公司面试, 打了趟酱油. 收获还是有的.</p>
+
+<p>上午十点来到X公司. 先是笔试: 题目类型是Linux C++的, 120分钟. 题目还记得些.</p>
+
+<p>前面几题是问答题: 1.Linux下malloc函数的实现. 只依稀记得 K&amp;R 里大概提了下. 2. errno的作用及实现. 实现我还真不知道怎么答. 3. sync命令的作用. 简单的说: 同步缓冲区数据到设备. 4. 好象是问TCP连接中如何确定send的数据被接收方全部接受完. 不知道是不是通过接收方对数据包进行对齐检校后再回应发送方而实现的. TCP是可靠连接嘛. 5. Linux中线程和进程的异同. 这个问题每一本讲Linux编程的书应该都有详细解释. 然后是几道编程题: 前面3题都是简单的字符串操作之类的, 没什么好说的. 看到第4题的时候觉得有点意思了:</p>
+
+<pre><code>  某公园门票5角, 有5个游客手里有且仅有一张5角纸币,
+  另外5个游客手里有且仅有一张1元纸币. 售票员手中
+  没有任何纸币. 设计一个程序演示这10个游客可使售票员
+  能顺利找零的所有排队方法.
+  例如 "5 5 5 5 5 10 10 10 10 10" 这种方法就能顺利找零.
+</code></pre>
+
+<p>这题看起来眼熟了(后来回来才回忆起在Richard.A.Brualdi的那本组合数学里看的, 著名的Catalan数呀). 当时老是想去带吸收壁的随机行走问题去了, 其实就是同样问题的不同阐述而已, 不同阐述的Catalan问题还多着呢: 元素的进栈出栈具体有哪些方式, 列举n对括号的所有合法方式, 将凸多边形划分成三角形区域的方法等等, 举不胜举.
+题目说演示, 那就把所有的可接受序列打印出来吧. 我想着想着就想到用递归实现, 不过当时根本没有划分清楚不同的状态: 比如售票员手中有几张5角的票, 还有几个五毛游客在排队等等. 因此没写明白. 回去捋了下, 果然用递归实现是很易理解的, 而且容易扩展: 比如<del>再加几种类型的纸币也可以很容易修改程序使之继续可用</del>(钱币类型多的话不是想象中的那么容易的). 不过缺点就是递归效率太低. 因为字符串 "10" 太长了, 所以就用 "T" 表示手持1元的游客购票, 用 "F" 表示持有5角的游客购票. 把 "F" 替换成 "(", 把 "T" 替换成 ")" 就是列出所有合法的括号配对方法了. 代码如下:</p>
+
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;errno.h&gt;
+
+static unsigned int COUNT = 0;
+
+void sale_ticket(int num_of_push_fiftycents, int sum_of_fiftycents_instack, char *pstr, const int max_push)
+{
+    /*
+     * 若钱箱内五角钱币为空， 且还有持有五角的游客排队时，则下次
+     * 只能接受五角游客购票。
+     */
+    if (sum_of_fiftycents_instack == 0 &amp;&amp; num_of_push_fiftycents &lt; max_push) {
+        strcat(pstr, "F");      /* 把F加到字符串尾部表示有五角进了售票员的钱箱 */
+        sale_ticket(num_of_push_fiftycents + 1, 1, pstr, max_push);
+    }
+
+    /*
+     * 若钱箱内五角钱币非空， 且还有持有五角的游客排队时， 则下次
+     * 可以接受两种游客的购票要求。
+     */
+    if (sum_of_fiftycents_instack &gt; 0 &amp;&amp; num_of_push_fiftycents &lt; max_push) {
+        /* 情况1：下一个游客是1元党 */
+        char *new_pstr;
+        if ((new_pstr = malloc(2 * max_push + 1)) == NULL) {
+            perror("sale_ticket: malloc");
+            exit(1);
+        }
+        strcpy(new_pstr, pstr);
+        strcat(new_pstr, "T");  /* 把T加到字符串尾部表示有五角出了钱箱， 即找零 */
+
+        COUNT++;            /* 又多了一种可接受的排队方案 */
+        sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_instack - 1, new_pstr, max_push);
+
+        /* 情况2：下一个购票的是五毛 */
+        strcat(pstr, "F");
+        sale_ticket(num_of_push_fiftycents + 1, sum_of_fiftycents_instack + 1, pstr, max_push);
+    }
+
+    /*
+     * 当只剩下一元党在排队购票时，下一个购票的必然是一元的了
+     */
+    if (sum_of_fiftycents_instack &gt; 0 &amp;&amp; num_of_push_fiftycents == max_push) {
+        strcat(pstr, "T");
+        sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_instack - 1, pstr, max_push);
+    }
+
+    /*
+     * 当五毛入钱箱次数等于持有五毛游客的数量，
+     * 且钱箱内五角钱币为空时， 表明到达了边界，
+     * 则输出之前记录的买票顺序字符串. 并释放
+     * 内存, 返回.
+     */
+    if (num_of_push_fiftycents == max_push &amp;&amp; sum_of_fiftycents_instack == 0) {
+        printf("%s\n", pstr);
+        free(pstr);
+        return;
+    }
+}
+
+int main(int argc, char **argv)
+{
+    char *prt;
+    int max_push;   /* 五毛游客数, 即五毛进钱箱的最大次数 */
+
+    if (argc &lt; 2) {
+        fprintf(stderr, "usage: %s num\n", argv[0]);
+        exit(0);
+    }
+    max_push = atoi(argv[1]);
+    if (max_push &gt; 0)
+        COUNT++;
+    if ((prt = malloc(2 * max_push + 1)) == NULL) {
+        perror("main: malloc");
+        exit(1);
+    }
+    memset(prt, 0, 2 * max_push + 1);
+
+    sale_ticket(0, 0, prt, max_push);
+    printf("The total number is: %d\n", COUNT);
+    return 0;
+}
+</code></pre>
+
+<p>输入程序名后加数字即运行. 设置的数字不要超过16, 根据卡特兰数的一般项公式: Cn = (2*n)!/((n+1)! n!) . 第16项为35357670, 把所有可接受的排队顺序字符串输出需要1.1G的空间! 在我机器上大概10秒才运行完. 输入5的情况见这里:<a href="http://codepad.org/VKu9Bbb8">http://codepad.org/VKu9Bbb8</a></p>
+
+<p>最后一题问的是如何排查一个程序的瓶颈. 很惭愧我不知道.</p>
+
+<p>下午项目面试: 走进X公司的内部, 里面环境出乎我意料: 像个饭馆, 看上去挺惬意的, 不过里面没有人逗留. 最后面试官问了如何用多路复用改进我目前接触的项目(面试官技术不错, 听我稍微介绍完项目后就看出用定时轮询的方式耗资源).只要和网络开发有关的一般都会问到多路复用: select和poll机制. 这次果然也是. 结果没答明白. 拿了盒冬瓜茶就被叫回去了.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[文本编辑器的正则表达式]]></title>
+    <link href="http://hmgle.github.com/blog/2010/12/25/e69687e69cace7bc96e8be91e599a8e79a84e6ada3e58899e8a1a8e8bebee5bc8f/"/>
+    <updated>2010-12-25T22:46:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2010/12/25/e69687e69cace7bc96e8be91e599a8e79a84e6ada3e58899e8a1a8e8bebee5bc8f</id>
+    <content type="html"><![CDATA[<p>我之前主要用gedit和Notepad++。现在发现在编辑器里搜索像(?&lt;!\d)\d{3}这样的模式，试了很多文本编辑器都有问题，例如emeditor,MadEdit,UltraEdi都是同样的问题：零宽度断言部分和后面部分同样类型的时候就不行了，而notepad++好像不支持零宽度断言。另外MadEdit v0.2.9.1版使用正则表达式搜索<sup>的话，计算次数时会直接死掉。VIM倒是可以做到，用/(\d)\@&lt;!\d{3}，但VIM不好上手。问在Windows下，除了Vim和Emacs外，还有别的文本编辑器（不用插件）可以匹配到这种模式吗？</sup></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[求大数阶乘的最后一个非零数字]]></title>
+    <link href="http://hmgle.github.com/blog/2009/10/31/e6b182e5a4a7e695b0e998b6e4b998e79a84e69c80e5908ee4b880e4b8aae99d9ee99bb6e695b0e5ad97/"/>
+    <updated>2009-10-31T22:04:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2009/10/31/e6b182e5a4a7e695b0e998b6e4b998e79a84e69c80e5908ee4b880e4b8aae99d9ee99bb6e695b0e5ad97</id>
+    <content type="html"><![CDATA[<p><a href="http://www.mathpages.com/home/kmath489.htm">http://www.mathpages.com/home/kmath489.htm</a></p>
+]]></content>
+  </entry>
+  
+</feed>

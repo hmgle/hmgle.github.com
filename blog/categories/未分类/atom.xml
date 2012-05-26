@@ -1,653 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>My Octopress Blog</title>
-  <meta name="author" content="Your Name">
-
-  
-  <meta name="description" content="昨天更换手机号码了. 原号码不再使用. 如何获取我的新号码 如果存有我原来的号码: 以原号码为参数运行下面的脚本
-[php lang_name=&#8221;shell&#8221;] !/bin/sh if [ &#8220;$#&#8221; -ne 1 ] ; then
-echo &# &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://hmgle.github.com">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">My Octopress Blog</a></h1>
-  
-    <h2>A blogging framework for hackers.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:hmgle.github.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Category: 未分类 | My Octopress Blog]]></title>
+  <link href="http://hmgle.github.com/blog/categories/未分类/atom.xml" rel="self"/>
+  <link href="http://hmgle.github.com/"/>
+  <updated>2012-05-26T13:57:58+08:00</updated>
+  <id>http://hmgle.github.com/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/">手机号码patch</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2012-05-01T00:50:10+08:00" pubdate data-updated="true">May 1<span>st</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>昨天更换手机号码了. 原号码不再使用.</p>
-
-<h3>如何获取我的新号码</h3>
-
-<ul>
-<li><ol>
-<li>如果存有我原来的号码: 以原号码为参数运行下面的脚本
-[php lang_name=&#8221;shell&#8221;]
-
-<h1>!/bin/sh</h1>
-
-<p>if [ &#8220;$#&#8221; -ne 1 ] ; then
-echo &#8220;Usage: $0 my_old_num&#8221;;
-exit 1;
-fi
-echo <code>expr $1 + \</code>echo -n MjI2MDgyMDIxNgo= | base64 -d&#8220;
-[/php]</p></li>
-</ol>
-</li>
-<li><ol>
-<li>如果没有我原来的号码: 在页面<a href="http_//hmgle.com/archives/21.html">手机号码更换</a>获取我以前的号码, 然后跳转到1.</li>
-</ol>
-</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/">ARM平台下位域结构体的问题</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-17T15:25:22+08:00" pubdate data-updated="true">Mar 17<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>最近在做个IP camera, 开发板是Hi3511的. 在写h.264码流封装成rtp包进行网络传输时, 出问题了: 在客户端用vlc看不到期待的画面. 用wireshark抓包, 把源源不断的rtp包拆包一看, 竟然没有fu-a包, 全是单个的nal包. 而输入的nalu基本都是大于最大传输单元MTU的, 需要分解成fu-a包的形式. 通过测试发现, 问题出现在设置fu分片包的indicator和header上. 再往下分析, 得到在ARM平台下令人惊奇的现象. 假如我们有下面代码:</p>
-
-<p>[php lang_name=&#8221;C&#8221;]</p>
-
-<h1>include &lt;stdint.h></h1>
-
-<p>typedef struct fu_indicator {</p>
-
-<pre><code>uint8_t type: 5;
-uint8_t nri: 2;
-uint8_t f: 1;
-</code></pre>
-
-<p>} fu_indicator_t;</p>
-
-<p>int main(int argc, char **argv)
-{</p>
-
-<pre><code>uint8_t n = 7;
-fu_indicator_t *pstf;
-
-pstf = (fu_indicator_t *) &amp;n;
-pstf-&gt;type = 0x0f;
-printf("now n is %d\n", n);
-return 0;
-</code></pre>
-
-<p>}
-[/php]
-以上代码在x86平台上运行结果正如预想的一样, 但在arm平台下就不一样了, 结果竟然是n变成0了. 看汇编内容:
-[php lang_name=&#8221;C&#8221;]
-main:
-@ args = 0, pretend = 0, frame = 12
-@ frame_needed = 1, uses_anonymous_args = 0
-mov ip, sp
-stmfd sp!, {fp, ip, lr, pc}
-sub fp, ip, #4
-sub sp, sp, #12
-mov r3, #7
-strb r3, [fp, #-13]     @ 在内存单元[fp, #-13]地址上保存n=7
-sub r3, fp, #13         @ r3放n的地址
-str r3, [fp, #-20]      @ 将n的地址保存在内存单元[fp, #-20]上, 即pstf的地址
-ldr r2, [fp, #-20]      @ 将n的地址加载到r2上
-ldr r1, [r2, #0]        @ 将[r2, #0]的内容即n = 7加载到r1上
-str r1, [fp, #-24]      @ 将r1即n = 7保存在[fp, #-24]上
-ldr r1, [fp, #-24]      @ 加载地址[fp, #-24]的内容即n = 7到r1
-bic r3, r1, #16         @ 将n &amp; ~0x10 = 7 放在r3
-orr r3, r3, #15         @ 将7 | 15 = 15 放在r3
-str r3, [fp, #-24]      @ 将结果r3 = 15 保存在内存单元[fp, #-24]
-ldr r3, [fp, #-24]      @ 加载[fp, #-24] = 15 到r3
-str r3, [r2, #0]        @ 保存r3 = 15 到 n的地址[r2, #0]上, 之后n应该=15
-ldrb r3, [fp, #-13]     @ zero_extendqisi2
-mov r0, r3
-sub sp, fp, #12
-ldmfd sp, {fp, sp, pc}
-.size main, .-main
-.ident &#8220;GCC: (GNU) 3.4.3 (release) (CodeSourcery ARM Q3cvs 2004)&#8221;
-[/php]
-汇编代码文件看起来没有问题, 但问题是程序跑出来的结果n是不等于15的. 这说明出现问题的阶段是发生在编译阶段之后的, 也许是汇编阶段, 也许是链接阶段. 据老夫多年行医经验来看, 汇编阶段不过是将汇编指令的机器码查找出翻译成机器码就可以了, 像查英汉字典一样有固定解释, 很少有出错的可能, 基本可诊断为问题出现在链接阶段, 而像地址分配, 内存对齐,重定位等都在这一阶段完成.
-接下来用sizeof(fu_indicator_t)一看, 在ARM平台上竟然是4, 不是x86平台下的1了. 我试着改这个结构体里面各个位域的不同值发现, 各个位域的位置是随机的呀! 连顺序都会改变呢! 就是说这个结构体的位域的位置连顺序也不保证. 你见过一个结构体的比特序都会变化的吗? 当fu_indicator结构体里面的type位于后三个字节的时候当然就不是我预想的结果了.</p>
-
-<p>解决办法: 强制这个结构体按最紧凑的方式对齐, 可以在声明fu_indicator结构体后加入&#8221;<strong>attribute</strong> ((packed))&#8221; 或在Makefile里的加编译选项&#8221;-fpack-struct&#8221;, 这样fu_indicator结构体的长度就为1字节了, 比特顺序也能得到保证. 或按最保险的方法: 放弃用位域这种结构, 而直接用按位操作来代替.</p>
-
-<p>总结: 位域这种结构移植性是非常差的. C语言参考手册说了: 依赖于存储策略是危险的, 原因有几个. 1, 不同的计算机对数据类型的对齐限制不同. 2, 位字段宽度的限制不同. 3, 字节序不同. 甚至比特序也不同, 像上面的例子在arm平台就在同一个结构体上出现了截然相反的比特序. 如处于移植性考虑, 尽量不要用位域这种结构体来实现设置位的操作, 而是直接用按位操作.</p>
-
-<p>另: 从这个<a href="http://www.linuxforum.net/forum/printthread.php?Cat=&amp;Board=embedded&amp;main=535759&amp;type=thread">帖子</a>来看, 这个问题还和GCC的版本有关.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/">递归中的改进</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-12T04:57:30+08:00" pubdate data-updated="true">Jan 12<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在<a href="http://hmgle.com/archives/204">上一篇</a>(<a href="http://hmgle.com/archives/204">一次面试</a>)中, 我用递归实现了输出所有可接受序列的排队方法. 后来, 我意识到, 在递归中, 频繁地申请内存来存储新增加的可接受序列的字符串, 再释放掉这片存储区域的方法是不必要的. 因为在递归中每调用一次新的递归后, 这时的可接受序列的字符串前面部分是一样的, 可以每次调用递归函数都用这块存储区域. 这时我们就不能用strcat()函数来加入新的字符了, 而是要先计算出目前要修改的字符的位置(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)), 然后直接在这个位置上修改要加入的字符. 改进后的代码如下:
-[php lang_name=&#8221;C&#8221;]</p>
-
-<h1>include</h1>
-
-<h1>include</h1>
-
-<h1>include</h1>
-
-<h1>include</h1>
-
-<h1>define USEMALLOC   0</h1>
-
-<p>static unsigned int COUNT = 0;</p>
-
-<p>static void
-sale_ticket(int num_of_push_fiftycents, int sum_of_fiftycents_inbox, char *pstr, const int num_of_fiftycents)
-{</p>
-
-<pre><code>/*
- * 若钱箱内五角钱币为空, 且还有五毛游客排队时, 
- * 则下次只能接受五毛游客购票
- */
-if (sum_of_fiftycents_inbox == 0 &amp;&amp; num_of_push_fiftycents &lt; num_of_fiftycents) {
-</code></pre>
-
-<h1>if USEMALLOC</h1>
-
-<pre><code>    strcat(pstr, "F");  /* 把"F"加到字符串尾部表示有五角进了售票员的钱箱 */
-</code></pre>
-
-<h1>else</h1>
-
-<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'F';
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>    sale_ticket(num_of_push_fiftycents + 1, 1, pstr, num_of_fiftycents);
-}
-
-/*
- * 若钱箱内五毛钱币非空, 且还有五毛游客排队,
- * 则下次可以接受两种游客的购票请求
- */
-if (sum_of_fiftycents_inbox &gt; 0 &amp;&amp; num_of_push_fiftycents &lt; num_of_fiftycents) {
-    /* 情况1: 下一张票卖给1元游客 */
-</code></pre>
-
-<h1>if USEMALLOC</h1>
-
-<pre><code>    strcat(pstr, "T");  /* 把"T"加到字符串尾部表示有1元进了售票员的钱箱 */
-</code></pre>
-
-<h1>else</h1>
-
-<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'T';
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>    sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_inbox - 1, pstr, num_of_fiftycents);
-
-    /* 情况2: 下一张票卖给五毛游客 */
-</code></pre>
-
-<h1>if USEMALLOC</h1>
-
-<pre><code>    strcat(pstr, "F");
-</code></pre>
-
-<h1>else</h1>
-
-<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'F';
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>    sale_ticket(num_of_push_fiftycents + 1, sum_of_fiftycents_inbox + 1, pstr, num_of_fiftycents);
-}
-
-/* 
- * 排队的只剩下手持一元的游客,
- * 下一张票只能卖给这类游客了
- */
-if (sum_of_fiftycents_inbox &gt; 0 &amp;&amp; num_of_push_fiftycents == num_of_fiftycents) {
-</code></pre>
-
-<h1>if USEMALLOC</h1>
-
-<pre><code>    strcat(pstr, "T");
-</code></pre>
-
-<h1>else</h1>
-
-<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'T';
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>    sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_inbox - 1, pstr, num_of_fiftycents);
-}
-
-/*
- * 当所有游客都买到票了,
- * 则输出之前记录的买票顺序字符串
- */
-if (sum_of_fiftycents_inbox == 0 &amp;&amp; num_of_push_fiftycents &gt;= num_of_fiftycents) {
-    COUNT++;
-    printf("%s\n", pstr);
-    return;
-}
-</code></pre>
-
-<p>}</p>
-
-<p>int
-main(int argc, char **argv)
-{</p>
-
-<pre><code>char *prt;
-int max_push;   /* 五毛游客数, 即五毛进钱箱的最大次数 */
-
-if (argc &lt; 2) {
-    fprintf(stderr, "usage: %s num\n", argv[0]);
-    exit(0);
-}
-max_push = atoi(argv[1]);
-</code></pre>
-
-<h1>if 0</h1>
-
-<pre><code>if (max_push &lt;= 0) {
-    fprintf(stderr, "usage: %s num\n", argv[0]);
-    exit(0);
-}
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>if ((prt = malloc(2 * max_push + 1)) == NULL) {
-    perror("main: malloc");
-    exit(1);
-}
-memset(prt, 0, 2 * max_push + 1);
-
-sale_ticket(0, 0, prt, max_push);
-printf("The total number is: %d\n", COUNT);
-free(prt);
-
-return 0;
-</code></pre>
-
-<p>}
-[/php]</p>
-
-<p>不过, 频繁的申请, 释放内存并不是这个程序的瓶颈. 修改后的程序运行时间基本是和原来一样的. 原因之一是每一次调用malloc申请到的其实是同一片区域, 没有调用到sbrk()申请过一片大的存储区域. 另一个原因是递归实在是效率低下, 没有留给别的东西当瓶颈的机会.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/26/e4b880e6aca1e99da2e8af95/">一次面试</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-26T15:19:52+08:00" pubdate data-updated="true">Dec 26<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>上周六(12.24)去X公司面试, 打了趟酱油. 收获还是有的.</p>
-
-<p>上午十点来到X公司. 先是笔试: 题目类型是Linux C++的, 120分钟. 题目还记得些.</p>
-
-<p>前面几题是问答题: 1.Linux下malloc函数的实现. 只依稀记得 K&amp;R 里大概提了下. 2. errno的作用及实现. 实现我还真不知道怎么答. 3. sync命令的作用. 简单的说: 同步缓冲区数据到设备. 4. 好象是问TCP连接中如何确定send的数据被接收方全部接受完. 不知道是不是通过接收方对数据包进行对齐检校后再回应发送方而实现的. TCP是可靠连接嘛. 5. Linux中线程和进程的异同. 这个问题每一本讲Linux编程的书应该都有详细解释. 然后是几道编程题: 前面3题都是简单的字符串操作之类的, 没什么好说的. 看到第4题的时候觉得有点意思了:</p>
-
-<pre><code>  某公园门票5角, 有5个游客手里有且仅有一张5角纸币,
-  另外5个游客手里有且仅有一张1元纸币. 售票员手中
-  没有任何纸币. 设计一个程序演示这10个游客可使售票员
-  能顺利找零的所有排队方法.
-  例如 "5 5 5 5 5 10 10 10 10 10" 这种方法就能顺利找零.
-</code></pre>
-
-<p>这题看起来眼熟了(后来回来才回忆起在Richard.A.Brualdi的那本组合数学里看的, 著名的Catalan数呀). 当时老是想去带吸收壁的随机行走问题去了, 其实就是同样问题的不同阐述而已, 不同阐述的Catalan问题还多着呢: 元素的进栈出栈具体有哪些方式, 列举n对括号的所有合法方式, 将凸多边形划分成三角形区域的方法等等, 举不胜举.
-题目说演示, 那就把所有的可接受序列打印出来吧. 我想着想着就想到用递归实现, 不过当时根本没有划分清楚不同的状态: 比如售票员手中有几张5角的票, 还有几个五毛游客在排队等等. 因此没写明白. 回去捋了下, 果然用递归实现是很易理解的, 而且容易扩展: 比如<del>再加几种类型的纸币也可以很容易修改程序使之继续可用</del>(钱币类型多的话不是想象中的那么容易的). 不过缺点就是递归效率太低. 因为字符串 &#8220;10&#8221; 太长了, 所以就用 &#8220;T&#8221; 表示手持1元的游客购票, 用 &#8220;F&#8221; 表示持有5角的游客购票. 把 &#8220;F&#8221; 替换成 &#8220;(&#8220;, 把 &#8220;T&#8221; 替换成 &#8220;)&#8221; 就是列出所有合法的括号配对方法了. 代码如下:</p>
-
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include &lt;errno.h&gt;
-
-static unsigned int COUNT = 0;
-
-void sale_ticket(int num_of_push_fiftycents, int sum_of_fiftycents_instack, char *pstr, const int max_push)
-{
-    /*
-     * 若钱箱内五角钱币为空， 且还有持有五角的游客排队时，则下次
-     * 只能接受五角游客购票。
-     */
-    if (sum_of_fiftycents_instack == 0 &amp;&amp; num_of_push_fiftycents &lt; max_push) {
-        strcat(pstr, "F");      /* 把F加到字符串尾部表示有五角进了售票员的钱箱 */
-        sale_ticket(num_of_push_fiftycents + 1, 1, pstr, max_push);
-    }
-
-    /*
-     * 若钱箱内五角钱币非空， 且还有持有五角的游客排队时， 则下次
-     * 可以接受两种游客的购票要求。
-     */
-    if (sum_of_fiftycents_instack &gt; 0 &amp;&amp; num_of_push_fiftycents &lt; max_push) {
-        /* 情况1：下一个游客是1元党 */
-        char *new_pstr;
-        if ((new_pstr = malloc(2 * max_push + 1)) == NULL) {
-            perror("sale_ticket: malloc");
-            exit(1);
-        }
-        strcpy(new_pstr, pstr);
-        strcat(new_pstr, "T");  /* 把T加到字符串尾部表示有五角出了钱箱， 即找零 */
-
-        COUNT++;            /* 又多了一种可接受的排队方案 */
-        sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_instack - 1, new_pstr, max_push);
-
-        /* 情况2：下一个购票的是五毛 */
-        strcat(pstr, "F");
-        sale_ticket(num_of_push_fiftycents + 1, sum_of_fiftycents_instack + 1, pstr, max_push);
-    }
-
-    /*
-     * 当只剩下一元党在排队购票时，下一个购票的必然是一元的了
-     */
-    if (sum_of_fiftycents_instack &gt; 0 &amp;&amp; num_of_push_fiftycents == max_push) {
-        strcat(pstr, "T");
-        sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_instack - 1, pstr, max_push);
-    }
-
-    /*
-     * 当五毛入钱箱次数等于持有五毛游客的数量，
-     * 且钱箱内五角钱币为空时， 表明到达了边界，
-     * 则输出之前记录的买票顺序字符串. 并释放
-     * 内存, 返回.
-     */
-    if (num_of_push_fiftycents == max_push &amp;&amp; sum_of_fiftycents_instack == 0) {
-        printf("%s\n", pstr);
-        free(pstr);
-        return;
-    }
-}
-
-int main(int argc, char **argv)
-{
-    char *prt;
-    int max_push;   /* 五毛游客数, 即五毛进钱箱的最大次数 */
-
-    if (argc &lt; 2) {
-        fprintf(stderr, "usage: %s num\n", argv[0]);
-        exit(0);
-    }
-    max_push = atoi(argv[1]);
-    if (max_push &gt; 0)
-        COUNT++;
-    if ((prt = malloc(2 * max_push + 1)) == NULL) {
-        perror("main: malloc");
-        exit(1);
-    }
-    memset(prt, 0, 2 * max_push + 1);
-
-    sale_ticket(0, 0, prt, max_push);
-    printf("The total number is: %d\n", COUNT);
-    return 0;
-}
-</code></pre>
-
-<p>输入程序名后加数字即运行. 设置的数字不要超过16, 根据卡特兰数的一般项公式: Cn = (2*n)!/((n+1)! n!) . 第16项为35357670, 把所有可接受的排队顺序字符串输出需要1.1G的空间! 在我机器上大概10秒才运行完. 输入5的情况见这里:<a href="http://codepad.org/VKu9Bbb8">http://codepad.org/VKu9Bbb8</a></p>
-
-<p>最后一题问的是如何排查一个程序的瓶颈. 很惭愧我不知道.</p>
-
-<p>下午项目面试: 走进X公司的内部, 里面环境出乎我意料: 像个饭馆, 看上去挺惬意的, 不过里面没有人逗留. 最后面试官问了如何用多路复用改进我目前接触的项目(面试官技术不错, 听我稍微介绍完项目后就看出用定时轮询的方式耗资源).只要和网络开发有关的一般都会问到多路复用: select和poll机制. 这次果然也是. 结果没答明白. 拿了盒冬瓜茶就被叫回去了.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/">看了这样的makefile</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-11T04:23:18+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>GNU make是个非常好的工具. 大部分Linux程序员都自己编写Makefile, 再利用make构建工程. 优秀的程序员编写层次分明的代码, 将它们放在合适的位置, 优雅地用make生成目标文件以及管理工程. 不过, 再好的工具和材料, 到了笨拙建造师手里, 也有可能造出丑陋的建筑. 我就看了这样一个例子.</p>
-
-<p>这个工程共有 3 层目录: 顶层有一个makefile. 要编译某个平台的目标文件首先要进入这个以这个平台名字命名的子目录, 比如 &#8220;Linux-x86-xx&#8221;. 子目录&#8221;Linux-x86-xx&#8221;内也有个makefile, 打开一看, 部分语句是这样的:</p>
-
-<pre><code># makefile
-compilevos: generateconfigfiles
-        $(MAKE) -f ../../makefile xos.o
-generateconfigfiles: runtailor
-runtailor:
-    ...
-</code></pre>
-
-<p>发现上两层目录已经不属于这个工程了. 又看了下readme才知道要编译目标得先运行这个&#8221;Linux-x86-xx&#8221;目录里面的一个脚本&#8221;makelib&#8221;, 部分语句是这样的:</p>
-
-<pre><code># makelib
-cd obj
-make -f ../makefile compilelibs
-cd ..
-</code></pre>
-
-<p>先进入&#8221;obj&#8221;这个子目录, 这样&#8221;makefile&#8221; 里面的&#8221;$(MAKE) -f ../../makefile xos.o&#8221; 其实是调用上层目录的makefile了. 看得我都吐血了. 往下看发现依然现象严重, 写这个makefile的哥儿们竟全用名字诸如&#8221;makeobj&#8221;, &#8220;makexox&#8221;, &#8220;maketarget&#8221;等脚本调用make的, 关键是在脚本里每次调用之前都先cd到另外一个目录里, 在makefile根本不知道这条命令是在哪个目录里执行的. &#8220;goto&#8221;都不能比肩.</p>
-
-<p>这么好的make就这样给糟蹋了.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/18/e5b58ce585a5e5bc8flinuxe59fbae4ba8eframebuffere79a84jpege6a0bce5bc8fe69cace59cb0lcde5b18fe698bee7a4ba/">嵌入式Linux基于framebuffer的jpeg格式本地LCD屏显示</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-18T07:20:31+08:00" pubdate data-updated="true">Oct 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在基于Linux的视频监控采集系统中,摄像头采集到的一帧视频图像数据一般都是经过硬件自动压缩成jpeg格式的,然后再保存到摄像头设备的缓冲区.如果要把采集到的jpeg格式显示在本地LCD屏上,由于我们的Linux系统没有移植任何GUI系统,就要考虑以下方面:
+  <entry>
+    <title type="html"><![CDATA[嵌入式Linux基于framebuffer的jpeg格式本地LCD屏显示]]></title>
+    <link href="http://hmgle.github.com/blog/2011/10/18/e5b58ce585a5e5bc8flinuxe59fbae4ba8eframebuffere79a84jpege6a0bce5bc8fe69cace59cb0lcde5b18fe698bee7a4ba/"/>
+    <updated>2011-10-18T07:20:31+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/10/18/e5b58ce585a5e5bc8flinuxe59fbae4ba8eframebuffere79a84jpege6a0bce5bc8fe69cace59cb0lcde5b18fe698bee7a4ba</id>
+    <content type="html"><![CDATA[<p>在基于Linux的视频监控采集系统中,摄像头采集到的一帧视频图像数据一般都是经过硬件自动压缩成jpeg格式的,然后再保存到摄像头设备的缓冲区.如果要把采集到的jpeg格式显示在本地LCD屏上,由于我们的Linux系统没有移植任何GUI系统,就要考虑以下方面:
 1. 将jpeg格式解压缩为位图格式,也就是jpeg解码.</p>
 
 <ol>
@@ -660,7 +31,7 @@ cd ..
 
 <h2>1. jpeg解码</h2>
 
-<p>先了解一下jpeg标准的编码过程:原始的一帧未压缩过的图像可以看成是RGB(红绿蓝)色彩空间上的一组向量集合,但在RGB空间是不利于数据压缩的,因此为了压缩先要把图像映射到利于压缩的YUV空间上(原因是因为人类的眼睛对于亮度差异的敏感度高于色彩变化,而YUV空间的一个基向量Y就是亮度), 这一步叫色彩空间转换.下一步可以在YUV空间上减少U(色调)和V(饱和度)的成分,也就是在亮度信息不减少的情况下移除部分色彩信息,谁叫人的眼睛对亮度的敏感优于对色彩的敏感呢.这一步叫缩减取样.下一步是将图像从色彩空间映射到频率空间,可以采用的变换方法有:离散余弦变换, 傅氏变换, 正弦变换等. 其中应用最广的是离散余弦变换(DCT).这一步是无损的,目的是为了在下一步称之为量化的过程中可以经过四舍五入删除高频量得到压缩后的矩阵.量化之后就是对这个矩阵的编码问题了.针对这个矩阵的分布特点, 采用&#8221;Z&#8221;字形的顺序扫描编排,然后进行RLE行程编码, 把大量连续重复的数据压缩.最后再用范式Huffman编码.要了解详细的过程,可以查看<a href="http://www.jpeg.org/">JPEG标准</a>.</p>
+<p>先了解一下jpeg标准的编码过程:原始的一帧未压缩过的图像可以看成是RGB(红绿蓝)色彩空间上的一组向量集合,但在RGB空间是不利于数据压缩的,因此为了压缩先要把图像映射到利于压缩的YUV空间上(原因是因为人类的眼睛对于亮度差异的敏感度高于色彩变化,而YUV空间的一个基向量Y就是亮度), 这一步叫色彩空间转换.下一步可以在YUV空间上减少U(色调)和V(饱和度)的成分,也就是在亮度信息不减少的情况下移除部分色彩信息,谁叫人的眼睛对亮度的敏感优于对色彩的敏感呢.这一步叫缩减取样.下一步是将图像从色彩空间映射到频率空间,可以采用的变换方法有:离散余弦变换, 傅氏变换, 正弦变换等. 其中应用最广的是离散余弦变换(DCT).这一步是无损的,目的是为了在下一步称之为量化的过程中可以经过四舍五入删除高频量得到压缩后的矩阵.量化之后就是对这个矩阵的编码问题了.针对这个矩阵的分布特点, 采用"Z"字形的顺序扫描编排,然后进行RLE行程编码, 把大量连续重复的数据压缩.最后再用范式Huffman编码.要了解详细的过程,可以查看<a href="http://www.jpeg.org/">JPEG标准</a>.</p>
 
 <p>而解码就是以上编码的逆过程了.除非想要自己实现jpeg的编码和解码函数,我们可以不必细究这些过程,而是直接使用别人已经实现的jpeg编码解码库.在Linux平台下, 有libjpeg库, 它是完全用C语言编写的, 依照它的许可协议,可自由使用, 不是GPL协议,它可以用于商业目的.</p>
 
@@ -758,7 +129,7 @@ cd ..
 <li><p>打开framebuffer设备:</p>
 
 <p>   /<em> open framebuffer device </em>/
-   fbdev = fb_open(&#8220;/dev/fb0&#8221;);</p></li>
+   fbdev = fb_open("/dev/fb0");</p></li>
 <li><p>获取framebuffer设备参数:</p>
 
 <p>   /<em> get status of framebuffer device </em>/
@@ -801,7 +172,7 @@ cd ..
 <p>   }</p></li>
 <li><p>卸载映射framebuffer的那部分内存:</p>
 
-<p>   /<em> unmap framebuffer&#8217;s shared memory </em>/
+<p>   /<em> unmap framebuffer's shared memory </em>/
    fb_munmap(fbmem, screensize);</p></li>
 <li><p>关闭framebuffer设备:</p>
 
@@ -1363,44 +734,17 @@ MODULE_LICENSE("GPL");
 <p>然后把它加入到内核,以静态加载的模式启动.</p>
 
 <p>最后,可以把读取内存jpeg格式数据输出到LCD屏的这部分整合到mjpg-stream或servfox去,就实现了采集图像本地显示了.</p>
-</div>
+]]></content>
+  </entry>
   
-  
+  <entry>
+    <title type="html"><![CDATA[servfox分析]]></title>
+    <link href="http://hmgle.github.com/blog/2011/09/11/servfoxe58886e69e90/"/>
+    <updated>2011-09-11T13:57:20+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/09/11/servfoxe58886e69e90</id>
+    <content type="html"><![CDATA[<h1><a href="http://hmgle.com/wiki/servfox_ans.html">servfox分析</a></h1>
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/11/servfoxe58886e69e90/">Servfox分析</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-09-11T13:57:20+08:00" pubdate data-updated="true">Sep 11<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1><a href="http://hmgle.com/wiki/servfox_ans.html">servfox分析</a></h1>
-
-<p>&#8211;by:hmgle Copyleft: <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh">CC BY-NC-SA</a></p>
+<p>--by:hmgle Copyleft: <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh">CC BY-NC-SA</a></p>
 
 <p>构建嵌入式Linux网络视频监控系统中,我们采用servfox来做服务器采集程序. servfox涉及到的内容主要有:V4L1接口、套接字和多线程编程. 这里简单分析一下servfox-R1_1_3.</p>
 
@@ -1440,7 +784,7 @@ if (strcmp (argv[i], "-d") == 0) {
 ...
 </code></pre>
 
-<p>videodevice保存了摄像头设备节点名称. 用户不指定的话,后面会将它设置为&#8221;/dev/video0&#8221;.</p>
+<p>videodevice保存了摄像头设备节点名称. 用户不指定的话,后面会将它设置为"/dev/video0".</p>
 
 <pre><code>...
 if (strcmp (argv[i], "-g") == 0) {
@@ -1450,7 +794,7 @@ if (strcmp (argv[i], "-g") == 0) {
 ...
 </code></pre>
 
-<p>通过grabmethod的设置就指定了采集图像时使用mmap()内存映射的方法还是read()读取的方法. 采用read系统调用来读取图像数据的话在连续抓取的情况下会发生频繁的用户态和内核态的切换,效率低. 通过mmap内存映射的话,把摄像头对应的设备文件映射到进程内存中,减少I/O操作,提高了效率. 因此启动servfox时不加&#8221;-g&#8221;选项的话默认采用grabmethod=1为mmap方式.</p>
+<p>通过grabmethod的设置就指定了采集图像时使用mmap()内存映射的方法还是read()读取的方法. 采用read系统调用来读取图像数据的话在连续抓取的情况下会发生频繁的用户态和内核态的切换,效率低. 通过mmap内存映射的话,把摄像头对应的设备文件映射到进程内存中,减少I/O操作,提高了效率. 因此启动servfox时不加"-g"选项的话默认采用grabmethod=1为mmap方式.</p>
 
 <p>在for循环体里面还根据用户输入的选项分配了存储分辨率大小width/height,创建套接字时用的端口号serverport(默认为7070).</p>
 
@@ -1525,7 +869,7 @@ int signalquit;     // 停止视频采集的信号
 </code></pre>
 
 <p>这个函数主要是设置了grabmethod:用mmap方式还是read方式;
-设置videodevice成员设备文件名称,默认是 &#8220;/dev/video0&#8221;;
+设置videodevice成员设备文件名称,默认是 "/dev/video0";
 设置信号vd->signalquit=1,图像宽高:vd->hdrwidth=width;vd->hdrheight=height;
 设置图像格式为VIDEO_PALETTE_JPEG:vd->formatIn = format;
 获得色深:vd->bppIn = GetDepth (vd->formatIn);</p>
@@ -1677,7 +1021,7 @@ if (ioctl(vd-&gt;fd, VIDIOCMCAPTURE, &amp;(vd-&gt;vmmap))) {
             usleep(1000);
 </code></pre>
 
-<p>它是等待之后执行的另一个用来的发送采集到的图像数据给客户端的线程,直到它把这一帧图像完整地发送出去. 每隔1毫秒就检查一次是否发完. 如果不等待就执行下面的操作的话,那么还没发送完就把本来要发送的图像数据重写掉,采集到的数据没用上. 可以采用更好的同步机制&#8211;信号量来实现.</p>
+<p>它是等待之后执行的另一个用来的发送采集到的图像数据给客户端的线程,直到它把这一帧图像完整地发送出去. 每隔1毫秒就检查一次是否发完. 如果不等待就执行下面的操作的话,那么还没发送完就把本来要发送的图像数据重写掉,采集到的数据没用上. 可以采用更好的同步机制--信号量来实现.</p>
 
 <p>等到上一帧图像数据发送出去之后,这个线程等待直到获得一把线程互斥锁:</p>
 
@@ -1993,213 +1337,46 @@ if (ioctl (vd->fd, VIDIOCGCHAN, &amp;vd->videochan) == -1)     /<em> Get channel
 
 <ul>
 <li><p>参考文献</p></li>
-<li><p>基于S3C2440的嵌入式视频网络监控系统&#8211;柳亚东</p></li>
-<li>基于嵌入式ARM的远程视频监控系统研究&#8211;李保国</li>
-<li>基于ARM的嵌入式网络视频监控系统设计与实现&#8211;方卫民
-&#8230;&#8230;</li>
+<li><p>基于S3C2440的嵌入式视频网络监控系统--柳亚东</p></li>
+<li>基于嵌入式ARM的远程视频监控系统研究--李保国</li>
+<li>基于ARM的嵌入式网络视频监控系统设计与实现--方卫民
+......</li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/18/e8afbbe998bfe59f8ee5b08fe8afb4e698afe4b880e7a78de4baabe58f97/">读阿城小说是一种享受</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-18T13:57:41+08:00" pubdate data-updated="true">Jun 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>有时间的话，想读读阿城的小说。以前只读过他的《棋王》——多年前的事情了。
+  <entry>
+    <title type="html"><![CDATA[读阿城小说是一种享受]]></title>
+    <link href="http://hmgle.github.com/blog/2011/06/18/e8afbbe998bfe59f8ee5b08fe8afb4e698afe4b880e7a78de4baabe58f97/"/>
+    <updated>2011-06-18T13:57:41+08:00</updated>
+    <id>http://hmgle.github.com/blog/2011/06/18/e8afbbe998bfe59f8ee5b08fe8afb4e698afe4b880e7a78de4baabe58f97</id>
+    <content type="html"><![CDATA[<p>有时间的话，想读读阿城的小说。以前只读过他的《棋王》——多年前的事情了。
 附上豆瓣上的一篇评论链接：<a href="http://book.douban.com/review/1421693/">http://book.douban.com/review/1421693/</a>
 当然先要把那本《<a href="http://book.douban.com/subject/2175630/">8051微控制器和嵌入式系统</a>》看完。</p>
-</div>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[删除线]]></title>
+    <link href="http://hmgle.github.com/blog/2008/06/12/e588a0e999a4e7babf/"/>
+    <updated>2008-06-12T23:07:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2008/06/12/e588a0e999a4e7babf</id>
+    <content type="html"><![CDATA[<p>方法一：可以在文字处理软件里编辑然后复制进来,这段文字就是这样的。</p>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[回来了]]></title>
+    <link href="http://hmgle.github.com/blog/2008/06/03/e59b9ee69da5e4ba86/"/>
+    <updated>2008-06-03T08:16:00+08:00</updated>
+    <id>http://hmgle.github.com/blog/2008/06/03/e59b9ee69da5e4ba86</id>
+    <content type="html"><![CDATA[<p>Ping request could not find host www.google.com. Please check the name and try again.。</p>
 
+<p>我神经很混乱了。</p>
 
-    </article>
+<p>???????</p>
+]]></content>
+  </entry>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/02/28/e7a59ee5a587e79a84e7baa2e7bbbfe781af/">神奇的红绿灯</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-28T00:44:18+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>碰到这样的红绿灯，踌躇不前
-<a href="http://hmgle.com/wp-content/uploads/2011/02/022611_002.jpg"><img src="http://hmgle.com/wp-content/uploads/2011/02/022611_002-300x240.jpg" alt="" /></a></p>
-
-<p><a href="http://hmgle.com/wp-content/uploads/2011/02/022611_002.jpg"></a>
-<a href="http://hmgle.com/wp-content/uploads/2011/02/022611_003.jpg"><img src="http://hmgle.com/wp-content/uploads/2011/02/022611_003-300x240.jpg" alt="" /></a>
-总算还有正常的状态：
-<a href="http://hmgle.com/wp-content/uploads/2011/02/022611_004.jpg"><img src="http://hmgle.com/wp-content/uploads/2011/02/022611_004-300x240.jpg" alt="" /></a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/02/15/hello-world/">Hello World！</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-15T11:58:26+08:00" pubdate data-updated="true">Feb 15<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>这是导入之前在<a href="http://hi.baidu.com/hmgle">百度空间</a>的博文后在这里写的第一篇文章。之前的文章其实是先将百度空间的内容搬到<a href="http://hmgle.blogbus.com/">blogbus</a>后再从blogbus内导出xml文件然后再在wordpress里安个修正blogbus的不规范的xml文件的导入插件后最后才导进来的，不过图片什么的都没有了。像百度空间之类的连数据导出这个blog必备的基本功能都没有，令人匪夷所思。</p>
-
-<p>其实我基本不写什么blog，人太懒，而且也不太喜欢回忆，它太沉重了。思考过的东西只在脑子里流过，记下来也没有啥价值的，权当为我百无聊赖的生活抹上胡乱的一笔。大家不要在这里逗留太久，这里可没有什么闪烁的光芒，尽管它的名字叫调和的微光，如果是学生应该多上点图书馆，要上也要关注些优秀的blog，比如国内的<a href="http://www.ruanyifeng.com/blog/">阮一峰的网志</a>。要玩的话应该玩些消耗体力培养竞争意识的运动，例如足球篮球之类的，千万别沉迷于滑板魔方之类的伪geek游戏。跑题了，关于这个blog的未来我还是希望它能闪烁些火光出来。我关注人文、科学、哲学及艺术，远离<strong><a href="http://en.wikipedia.org/wiki/Politics">politics</a>。</strong></p>
-
-<p>关于火光，ukim在他的Heroes in my heart的帖子里引用过一个很好的事迹：在一次采访当中，作为数学家的Thom同两位古人类学家讨论问题。谈到远古的人们为什么要保存火种时，一个人类学家说，因为保存火种可以取暖御寒；另外一个人类学家说，因为保存火种可以烧出鲜美的肉食。而Thom说，因为夜幕来临之际，火光摇曳妩媚，灿烂多姿，是最美最美的。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/05/01/e6898be69cbae58fb7e7a081patch/">手机号码patch</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298/">ARM平台下位域结构体的问题</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/">递归中的改进</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/12/26/e4b880e6aca1e99da2e8af95/">一次面试</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/12/11/e79c8be4ba86e8bf99e6a0b7e79a84makefile/">看了这样的makefile</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Your Name -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>
