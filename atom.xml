@@ -4,7 +4,7 @@
   <title><![CDATA[调和的微光-HARMONIC GLEAM]]></title>
   <link href="http://hmgle.github.com/atom.xml" rel="self"/>
   <link href="http://hmgle.github.com/"/>
-  <updated>2013-02-21T22:39:43+08:00</updated>
+  <updated>2013-02-21T22:42:51+08:00</updated>
   <id>http://hmgle.github.com/</id>
   <author>
     <name><![CDATA[hmgle]]></name>
@@ -23,18 +23,20 @@
 <h3>如何获取我的新号码</h3>
 
 <ol>
-<li><p>如果存有我原来的号码: 以原号码为参数运行下面的脚本</p>
+<li>如果存有我原来的号码: 以原号码为参数运行下面的脚本</li>
+</ol>
 
-<p>   #!/bin/sh
-   if [ &#8220;$#&#8221; -ne 1 ] ; then</p>
 
-<pre><code>   echo "Usage: $0 my_old_num";
-   exit 1;
+<pre><code>#!/bin/sh
+if [ "$#" -ne 1 ] ; then
+    echo "Usage: $0 my_old_num";
+    exit 1;
+fi
+echo `expr $1 + \`echo -n MjI2MDgyMDIxNgo= | base64 -d\``
 </code></pre>
 
-<p>   fi
-   echo <code>expr $1 + \</code>echo -n MjI2MDgyMDIxNgo= | base64 -d&#8220;</p></li>
-<li><p>如果没有我原来的号码: 在页面<a href="http_//hmgle.com/archives/21.html">手机号码更换</a>获取我以前的号码, 然后跳转到1.</p></li>
+<ol>
+<li>如果没有我原来的号码: 在页面<a href="http_//hmgle.com/archives/21.html">手机号码更换</a>获取我以前的号码, 然后跳转到1.</li>
 </ol>
 
 ]]></content>
