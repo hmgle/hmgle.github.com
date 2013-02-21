@@ -9,9 +9,7 @@
   <meta name="author" content="hmgle">
 
   
-  <meta name="description" content="昨天更换手机号码了. 原号码不再使用. 如何获取我的新号码 如果存有我原来的号码: 以原号码为参数运行下面的脚本
-[php lang_name=&#8221;shell&#8221;] !/bin/sh if [ &#8220;$#&#8221; -ne 1 ] ; then
-echo &# &hellip;">
+  <meta name="description" content="昨天更换手机号码了. 原号码不再使用. 如何获取我的新号码 如果存有我原来的号码: 以原号码为参数运行下面的脚本 #!/bin/sh if [ &#8220;$#&#8221; -ne 1 ] ; then echo "Usage: $0 my_old_num"; exit 1; fi echo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,26 +94,20 @@ echo &# &hellip;">
 
 <h3>如何获取我的新号码</h3>
 
-<ul>
-<li><ol>
-<li>如果存有我原来的号码: 以原号码为参数运行下面的脚本
-[php lang_name=&#8221;shell&#8221;]
+<ol>
+<li><p>如果存有我原来的号码: 以原号码为参数运行下面的脚本</p>
 
-<h1>!/bin/sh</h1>
+<p>   #!/bin/sh
+   if [ &#8220;$#&#8221; -ne 1 ] ; then</p>
 
-<p>if [ &#8220;$#&#8221; -ne 1 ] ; then
-echo &#8220;Usage: $0 my_old_num&#8221;;
-exit 1;
-fi
-echo <code>expr $1 + \</code>echo -n MjI2MDgyMDIxNgo= | base64 -d&#8220;
-[/php]</p></li>
+<pre><code>   echo "Usage: $0 my_old_num";
+   exit 1;
+</code></pre>
+
+<p>   fi
+   echo <code>expr $1 + \</code>echo -n MjI2MDgyMDIxNgo= | base64 -d&#8220;</p></li>
+<li><p>如果没有我原来的号码: 在页面<a href="http_//hmgle.com/archives/21.html">手机号码更换</a>获取我以前的号码, 然后跳转到1.</p></li>
 </ol>
-</li>
-<li><ol>
-<li>如果没有我原来的号码: 在页面<a href="http_//hmgle.com/archives/21.html">手机号码更换</a>获取我以前的号码, 然后跳转到1.</li>
-</ol>
-</li>
-</ul>
 
 </div>
 

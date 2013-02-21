@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 拾零 | 调和的微光-HARMONIC GLEAM]]></title>
   <link href="http://hmgle.github.com/blog/categories/拾零/atom.xml" rel="self"/>
   <link href="http://hmgle.github.com/"/>
-  <updated>2013-02-20T22:37:57+08:00</updated>
+  <updated>2013-02-21T22:39:43+08:00</updated>
   <id>http://hmgle.github.com/</id>
   <author>
     <name><![CDATA[hmgle]]></name>
@@ -20,36 +20,29 @@
     <id>http://hmgle.github.com/blog/2012/03/17/arme5b9b3e58fb0e4b88be4bd8de59f9fe7bb93e69e84e4bd93e79a84e997aee9a298</id>
     <content type="html"><![CDATA[<p>最近在做个IP camera, 开发板是Hi3511的. 在写h.264码流封装成rtp包进行网络传输时, 出问题了: 在客户端用vlc看不到期待的画面. 用wireshark抓包, 把源源不断的rtp包拆包一看, 竟然没有fu-a包, 全是单个的nal包. 而输入的nalu基本都是大于最大传输单元MTU的, 需要分解成fu-a包的形式. 通过测试发现, 问题出现在设置fu分片包的indicator和header上. 再往下分析, 得到在ARM平台下令人惊奇的现象. 假如我们有下面代码:</p>
 
-<p>[php lang_name="C"]</p>
+<pre><code>#include &lt;stdint.h&gt;
 
-<h1>include &lt;stdint.h></h1>
+typedef struct fu_indicator {
+    uint8_t type: 5;
+    uint8_t nri: 2;
+    uint8_t f: 1;
+} fu_indicator_t;
 
-<p>typedef struct fu_indicator {</p>
+int main(int argc, char **argv)
+{
+    uint8_t n = 7;
+    fu_indicator_t *pstf;
 
-<pre><code>uint8_t type: 5;
-uint8_t nri: 2;
-uint8_t f: 1;
+    pstf = (fu_indicator_t *) &amp;n;
+    pstf-&gt;type = 0x0f;
+    printf("now n is %d\n", n);
+    return 0;
+}
 </code></pre>
 
-<p>} fu_indicator_t;</p>
+<p>以上代码在x86平台上运行结果正如预想的一样, 但在arm平台下就不一样了, 结果竟然是n变成0了. 看汇编内容:</p>
 
-<p>int main(int argc, char **argv)
-{</p>
-
-<pre><code>uint8_t n = 7;
-fu_indicator_t *pstf;
-
-pstf = (fu_indicator_t *) &amp;n;
-pstf-&gt;type = 0x0f;
-printf("now n is %d\n", n);
-return 0;
-</code></pre>
-
-<p>}
-[/php]
-以上代码在x86平台上运行结果正如预想的一样, 但在arm平台下就不一样了, 结果竟然是n变成0了. 看汇编内容:
-[php lang_name="C"]
-main:
+<pre><code>main:
 @ args = 0, pretend = 0, frame = 12
 @ frame_needed = 1, uses_anonymous_args = 0
 mov ip, sp
@@ -75,8 +68,9 @@ sub sp, fp, #12
 ldmfd sp, {fp, sp, pc}
 .size main, .-main
 .ident "GCC: (GNU) 3.4.3 (release) (CodeSourcery ARM Q3cvs 2004)"
-[/php]
-汇编代码文件看起来没有问题, 但问题是程序跑出来的结果n是不等于15的. 这说明出现问题的阶段是发生在编译阶段之后的, 也许是汇编阶段, 也许是链接阶段. 据老夫多年行医经验来看, 汇编阶段不过是将汇编指令的机器码查找出翻译成机器码就可以了, 像查英汉字典一样有固定解释, 很少有出错的可能, 基本可诊断为问题出现在链接阶段, 而像地址分配, 内存对齐,重定位等都在这一阶段完成.
+</code></pre>
+
+<p>汇编代码文件看起来没有问题, 但问题是程序跑出来的结果n是不等于15的. 这说明出现问题的阶段是发生在编译阶段之后的, 也许是汇编阶段, 也许是链接阶段. 据老夫多年行医经验来看, 汇编阶段不过是将汇编指令的机器码查找出翻译成机器码就可以了, 像查英汉字典一样有固定解释, 很少有出错的可能, 基本可诊断为问题出现在链接阶段, 而像地址分配, 内存对齐,重定位等都在这一阶段完成.
 接下来用sizeof(fu_indicator_t)一看, 在ARM平台上竟然是4, 不是x86平台下的1了. 我试着改这个结构体里面各个位域的不同值发现, 各个位域的位置是随机的呀! 连顺序都会改变呢! 就是说这个结构体的位域的位置连顺序也不保证. 你见过一个结构体的比特序都会变化的吗? 当fu_indicator结构体里面的type位于后三个字节的时候当然就不是我预想的结果了.</p>
 
 <p>解决办法: 强制这个结构体按最紧凑的方式对齐, 可以在声明fu_indicator结构体后加入"<strong>attribute</strong> ((packed))" 或在Makefile里的加编译选项"-fpack-struct", 这样fu_indicator结构体的长度就为1字节了, 比特顺序也能得到保证. 或按最保险的方法: 放弃用位域这种结构, 而直接用按位操作来代替.</p>
@@ -92,161 +86,109 @@ ldmfd sp, {fp, sp, pc}
     <link href="http://hmgle.github.com/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b/"/>
     <updated>2012-01-12T04:57:30+08:00</updated>
     <id>http://hmgle.github.com/blog/2012/01/12/e98092e5bd92e4b8ade79a84e694b9e8bf9b</id>
-    <content type="html"><![CDATA[<p>在<a href="http://hmgle.com/archives/204">上一篇</a>(<a href="http://hmgle.com/archives/204">一次面试</a>)中, 我用递归实现了输出所有可接受序列的排队方法. 后来, 我意识到, 在递归中, 频繁地申请内存来存储新增加的可接受序列的字符串, 再释放掉这片存储区域的方法是不必要的. 因为在递归中每调用一次新的递归后, 这时的可接受序列的字符串前面部分是一样的, 可以每次调用递归函数都用这块存储区域. 这时我们就不能用strcat()函数来加入新的字符了, 而是要先计算出目前要修改的字符的位置(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)), 然后直接在这个位置上修改要加入的字符. 改进后的代码如下:
-[php lang_name="C"]</p>
+    <content type="html"><![CDATA[<p>在<a href="http://hmgle.com/archives/204">上一篇</a>(<a href="http://hmgle.com/archives/204">一次面试</a>)中, 我用递归实现了输出所有可接受序列的排队方法. 后来, 我意识到, 在递归中, 频繁地申请内存来存储新增加的可接受序列的字符串, 再释放掉这片存储区域的方法是不必要的. 因为在递归中每调用一次新的递归后, 这时的可接受序列的字符串前面部分是一样的, 可以每次调用递归函数都用这块存储区域. 这时我们就不能用strcat()函数来加入新的字符了, 而是要先计算出目前要修改的字符的位置(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)), 然后直接在这个位置上修改要加入的字符. 改进后的代码如下:</p>
 
-<h1>include</h1>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;errno.h&gt;
 
-<h1>include</h1>
+#define USEMALLOC   0
 
-<h1>include</h1>
+static unsigned int COUNT = 0;
 
-<h1>include</h1>
-
-<h1>define USEMALLOC   0</h1>
-
-<p>static unsigned int COUNT = 0;</p>
-
-<p>static void
+static void
 sale_ticket(int num_of_push_fiftycents, int sum_of_fiftycents_inbox, char *pstr, const int num_of_fiftycents)
-{</p>
+{
+    /*
+     * 若钱箱内五角钱币为空, 且还有五毛游客排队时, 
+     * 则下次只能接受五毛游客购票
+     */
+    if (sum_of_fiftycents_inbox == 0 &amp;&amp; num_of_push_fiftycents &lt; num_of_fiftycents) {
+#if USEMALLOC
+        strcat(pstr, "F");  /* 把"F"加到字符串尾部表示有五角进了售票员的钱箱 */
+#else
+        *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'F';
+#endif
+        sale_ticket(num_of_push_fiftycents + 1, 1, pstr, num_of_fiftycents);
+    }
 
-<pre><code>/*
- * 若钱箱内五角钱币为空, 且还有五毛游客排队时, 
- * 则下次只能接受五毛游客购票
- */
-if (sum_of_fiftycents_inbox == 0 &amp;&amp; num_of_push_fiftycents &lt; num_of_fiftycents) {
-</code></pre>
+    /*
+     * 若钱箱内五毛钱币非空, 且还有五毛游客排队,
+     * 则下次可以接受两种游客的购票请求
+     */
+    if (sum_of_fiftycents_inbox &gt; 0 &amp;&amp; num_of_push_fiftycents &lt; num_of_fiftycents) {
+        /* 情况1: 下一张票卖给1元游客 */
+#if USEMALLOC
+        strcat(pstr, "T");  /* 把"T"加到字符串尾部表示有1元进了售票员的钱箱 */
+#else
+        *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'T';
+#endif
+        sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_inbox - 1, pstr, num_of_fiftycents);
 
-<h1>if USEMALLOC</h1>
+        /* 情况2: 下一张票卖给五毛游客 */
+#if USEMALLOC
+        strcat(pstr, "F");
+#else
+        *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'F';
+#endif
+        sale_ticket(num_of_push_fiftycents + 1, sum_of_fiftycents_inbox + 1, pstr, num_of_fiftycents);
+    }
 
-<pre><code>    strcat(pstr, "F");  /* 把"F"加到字符串尾部表示有五角进了售票员的钱箱 */
-</code></pre>
+    /* 
+     * 排队的只剩下手持一元的游客,
+     * 下一张票只能卖给这类游客了
+     */
+    if (sum_of_fiftycents_inbox &gt; 0 &amp;&amp; num_of_push_fiftycents == num_of_fiftycents) {
+#if USEMALLOC
+        strcat(pstr, "T");
+#else
+        *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'T';
+#endif
+        sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_inbox - 1, pstr, num_of_fiftycents);
+    }
 
-<h1>else</h1>
-
-<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'F';
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>    sale_ticket(num_of_push_fiftycents + 1, 1, pstr, num_of_fiftycents);
+    /*
+     * 当所有游客都买到票了,
+     * 则输出之前记录的买票顺序字符串
+     */
+    if (sum_of_fiftycents_inbox == 0 &amp;&amp; num_of_push_fiftycents &gt;= num_of_fiftycents) {
+        COUNT++;
+        printf("%s\n", pstr);
+        return;
+    }
 }
 
-/*
- * 若钱箱内五毛钱币非空, 且还有五毛游客排队,
- * 则下次可以接受两种游客的购票请求
- */
-if (sum_of_fiftycents_inbox &gt; 0 &amp;&amp; num_of_push_fiftycents &lt; num_of_fiftycents) {
-    /* 情况1: 下一张票卖给1元游客 */
-</code></pre>
-
-<h1>if USEMALLOC</h1>
-
-<pre><code>    strcat(pstr, "T");  /* 把"T"加到字符串尾部表示有1元进了售票员的钱箱 */
-</code></pre>
-
-<h1>else</h1>
-
-<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'T';
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>    sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_inbox - 1, pstr, num_of_fiftycents);
-
-    /* 情况2: 下一张票卖给五毛游客 */
-</code></pre>
-
-<h1>if USEMALLOC</h1>
-
-<pre><code>    strcat(pstr, "F");
-</code></pre>
-
-<h1>else</h1>
-
-<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'F';
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>    sale_ticket(num_of_push_fiftycents + 1, sum_of_fiftycents_inbox + 1, pstr, num_of_fiftycents);
-}
-
-/* 
- * 排队的只剩下手持一元的游客,
- * 下一张票只能卖给这类游客了
- */
-if (sum_of_fiftycents_inbox &gt; 0 &amp;&amp; num_of_push_fiftycents == num_of_fiftycents) {
-</code></pre>
-
-<h1>if USEMALLOC</h1>
-
-<pre><code>    strcat(pstr, "T");
-</code></pre>
-
-<h1>else</h1>
-
-<pre><code>    *(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)) = 'T';
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>    sale_ticket(num_of_push_fiftycents, sum_of_fiftycents_inbox - 1, pstr, num_of_fiftycents);
-}
-
-/*
- * 当所有游客都买到票了,
- * 则输出之前记录的买票顺序字符串
- */
-if (sum_of_fiftycents_inbox == 0 &amp;&amp; num_of_push_fiftycents &gt;= num_of_fiftycents) {
-    COUNT++;
-    printf("%s\n", pstr);
-    return;
-}
-</code></pre>
-
-<p>}</p>
-
-<p>int
+int
 main(int argc, char **argv)
-{</p>
+{
+    char *prt;
+    int max_push;   /* 五毛游客数, 即五毛进钱箱的最大次数 */
 
-<pre><code>char *prt;
-int max_push;   /* 五毛游客数, 即五毛进钱箱的最大次数 */
+    if (argc &lt; 2) {
+        fprintf(stderr, "usage: %s num\n", argv[0]);
+        exit(0);
+    }
+    max_push = atoi(argv[1]);
+#if 0
+    if (max_push &lt;= 0) {
+        fprintf(stderr, "usage: %s num\n", argv[0]);
+        exit(0);
+    }
+#endif
+    if ((prt = malloc(2 * max_push + 1)) == NULL) {
+        perror("main: malloc");
+        exit(1);
+    }
+    memset(prt, 0, 2 * max_push + 1);
 
-if (argc &lt; 2) {
-    fprintf(stderr, "usage: %s num\n", argv[0]);
-    exit(0);
+    sale_ticket(0, 0, prt, max_push);
+    printf("The total number is: %d\n", COUNT);
+    free(prt);
+
+    return 0;
 }
-max_push = atoi(argv[1]);
 </code></pre>
-
-<h1>if 0</h1>
-
-<pre><code>if (max_push &lt;= 0) {
-    fprintf(stderr, "usage: %s num\n", argv[0]);
-    exit(0);
-}
-</code></pre>
-
-<h1>endif</h1>
-
-<pre><code>if ((prt = malloc(2 * max_push + 1)) == NULL) {
-    perror("main: malloc");
-    exit(1);
-}
-memset(prt, 0, 2 * max_push + 1);
-
-sale_ticket(0, 0, prt, max_push);
-printf("The total number is: %d\n", COUNT);
-free(prt);
-
-return 0;
-</code></pre>
-
-<p>}
-[/php]</p>
 
 <p>不过, 频繁的申请, 释放内存并不是这个程序的瓶颈. 修改后的程序运行时间基本是和原来一样的. 原因之一是每一次调用malloc申请到的其实是同一片区域, 没有调用到sbrk()申请过一片大的存储区域. 另一个原因是递归实在是效率低下, 没有留给别的东西当瓶颈的机会.</p>
 ]]></content>
