@@ -1,0 +1,586 @@
+--- 
+layout: post
+title: "\xE7\x94\xA8C\xE8\xAF\xAD\xE8\xA8\x80\xE6\x94\xB9\xE5\x86\x99\xE5\xB9\xB3\xE9\x9D\xA2\xE5\x88\x9A\xE6\x9E\xB6\xE9\x9D\x99\xE5\x8A\x9B\xE5\x88\x86\xE6\x9E\x90\xE7\xA8\x8B\xE5\xBA\x8F\xEF\xBC\x88\xE4\xBA\x8C\xEF\xBC\x89"
+categories: 
+- "\xE6\xB5\x81\xE5\x85\xA5"
+- "\xE9\x80\x90\xE6\xB5\xAA"
+tags: 
+- C/C++
+- "\xE7\xA8\x8B\xE5\xBA\x8F"
+status: publish
+type: post
+published: true
+meta: 
+  _edit_last: "1"
+---
+<p>续</p>
+<p>/*读入并输出杆件、结点及支承条件的数据*/<br/>
+void iomjs(int nm,int nj,int ns,int *ist,int *ien,float *ar,float *ri,float *x,float *y,int </p>
+<p>*is,float *vs)<br/>
+{<br/>
+int i;<br/>
+for(i=0;i&lt;nm;i++)<br/>
+    {<br/>
+     fscanf(IDFP,"%d",ist+i);<br/>
+     fscanf(IDFP,"%d",ien+i);<br/>
+     fscanf(IDFP,"%f",ar+i);<br/>
+     fscanf(IDFP,"%f",ri+i);<br/>
+     CH=fgetc(IDFP);<br/>
+    }<br/>
+for(i=0;i&lt;nm;i++)<br/>
+    {<br/>
+     fprintf(OUTFP,"%4d",i+1);<br/>
+     fprintf(OUTFP,"%8d",*(ist+i));<br/>
+     fprintf(OUTFP,"%6d",*(ien+i));<br/>
+      fprintf(OUTFP,"%16.6e",*(ar+i));<br/>
+      fprintf(OUTFP,"%16.6e",*(ri+i));<br/>
+fprintf(OUTFP,"\n");<br/>
+    }<br/>
+fprintf(OUTFP,"           The joint Coordinates\n");<br/>
+fprintf(OUTFP,"joint          X                 Y\n");<br/>
+for(i=0;i&lt;nj;i++)<br/>
+    {<br/>
+     fscanf(IDFP,"%f",x+i);<br/>
+     fscanf(IDFP,"%f",y+i);<br/>
+     CH=fgetc(IDFP);<br/>
+    }<br/>
+for(i=0;i&lt;nj;i++)<br/>
+    {<br/>
+     fprintf(OUTFP,"%5d%16.6f%16.6f\n",i+1,*(x+i),*(y+i));<br/>
+    }<br/>
+fprintf(OUTFP,"           The Information of Supports\n");<br/>
+fprintf(OUTFP,"     IS          VS\n");<br/>
+for(i=0;i&lt;ns;i++)<br/>
+    {<br/>
+     fscanf(IDFP,"%d",is+i);<br/>
+     fscanf(IDFP,"%f",vs+i);<br/>
+     CH=fgetc(IDFP);<br/>
+    }<br/>
+for(i=0;i&lt;ns;i++)<br/>
+    {<br/>
+      fprintf(OUTFP,"%5d",*(is+i));<br/>
+      fprintf(OUTFP,"%15.6f\n",*(vs+i));<br/>
+    } <br/>
+}</p>
+<p>/*确定独立未知量号*/<br/>
+void idun(int nj,int *n,int *iu,float *x,float *y)<br/>
+{<br/>
+int i,j,flag=0;<br/>
+float dx,dy;<br/>
+*(iu+0)=1;<br/>
+*(iu+1)=2;<br/>
+*(iu+2)=3;<br/>
+*n=3;<br/>
+for(j=1;j&lt;nj;j++)<br/>
+    {<br/>
+      for(i=j-1;i&gt;=0;i--)<br/>
+       {<br/>
+          dx=(float)(fabs((double)(*(x+j)-*(x+i))));<br/>
+          dy=(float)(fabs((double)(*(y+j)-*(y+i))));<br/>
+          if(dx&lt;(1e-4)&amp;&amp;dy&lt;(1e-4))<br/>
+           {<br/>
+              flag=1;<br/>
+              *(iu+j*3+0)=*(iu+i*3+0);<br/>
+              *(iu+j*3+1)=*(iu+i*3+1);<br/>
+              *(iu+j*3+2)=*n+1;<br/>
+     *n=*(iu+j*3+2);<br/>
+           }<br/>
+    }<br/>
+      if(flag==0)<br/>
+       {<br/>
+          *(iu+j*3+0)=*n+1;<br/>
+          *(iu+j*3+1)=*n+2;<br/>
+          *(iu+j*3+2)=*n+3;<br/>
+          *n=*(iu+j*3+2);<br/>
+       }<br/>
+      flag=0;<br/>
+    }<br/>
+}<br/>
+/*确定单元定位向量*/<br/>
+void lcvct(int nm,int *ist,int *ien,int *lv,int *iu)<br/>
+{<br/>
+      int m,i,j;<br/>
+      for(m=0;m&lt;nm;m++)<br/>
+       {<br/>
+          i=*(ist+m);<br/>
+          j=*(ien+m);<br/>
+          *(lv+m*6+0)=*(iu+(i-1)*3+0);<br/>
+          *(lv+m*6+1)=*(iu+(i-1)*3+1);<br/>
+          *(lv+m*6+2)=*(iu+(i-1)*3+2);<br/>
+          *(lv+m*6+3)=*(iu+(j-1)*3+0);<br/>
+          *(lv+m*6+4)=*(iu+(j-1)*3+1);<br/>
+          *(lv+m*6+5)=*(iu+(j-1)*3+2);<br/>
+       }<br/>
+}<br/>
+/*确定总刚的对角元地址*/<br/>
+void lcdia(int nm,int n,int *lv,int *min,int *ibdw,int *ld,int *maxbdw,int *na)<br/>
+{<br/>
+      int i,m,minlv;<br/>
+      for(i=0;i&lt;n;i++)<br/>
+       {<br/>
+          *(min+i)=i+1;<br/>
+       }<br/>
+      for(m=0;m&lt;nm;m++)<br/>
+       {<br/>
+          minlv=*(lv+m*6+0);<br/>
+          for(i=1;i&lt;6;i++)<br/>
+           {<br/>
+              if(*(lv+m*6+i)&lt;minlv)<br/>
+              minlv=*(lv+m*6+i);<br/>
+           }<br/>
+          for(i=0;i&lt;6;i++)<br/>
+           {<br/>
+              if(minlv&lt;*(min+*(lv+m*6+i)-1))<br/>
+             *(min+*(lv+m*6+i)-1)=minlv;<br/>
+           }<br/>
+       }<br/>
+      *maxbdw=0;<br/>
+      for(i=0;i&lt;n;i++)<br/>
+       {<br/>
+          *(ibdw+i)=i-*(min+i)+2;<br/>
+          if(*(ibdw+i)&gt;*maxbdw)<br/>
+           {<br/>
+              *maxbdw=*(ibdw+i);<br/>
+           }<br/>
+       }<br/>
+      *ld=*ibdw;<br/>
+      for(i=1;i&lt;n;i++)<br/>
+       {<br/>
+          *(ld+i)=*(ld+i-1)+*(ibdw+i);<br/>
+       }<br/>
+      *na=*(ld+n-1);<br/>
+}<br/>
+/*计算杆件的杆长、余弦和正弦*/<br/>
+void lcs(int m,int *ist,int *ien,float *x,float *y,double *rl,double *c,double *s)<br/>
+{<br/>
+      int i,j;<br/>
+      double x1,y1;<br/>
+      i=*(ist+m)-1;<br/>
+      j=*(ien+m)-1;<br/>
+      x1=*(x+j)-*(x+i);<br/>
+      y1=*(y+j)-*(y+i);<br/>
+      *rl=sqrt(x1*x1+y1*y1);<br/>
+      *c=x1/(*rl);<br/>
+      *s=y1/(*rl);<br/>
+}</p>
+<p><br/>
+/*计算局部坐标单刚*/<br/>
+void kebar(int m,float e,int *ist,int *ien,float *ar,float *ri,float *x,float*y,double </p>
+<p>*c,double *s,double *e1,double *e2,double *e3,double *e4)<br/>
+{<br/>
+      double rl;<br/>
+      double *prl=&amp;rl;<br/>
+      lcs(m,ist,ien,x,y,prl,c,s);<br/>
+      *e1=e*(*(ar+m))/rl;<br/>
+      *e2=12.0*e*(*(ri+m))/(rl*rl*rl);<br/>
+      *e3=0.5*(*e2)*rl;<br/>
+      *e4=4.0*e*(*(ri+m))/rl;<br/>
+}<br/>
+/*计算整体坐标单刚*/<br/>
+void ke(int m,float e,int *ist,int *ien,float *ar,float *ri,float *x,float *y,double *ae)<br/>
+{<br/>
+      double c,s,e1,e2,e3,e4,a1,a2,a3,a4,a5,a6;<br/>
+      double *pc=&amp;c,*ps=&amp;s,*pe1=&amp;e1,*pe2=&amp;e2,*pe3=&amp;e3,*pe4=&amp;e4;<br/>
+      kebar(m,e,ist,ien,ar,ri,x,y,pc,ps,pe1,pe2,pe3,pe4);<br/>
+      a1=e1*c*c+e2*s*s;<br/>
+      a2=(e1-e2)*c*s;<br/>
+      a3=e1*s*s+e2*c*c;<br/>
+      a4=e3*s;<br/>
+      a5=e3*c;<br/>
+      a6=e4;<br/>
+      *(ae+0*6+0)=a1;<br/>
+      *(ae+0*6+1)=a2;<br/>
+      *(ae+1*6+1)=a3;<br/>
+      *(ae+0*6+2)=-a4;<br/>
+      *(ae+1*6+2)=a5;<br/>
+      *(ae+2*6+2)=a6;<br/>
+      *(ae+0*6+3)=-a1;<br/>
+      *(ae+1*6+3)=-a2;<br/>
+      *(ae+2*6+3)=a4;<br/>
+      *(ae+3*6+3)=a1;<br/>
+      *(ae+0*6+4)=-a2;<br/>
+      *(ae+1*6+4)=-a3;<br/>
+      *(ae+2*6+4)=-a5;<br/>
+      *(ae+3*6+4)=a2;<br/>
+      *(ae+4*6+4)=a3;<br/>
+      *(ae+0*6+5)=-a4;<br/>
+      *(ae+1*6+5)=a5;<br/>
+      *(ae+2*6+5)=0.5*a6;<br/>
+      *(ae+3*6+5)=a4;<br/>
+      *(ae+4*6+5)=-a5;<br/>
+      *(ae+5*6+5)=a6;<br/>
+}<br/>
+/*形成总刚*/<br/>
+void forma(float e,int nm,int *ist,int *ien,float *ar,float *ri,float *x,float *y,int </p>
+<p>*lv,double *ae,int *ld,double *a)<br/>
+{<br/>
+      int m,i,j;<br/>
+      for(m=0;m&lt;nm;m++)<br/>
+       {<br/>
+          ke(m,e,ist,ien,ar,ri,x,y,ae);<br/>
+          for(i=0;i&lt;6;i++)<br/>
+           {<br/>
+              for(j=0;j&lt;=i;j++)<br/>
+               {<br/>
+                  if(*(lv+m*6+i)&gt;=*(lv+m*6+j))<br/>
+                   {<br/>
+                      *(a+(*(ld+*(lv+m*6+i)-1)-1-*(lv+m*6+i)+1+*(lv+m*6+j)-1))+=*(ae+j*6+i);<br/>
+                   }<br/>
+                  else<br/>
+                   {<br/>
+                      *(a+(*(ld+*(lv+m*6+j)-1)-1-*(lv+m*6+j)+1+*(lv+m*6+i)-1))+=*(ae+j*6+i);<br/>
+                   }<br/>
+               }<br/>
+           }<br/>
+       }<br/>
+}<br/>
+/*总刚a引用支承条件*/<br/>
+void as(int ns,int *is,int *iu,int *ld,double *a)<br/>
+{<br/>
+      int m,j,i,k;<br/>
+      for(m=0;m&lt;ns;m++)<br/>
+       {<br/>
+          j=*(is+m)/10-1;<br/>
+          i=(*(is+m))%10-1;<br/>
+          k=*(iu+j*3+i);<br/>
+          *(a+*(ld+k-1)-1)=1e22;<br/>
+       }<br/>
+}<br/>
+/*解方程组之一    总刚分解*/<br/>
+void ldlt(int n,int *ld,double *a,double *t)<br/>
+{<br/>
+      double sum;<br/>
+      int i,i1,j,j1,ldi,ldj,k;<br/>
+      for(i=1;i&lt;n;i++)<br/>
+       {<br/>
+          ldi=*(ld+i);<br/>
+          i1=i+1-ldi+*(ld+i-1)+1;<br/>
+          for(j=i1-1;j&lt;i;j++)<br/>
+           {<br/>
+              ldj=*(ld+j);<br/>
+              j1=j+1-ldj+*(ld+j-1)+1;<br/>
+              if(i1&gt;j1)j1=i1;<br/>
+              sum=0.0e0;<br/>
+              for(k=j1-1;k&lt;j;k++)<br/>
+               {<br/>
+                  sum+=*(t+k)*(*(a+ldj-j+k-1));<br/>
+               }<br/>
+              *(t+j)=*(a+ldi-i+j-1)-sum;<br/>
+              *(a+ldi-i+j-1)=*(t+j)/(*(a+ldj-1));<br/>
+              *(a+ldi-1)-=*(t+j)*(*(a+ldi-i+j-1));<br/>
+           }<br/>
+       }<br/>
+}<br/>
+/*结点荷载列阵b置零*/<br/>
+void b0(int lc,int n,int nlj,double *b)<br/>
+{<br/>
+      int i;<br/>
+      fprintf(OUTFP,"                Loading Case%3d\n",lc);<br/>
+      fprintf(OUTFP,"           The Loadings at Joints\n");<br/>
+      fprintf(OUTFP,"                  NLJ=%4d\n",nlj);<br/>
+      for(i=0;i&lt;n;i++)<br/>
+       {<br/>
+          *(b+i)=0.0e0;<br/>
+       }<br/>
+}<br/>
+/*读入并输出结点荷载，形成结点荷载列阵b*/<br/>
+void ioljb(int nlj,int *iu,int *lj,float *fx,float *fy,float *fm,double *b)<br/>
+{<br/>
+      int m,j;<br/>
+      fprintf(OUTFP,"joint          FX                FY                  FM\n");<br/>
+      for(m=0;m&lt;nlj;m++)<br/>
+       {<br/>
+          fscanf(IDFP,"%d",lj+m);<br/>
+          fscanf(IDFP,"%f",fx+m);<br/>
+          fscanf(IDFP,"%f",fy+m);<br/>
+          fscanf(IDFP,"%f",fm+m);<br/>
+          CH=fgetc(IDFP);<br/>
+       }<br/>
+      for(m=0;m&lt;nlj;m++)<br/>
+       {<br/>
+          fprintf(OUTFP,"%4d%16.6f%16.6f%18.6f\n",*(lj+m),*(fx+m),*(fy+m),*(fm+m));<br/>
+       }<br/>
+       for(m=0;m&lt;nlj;m++)<br/>
+        {<br/>
+           j=*(lj+m)-1;<br/>
+           *(b+*(iu+j*3+0)-1)=*(fx+m);<br/>
+           *(b+*(iu+j*3+1)-1)=*(fy+m);<br/>
+           *(b+*(iu+j*3+2)-1)=*(fm+m);<br/>
+        }<br/>
+}<br/>
+/*杆端力f置零*/<br/>
+void f0(int nlm,int nm,double *f)<br/>
+{<br/>
+      int i,j;<br/>
+      fprintf(OUTFP,"           The Loadings at Members\n");<br/>
+      fprintf(OUTFP,"                  NLM=%4d\n",nlm);<br/>
+      for(j=0;j&lt;nm;j++)<br/>
+       {<br/>
+          for(i=0;i&lt;6;i++)<br/>
+           {<br/>
+              *(f+j*6+i)=0.0e0;<br/>
+           }<br/>
+    }  <br/>
+}<br/>
+/*读入并输出非结点荷载，计算固端力，计算等效结点荷载并叠加到结点荷载列阵b中*/<br/>
+void iolmfb(int nlm,int *lm,int *lt,float *vf,float *dst,int *ist,int *ien,float *x,float </p>
+<p>*y,int *lv,double *f,double *b)<br/>
+{<br/>
+      int m,l;<br/>
+      double d1,d2,p1,p2,f1,f2,f3,f4,f5,f6,g;<br/>
+      double rl,c,s;<br/>
+      double *prl=&amp;rl,*pc=&amp;c,*ps=&amp;s;<br/>
+      fprintf(OUTFP,"membet    type           VF                DST\n");<br/>
+      for(m=0;m&lt;nlm;m++)<br/>
+       {<br/>
+          fscanf(IDFP,"%d",lm+m);<br/>
+          fscanf(IDFP,"%d",lt+m);<br/>
+          fscanf(IDFP,"%f",vf+m);<br/>
+          fscanf(IDFP,"%f",dst+m);<br/>
+          CH=fgetc(IDFP);<br/>
+       }<br/>
+      for(m=0;m&lt;nlm;m++)<br/>
+       {<br/>
+          fprintf(OUTFP,"%4d%7d %16.6f%16.6f\n",*(lm+m),*(lt+m),*(vf+m),*(dst+m));<br/>
+       }<br/>
+      for(m=0;m&lt;nlm;m++)<br/>
+       {<br/>
+          l=*(lm+m);<br/>
+          lcs(l,ist,ien,x,y,prl,pc,ps);<br/>
+          d1=*(dst+m);<br/>
+          d2=rl-d1;<br/>
+          if(*(lt+m)==1||*(lt+m)==3)<br/>
+           {<br/>
+              p1=*(vf+m)*c;<br/>
+              p2=-(*(vf+m)*s);<br/>
+           }<br/>
+          if(*(lt+m)==2||*(lt+m)==4)<br/>
+           {<br/>
+              p1=*(vf+m)*s;<br/>
+              p2=*(vf+m)*c;<br/>
+           }<br/>
+          if(*(lt+m)==1||*(lt+m)==2)<br/>
+           {<br/>
+              f1=-p1*d2/rl;<br/>
+              f4=-p1-f1;<br/>
+              f2=-p2*d2*d2*(rl+2.0*d1)/(rl*rl*rl);<br/>
+              f5=-p2-f2;<br/>
+              f3=-p2*d1*d2*d2/(rl*rl);<br/>
+              f6=p2*d1*d1*d2/(rl*rl);<br/>
+           }<br/>
+          if(*(lt+m)==3||*(lt+m)==4)<br/>
+           {<br/>
+              g=p2*d1*d1/(12.0*rl*rl);<br/>
+              f3=-g*((6.0*rl-8.0*d1)*rl+3.0*d1*d1);<br/>
+              f6=g*d1*(4.0*rl-3.0*d1);<br/>
+              f5=-6.0*g*d1*(2.0-d1/rl);<br/>
+              f2=-p2*d1-f5;<br/>
+              f4=-p1*d1-f5;<br/>
+              f1=-p1*d1-f4;<br/>
+           }<br/>
+          l--;<br/>
+          *(f+l*6+0)+=f1;<br/>
+          *(f+l*6+1)+=f2;<br/>
+          *(f+l*6+2)+=f3;<br/>
+          *(f+l*6+3)+=f4;<br/>
+          *(f+l*6+4)+=f5;<br/>
+          *(f+l*6+5)+=f6;<br/>
+          *(b+*(lv+l*6+0)-1)-=f1*c-f2*s;<br/>
+          *(b+*(lv+l*6+1)-1)-=f1*s+f2*c;<br/>
+          *(b+*(lv+l*6+2)-1)-=f3;<br/>
+          *(b+*(lv+l*6+3)-1)-=f4*c-f5*s;<br/>
+          *(b+*(lv+l*6+4)-1)-=f4*s+f5*c;<br/>
+          *(b+*(lv+l*6+5)-1)-=f6;<br/>
+       }<br/>
+}<br/>
+/*结点荷载列阵b引入支承条件*/<br/>
+void bs(int ns,int *is,float *vs,int *iu,double *b)<br/>
+{<br/>
+      int i,j,k,m;<br/>
+      for(m=0;m&lt;ns;m++)<br/>
+       {<br/>
+          j=*(is+m)/10-1;<br/>
+          i=(*(is+m)%10)-1;<br/>
+          k=*(iu+j*3+i)-1;<br/>
+          *(b+k)=*(vs+m)*1e22;<br/>
+       }<br/>
+}<br/>
+/*解方程组之二    向前和向后回代*/<br/>
+void slveq(int n,int maxbdw,int *ld,double *a,double *b)<br/>
+{<br/>
+      int i,j,ldi,ldj,i1,imin,j1;<br/>
+      for(i=1;i&lt;n;i++)<br/>
+       {<br/>
+          ldi=*(ld+i);<br/>
+          i1=i+1-ldi+*(ld+i-1)+1;<br/>
+          for(j=i1-1;j&lt;i;j++)<br/>
+           {<br/>
+              *(b+i)-=*(a+ldi-1-i+j)*(*(b+j));<br/>
+           }<br/>
+    }  <br/>
+      for(i=0;i&lt;n;i++)<br/>
+       {<br/>
+          *(b+i)/=*(a+*(ld+i)-1);<br/>
+       }<br/>
+      for(i=n-2;i&gt;=0;i--)<br/>
+       {<br/>
+          imin=i+1+maxbdw;<br/>
+          if(imin&gt;n)imin=n;<br/>
+          for(j=i+1;j&lt;imin;j++)<br/>
+           {<br/>
+              ldj=*(ld+j);<br/>
+              j1=j+1-ldj+*(ld+j-1)+1;<br/>
+              if(i+1&gt;=j1)<br/>
+     {<br/>
+      *(b+i)=*(b+i)-(*(a+ldj-j+i-1)*(*(b+j)));<br/>
+     }<br/>
+           }<br/>
+       }<br/>
+}<br/>
+/*输出结点位移*/<br/>
+void ojd(int nj,int *iu,double *b)<br/>
+{<br/>
+      int j;<br/>
+      fprintf(OUTFP,"              The Results of Calculation\n");<br/>
+      fprintf(OUTFP,"           The Joint Displacements\n");<br/>
+      fprintf(OUTFP,"joint          u                 v              rotation\n");<br/>
+      for(j=0;j&lt;nj;j++)<br/>
+       {<br/>
+          fprintf(OUTFP,"%4d%16.6e%16.6e%16.6e\n",j+1,*(b+*(iu+j*3+0)-1),*(b+*(iu+j*3+1)-1),*</p>
+<p>(b+*(iu+j*3+2)-1));<br/>
+       }<br/>
+}<br/>
+/*计算并输出杆端力*/<br/>
+void cotf(float e,int nm,int *ist,int *ien,float *ar,float *ri,float *x,float *y,int </p>
+<p>*lv,double *b,double *f)<br/>
+{<br/>
+      int m;<br/>
+      double c,s,e1,e2,e3,e4,u1,u2,u3,u4,u5,u6;<br/>
+      double *pc=&amp;c,*ps=&amp;s,*pe1=&amp;e1,*pe2=&amp;e2,*pe3=&amp;e3,*pe4=&amp;e4;<br/>
+      fprintf(OUTFP,"           The Terminal Forces\n");<br/>
+      fprintf(OUTFP,"member                    FN                FS                  M\n");<br/>
+      for(m=0;m&lt;nm;m++)<br/>
+       {<br/>
+          kebar(m,e,ist,ien,ar,ri,x,y,pc,ps,pe1,pe2,pe3,pe4);<br/>
+          u1=*(b+*(lv+m*6+0)-1)*c+*(b+*(lv+m*6+1)-1)*s;<br/>
+          u2=-*(b+*(lv+m*6+0)-1)*s+*(b+*(lv+m*6+1)-1)*c;<br/>
+          u3=*(b+*(lv+m*6+2)-1);<br/>
+          u4=*(b+*(lv+m*6+3)-1)*c+*(b+*(lv+m*6+4)-1)*s;<br/>
+          u5=-*(b+*(lv+m*6+3)-1)*s+*(b+*(lv+m*6+4)-1)*c;<br/>
+          u6=*(b+*(lv+m*6+5)-1);<br/>
+          *(f+m*6+0)+=e1*(u1-u4);<br/>
+          *(f+m*6+1)+=e2*(u2-u5)+e3*(u3+u6);<br/>
+          *(f+m*6+2)+=e3*(u2-u5)+e4*(u3+0.5*u6);<br/>
+          *(f+m*6+3)+=e1*(u4-u1);<br/>
+          *(f+m*6+4)+=e2*(u5-u2)-e3*(u3+u6);<br/>
+          *(f+m*6+5)+=e3*(u2-u5)+e4*(0.5*u3+u6);<br/>
+          fprintf(OUTFP,"%4d    start%4d%16.6f%16.6f%18.6f\n",m+1,*(ist+m),*(f+m*6+0),*</p>
+<p>(f+m*6+1),*(f+m*6+2));<br/>
+          fprintf(OUTFP,"          end%4d%16.6f%16.6f%18.6f\n",*(ien+m),*(f+m*6+3),*(f+m*6+4),*</p>
+<p>(f+m*6+5));<br/>
+       }<br/>
+}</p>
+<p>/*主函数 读入并输出控制数据，分配动态数组地址，并通过调用各个函数来调用整个计算*/<br/>
+int main()<br/>
+{<br/>
+int </p>
+<p>l1,l2,l3,l4,l11,l12,l21,l22,l31,l32,l41,l51,l52,l53,l54,l61,l62,l63,l64,l71,l81,l82,l83,l84;<br/>
+int lc;<br/>
+char idfn[13],outfn[13];<br/><br/>
+printf("Input Data File Name:\n");<br/>
+gets(idfn);<br/>
+if((IDFP=fopen(idfn,"r"))==NULL)<br/>
+    {<br/>
+     printf("can not open Data File!\n");<br/>
+     exit (0);<br/>
+    }<br/>
+printf("Output File Name:\n");<br/>
+gets(outfn);<br/>
+if((OUTFP=fopen(outfn,"w+"))==NULL)<br/>
+    {<br/>
+     printf("can not open Output File!\n");<br/>
+     exit (0);<br/>
+    }<br/>
+fprintf(OUTFP,"Input Data File Name:%s\n",idfn);<br/>
+fprintf(OUTFP,"Output File Name:%s\n",outfn);<br/>
+    {<br/>
+     int i=0;<br/>
+     do<br/>
+      {<br/>
+    CH=fgetc(IDFP);<br/>
+    fputc(CH,OUTFP);<br/>
+    if(CH=='\n')i++;<br/>
+}<br/>
+     while(i&lt;5);<br/>
+    }<br/>
+fprintf(OUTFP,"\n");<br/>
+fprintf(OUTFP,"                  The Input Data\n");<br/>
+fprintf(OUTFP,"             The General Information\n");<br/>
+fprintf(OUTFP,"       E           NM       NJ       NS       NLC\n");<br/>
+fscanf(IDFP,"%f",&amp;E);<br/>
+fscanf(IDFP,"%d",&amp;NM);<br/>
+fscanf(IDFP,"%d",&amp;NJ);<br/>
+fscanf(IDFP,"%d",&amp;NS);<br/>
+fscanf(IDFP,"%d",&amp;NLC);<br/>
+fprintf(OUTFP,"%10.3e",E);<br/>
+fprintf(OUTFP,"%7d",NM);<br/>
+fprintf(OUTFP,"%7d",NJ);<br/>
+fprintf(OUTFP,"%7d",NS);<br/>
+fprintf(OUTFP,"%7d\n",NLC);<br/>
+fprintf(OUTFP,"           The Information of Members\n");<br/>
+fprintf(OUTFP,"member    start    end           A                 I\n");<br/>
+l1=0;<br/>
+l2=l1+NM;<br/>
+l3=0;<br/>
+l4=l3+NM;<br/>
+l11=l4+NM;<br/>
+l12=l11+NJ;<br/>
+l21=l2+NM;<br/>
+l22=l12+NJ;<br/>
+l31=l21+NS;<br/>
+l32=l31+3*NJ;<br/>
+l41=l32+6*NM;<br/>
+iomjs(NM,NJ,NS,W1+l1,W1+l2,W2+l3,W2+l4,W2+l11,W2+l12,W1+l21,W2+l22);<br/>
+idun(NJ,PN,W1+l31,W2+l11,W2+l12);<br/>
+lcvct(NM,W1+l1,W1+l2,W1+l32,W1+l31);<br/>
+lcdia(NM,N,W1+l32,W1+l41,W1+l41,W1+l41,PMAXBDW,PNA);<br/>
+l51=0;<br/>
+l52=l51+72;<br/>
+l53=l52+NA*2;<br/>
+l54=l53;<br/>
+l61=l41+N;<br/>
+forma(E,NM,W1+l1,W1+l2,W2+l3,W2+l4,W2+l11,W2+l12,W1+l32,W3+l51,W1+l41,W3+l52);<br/>
+as(NS,W1+l21,W1+l31,W1+l41,W3+l52);<br/>
+ldlt(N,W1+l41,W3+l52,W3+l53);<br/>
+for(lc=1;lc&lt;=NLC;lc++)<br/>
+    {<br/>
+     fscanf(IDFP,"%d",&amp;NLJ);<br/>
+     CH=fgetc(IDFP);<br/>
+     l62=l22+NS;<br/>
+     l63=l62+NLJ;<br/>
+     l64=l63+NLJ;<br/>
+     l71=l54+N*2;<br/>
+     l81=l61+NLJ;<br/>
+     b0(lc,N,NLJ,W3+l54);<br/>
+     if(NLJ!=0)<br/>
+      ioljb(NLJ,W1+l31,W1+l61,W2+l62,W2+l63,W2+l64,W3+l54);<br/>
+     fscanf(IDFP,"%d",&amp;NLM);<br/>
+     CH=fgetc(IDFP);<br/>
+     l82=l81+NLM;<br/>
+     l83=l64+NLJ;<br/>
+     l84=l83+NLM;<br/>
+     f0(NLM,NM,W3+l71);<br/>
+     if(NLM!=0)<br/>
+      iolmfb(NLM,W1+l81,W1+l82,W2+l83,W2+l84,W1+l1,W1+l2,W2+l11,W2+l12,W1+l32,W3+l71,W3+l54);<br/>
+     bs(NS,W1+l21,W2+l22,W1+l31,W3+l54);<br/>
+     slveq(N,MAXBDW,W1+l41,W3+l52,W3+l54);<br/>
+     ojd(NJ,W1+l31,W3+l54);<br/>
+     cotf(E,NM,W1+l1,W1+l2,W2+l3,W2+l4,W2+l11,W2+l12,W1+l32,W3+l54,W3+l71);<br/>
+     fprintf(OUTFP,"              (NA=%4d)\n",NA);<br/>
+    }<br/>
+fclose(IDFP);<br/>
+fclose(OUTFP);<br/>
+printf("处理完毕\n");<br/>
+system("pause");<br/>
+return (0);<br/>
+}</p>

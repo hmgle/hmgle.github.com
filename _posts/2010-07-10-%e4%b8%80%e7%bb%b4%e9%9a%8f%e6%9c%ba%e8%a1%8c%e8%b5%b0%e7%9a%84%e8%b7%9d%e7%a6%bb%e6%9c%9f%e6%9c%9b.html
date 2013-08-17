@@ -1,0 +1,72 @@
+--- 
+layout: post
+title: "\xE4\xB8\x80\xE7\xBB\xB4\xE9\x9A\x8F\xE6\x9C\xBA\xE8\xA1\x8C\xE8\xB5\xB0\xE7\x9A\x84\xE8\xB7\x9D\xE7\xA6\xBB\xE6\x9C\x9F\xE6\x9C\x9B"
+categories: 
+- "\xE6\xB5\x81\xE5\x85\xA5"
+- "\xE9\x9D\xA2\xE5\xA3\x81"
+tags: 
+- "\xE6\x95\xB0\xE5\xAD\xA6"
+- "\xE9\x9A\x8F\xE6\x9C\xBA\xE6\xB8\xB8\xE8\xB5\xB0"
+status: publish
+type: post
+published: true
+meta: 
+  _edit_last: "1"
+---
+<div align="left"><font size="2">本文遵从<a target="_blank" href="http://creativecommons.org/licenses/by/2.5/cn/">CC版权协议</a> | by:<a href="http://sites.google.com/site/shangdang2917" target="_blank">hmgle</a></font></div>
+<br/><font size="3">一 问题描述    <br/>
+随机行走(Random walk)问题是许多现象的模型。下面是一个二维随机行走问题的描述：一个醉汉在空旷的广场游走。他走的每一步方向都是随机的，步长为L。经过n步之后，这个醉汉会在哪里？在《从一到无穷大》里，G.盖莫夫给出了离出发点可能的距离是L*sqrt(n)。<br/><br/>
+对于一维随机行走的情况，我们考虑某个质点从数轴原点出发，每步以p=1/2的概率向正方向行走1个单位长度，同样以1/2的概率向负方向行走1个单位长度。这和抛一枚硬币出现正、反面事件的Bernoulli试验是一样的。以X表示行走n步后其中正方向的步数，由概率论的知识我们知道随机变量X服从参数为n,1/2的二项分布，即X~b(n,1/2),以K表示走了n步之后质点的位置坐标，则K := X - ( n - X )，即X := ( n + K )/2。 下面我们来求n步之后离原点的距离的数学期望E(abs(K))。<br/><br/>
+二 问题分析<br/>
+n步之后处于坐标k处的走法有binomial(n,(n+i)/2)种，这可以从二项式分布的性质直接得到，这里不再赘述。由对称性知道走到坐标i和到坐标-i的走法是一样多的，再由数学期望的定义我们列出E(abs(K))的表达式<br/>
+E(abs(K)) = 1/2^n * sum(binomial(n,(n+i)/2)*abs(i),i=-n..n) = 1/2^(n-1) *sum(binomial(n,(n+i)/2)*i,i=1..n)<br/><br/>
+引理2.1 sum(binomial(n,(n+i)/2)*i,i=1..n) = ceil(n/2)*binomial(n,ceil(n/2)),n∈Z+.<br/><br/>
+证明:分别讨论n为偶数和n为奇数的情况：<br/>
+a.偶数时，考虑sum((binomial(2*n,(2*n+i)/2)*i,i=1..2*n),n∈Z+。<br/>
+sum((binomial(2*n,(2*n+i)/2)*i,i=1..2*n) = binomial(2*n,n+1)*2 + binomial(2*n,n+2)*4 + ... + binomial(2*n,n+n)*2*n = 2*(binomial(2*n,n+1)*1 + binomial(2*n,n+2)*2 + ... + binomial(2*n,n+n)*n)<br/>
+我们要用到牛顿二项式定理的一个推论：<br/>
+binomial(2*n,0)*0 + binomial(2*n,1)*1 + ... + binomial(2*n,2*n)*2*n = n*2^(2*n)<br/>
+把上式左边分成两部分：<br/>
+binomial(2*n,0)*0 + binomial(2*n,1)*1 + ... + binomial(2*n,2*n)*2*n = {binomial(2*n,1)*1 + binomial(2*n,2)*2 + ... + binomial(2*n,n)*n} + {binomial(2*n,n+1)*(n+1) + binomial(2*n,n+2)*(n+2) + ... + binomial(2*n,n+n)*(n+n)}<br/>
+可以证明被花括号分开的两部分是相等的：我们先证明一个恒等式：binomial(2*n,i)*i = binomial(2*n,2*n-i+1)*(2*n-i+1)。<br/>
+因为上式左边binomial(2*n,i)*i = (2*n)!/((i!)*(2*n-i)!)*i = (2*n)!/((i-1)!*(2*n-i)!),<br/>
+右边binomial(2*n,2*n-i+1)*(2*n-i+1) = (2*n)!/((2*n-i+1)!*(i-1)!)*(2*n-i+1) = (2*n)!/((i-1)!*(2*n-i)!),<br/>
+左边 = 右边，得证。<br/>
+于是binomial(2*n,1)*1 = binomial(2*n,n+n)*(n+n),binomial(2*n,2)*2 = binomial(2*n,n+n-1)*(2*n-1),...,binomial(2*n,n)*n = binomial(2*n,n+1)*(n+1),因此：binomial(2*n,1)*1 + binomial(2*n,2)*2 + ... + binomial(2*n,n)*n = binomial(2*n,n+1)*(n+1) + binomial(2*n,n+2)*(n+2) + ... + binomial(2*n,n+n)*(n+n)，<br/>
+这样我们得到这个等式：2*(binomial(2*n,n+1)*(n+1) + binomial(2*n,n+2)*(n+2) + ... + binomial(2*n,n+n)*(n+n)) = binomial(2*n,0)*0 + binomial(2*n,1)*1 + ... + binomial(2*n,2*n)*2*n = n*2^(2*n)<br/>
+为达到求解sum((binomial(2*n,(2*n+i)/2)*i,i=1..2*n)的目标，进一步分离，得<br/>
+2*(binomial(2*n,n+1)*(n+1) + binomial(2*n,n+2)*(n+2) + ... + binomial(2*n,n+n)*(n+n)) = 2*(binomial(2*n,n+1)*1 +binomial(2*n,n+2)*2 + ... + binomial(2*n,n+n)*n) + 2*n*(binomial(2*n,n+1) + binomial(2*n,n+2) + ... + (2*n,n+n)) = n*2^(2*n)    (1)<br/>
+由二项式定理我们知道<br/>
+sum(binomial(2*n,i),i=0..2*n) = binomial(2*n,0) + binomial(2*n,1) + ... + binomial(2*n,2*n) = 2^(2*n)<br/>
+即<br/>
+{binomial(2*n,0) + binomial(2*n,1) + ... + binomial(2*n,n-1)} + binomial(2*n,n) + {binomial(2*n,n+1) + binomial(2*n,n+2) + ... + binomial(2*n,n+n)} = binomial(2*n,n) + 2*{binomial(2*n,n+1) + binomial(2*n,n+2) + ... + binomial(2*n,n+n)} = 2^(2*n)<br/>
+从而<br/>
+2*{binomial(2*n,n+1) + binomial(2*n,n+2) + ... + binomial(2*n,n+n)} = 2^(2*n) - binomial(2*n,n)    (2)<br/>
+(2)式代入(1)式，得<br/>
+2*(binomial(2*n,n+1)*1 +binomial(2*n,n+2)*2 + ... + binomial(2*n,n+n)*n) + n*(2^(2*n) - binomial(2*n,n)) = n*2^(2*n)    (3)<br/>
+由(3)式，得到<br/>
+2*(binomial(2*n,n+1)*1 + binomial(2*n,n+2)*2 + ... + binomial(2*n,n+n)*n) = n*binomial(2*n,n)<br/>
+于是<br/>
+sum((binomial(2*n,(2*n+i)/2)*i,i=1..2*n) = n*binomial(2*n,n)<br/><br/>
+b.奇数时也一样。考虑sum(binomial(2*n+1,(2*n+1+i)/2)*i,i=1..(2*n+1)),n∈{0,1,2,3,...}。<br/>
+sum(binomial(2*n+1,(2*n+1+i)/2)*i,i=1..(2*n+1)) = binomial(2*n+1,n+1)*1 + binomial(2*n+1,n+2)*3 + binomial(2*n+1,n+3)*5 + ... + binomial(2*n+1,2*n+1)*(2*n+1)<br/>
+由二项式定理<br/>
+{binomial(2*n+1,0) + binomial(2*n+1,1) + ... +binomial(2*n+1,n)} + {binomial(2*n+1,n+1) + binomial(2*n+1,n+2) + ... + binomial(2*n+1,2*n+1)} = 2^(2*n+1)<br/>
+花括号分成的两部分相等，于是<br/>
+{binomial(2*n+1,n+1) + binomial(2*n+1,n+2) + ... + binomial(2*n+1,2*n+1)} = 2^(2*n)<br/>
+所以<br/>
+binomial(2*n+1,n+1)*1 + binomial(2*n+1,n+2)*3 + binomial(2*n+1,n+3)*5 + ... + binomial(2*n+1,2*n+1)*(2*n+1) = (binomial(2*n+1,n+1)*1 + binomial(2*n+1,n+2)*2 + ... + binomial(2*n+1,2*n+1)*(n+1))*2 - sum(binomial(2*n+1,n+i),i=1..n+1) = (binomial(2*n+1,n+1)*1 + binomial(2*n+1,n+2)*2 + ... + binomial(2*n+1,2*n+1)*(n+1))*2 - 2^(2*n)<br/>
+下面我们求(binomial(2*n+1,n+1)*1 + binomial(2*n+1,n+2)*2 + ... + binomial(2*n+1,2*n+1)*(n+1))这部分：<br/>
+我们知道<br/>
+sum(binomial(2*n+1,i)*i,i=0..2*n+1) = (2*n+1)*2^(2*n)<br/>
+上式左边可化为相等的两部分与中间项binomial(2*n+1,n+1)*(n+1)之和<br/>
+sum(binomial(2*n+1,i)*i,i=0..2*n+1) = 2*(sum(binomial(2*n+1,n+i)*(n+i),i=2..n+1)) + binomial(2*n+1,n+1)*(n+1) = (2*n+1)*2^(2*n)<br/>
+我们就得到了<br/>
+sum(binomial(2*n+1,n+i)*i,i=1..n+1) = (2^(2*n)+binomial(2*n+1,n+1)*(n+1))/2<br/>
+最后有<br/>
+sum(binomial(2*n+1,n+i)*(2*i-1),i=1..n+1) = binomial(2*n+1,n+1)*(n+1)<br/>
+综合a,b两种情况，就证明了sum(binomial(n,(n+i)/2)*i,i=1..n) = ceil(n/2)*binomial(n,ceil(n/2)),n∈Z+.    (QED)<br/><br/>
+根据引理2.1，我们得到<br/>
+E(abs(K)) = 1/2^n * sum(binomial(n,(n+i)/2)*abs(i),i=-n..n) = 1/2^(n-1) *sum(binomial(n,(n+i)/2)*i,i=1..n) = ceil(n/2)*binomial(n,ceil(n/2))/2^(n-1).<br/>
+当n趋向于无穷大时，由<a target="_blank" href=":http://zh.wikipedia.org/zh-cn/%E6%96%AF%E7%89%B9%E9%9D%88%E5%85%AC%E5%BC%8F">Stirling公式</a>(link:http://zh.wikipedia.org/zh-cn/%E6%96%AF%E7%89%B9%E9%9D%88%E5%85%AC%E5%BC%8F)我们又得到<br/>
+limit(E(abs(K)),n=infinity) = sqrt(2/pi)*sqrt(n)。</font>

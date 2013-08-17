@@ -1,0 +1,15 @@
+--- 
+layout: post
+title: "\xE6\x96\x87\xE6\x9C\xAC\xE7\xBC\x96\xE8\xBE\x91\xE5\x99\xA8\xE7\x9A\x84\xE6\xAD\xA3\xE5\x88\x99\xE8\xA1\xA8\xE8\xBE\xBE\xE5\xBC\x8F"
+categories: 
+- "\xE6\x8B\xBE\xE9\x9B\xB6"
+- "\xE6\xB5\x81\xE5\x85\xA5"
+tags: 
+- "\xE6\xAD\xA3\xE5\x88\x99\xE8\xA1\xA8\xE8\xBE\xBE\xE5\xBC\x8F"
+status: publish
+type: post
+published: true
+meta: 
+  _edit_last: "1"
+---
+我之前主要用gedit和Notepad++。现在发现在编辑器里搜索像<span style="font-size:18px">(?&lt;!\d)\d{3}</span>这样的模式，试了很多文本编辑器都有问题，例如emeditor,MadEdit,UltraEdi都是同样的问题：零宽度断言部分和后面部分同样类型的时候就不行了，而notepad++好像不支持零宽度断言。另外MadEdit v0.2.9.1版使用正则表达式搜索<span style="font-size: 20px; ">^</span>的话，计算次数时会直接死掉。VIM倒是可以做到，用<span style="font-size:18px">/\(\d\)\@&lt;!\d\{3}</span>，但VIM不好上手。问在Windows下，除了Vim和Emacs外，还有别的文本编辑器（不用插件）可以匹配到这种模式吗？<p/>

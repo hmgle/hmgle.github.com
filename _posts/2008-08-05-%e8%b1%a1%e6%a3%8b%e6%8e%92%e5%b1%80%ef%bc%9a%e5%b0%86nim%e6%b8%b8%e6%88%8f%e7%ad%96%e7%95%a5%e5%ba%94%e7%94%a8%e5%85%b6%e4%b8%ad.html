@@ -1,0 +1,33 @@
+--- 
+layout: post
+title: "\xE8\xB1\xA1\xE6\xA3\x8B\xE6\x8E\x92\xE5\xB1\x80\xEF\xBC\x9A\xE5\xB0\x86Nim\xE6\xB8\xB8\xE6\x88\x8F\xE7\xAD\x96\xE7\x95\xA5\xE5\xBA\x94\xE7\x94\xA8\xE5\x85\xB6\xE4\xB8\xAD"
+categories: 
+- "\xE6\x8B\xBE\xE9\x9B\xB6"
+- "\xE6\xB5\x81\xE5\x85\xA5"
+tags: 
+- Nim
+- "\xE6\xA3\x8B\xE7\xB1\xBB"
+- "\xE6\xB8\xB8\xE6\x88\x8F"
+- "\xE7\xAD\x96\xE7\x95\xA5"
+status: publish
+type: post
+published: true
+meta: 
+  _edit_last: "1"
+---
+<div></div>
+<a href="http://hmgle.org/wp-content/uploads/2008/08/nim_0.jpg"><img class="alignnone size-full wp-image-263" title="nim_0" src="http://hmgle.org/wp-content/uploads/2008/08/nim_0.jpg" alt="" width="363" height="402" /></a>
+
+<span style="font-size: small;">上面的这局对称的排局不知来源于古谱还是现代排局，曾经在一本国内科普读物（</span>
+<p class="MsoNormal"><s><span>现在忘记叫什么了，电子版的，在我的硬盘上有，可惜晾在家里了</span></s> <span>是谈祥柏的《趣味对策论》，蒋声的《趣味代数》也有,最早可能是古谱《竹香斋》</span><s></s></p>
+<span style="font-size: small;">）看过，如果是出自古谱那原作者就相当不简单了，要知道Nim游戏理论建立到现在不过100多年时间。象棋不属于Nim游戏，因为Nim游戏的一个必要条件是对于游戏的任一种局面，可移动的集合只取决于当前局面而与游戏者无关，但这个局面的确可用Nim游戏策略来解决。</span>
+
+从棋局中我们看到，每方可移动棋子只有三种：两个炮，边兵（卒），对应的位于同一纵线上，且不能离开当前的纵线。我们把可移动棋子所在的三条线分成三组，炮所在的组中，我们j记下对应棋子的间隔数，兵（卒）所在的组中，因为间隔一格后就不能再前进了，所以把间隔数减一。考虑棋子后退（把间隔数增大，相当于Nim游戏中放入石块到堆中）是有限的，再想想Nim游戏的模型，这不正好是3-堆Nim取物游戏吗？各堆大小分别是1，4，4。表示成二进制为001，100，100，是非平衡的Nim游戏，即N-position，先手有必胜策略，可以炮七退一变成101、100，001或挺兵变成000，100，100这样的P-position局面，以下无论后手方如何走都将把局面导向N-position位置。
+
+这是一局少见的排局，可能因为存在数学策略的缘故，基于计算局势分经过优化而选择棋步的棋软很难得出正解。用奇兵测试，即使不限制搜索时间和搜索层数也是临败几步前才算到结果，而对于大多数的充满陷阱的江湖棋局，是比较容易可以得到正解的：例如下面的对称的排局，大家可以试试，它叫五鼠闹东京；
+<div><a href="http://hmgle.org/wp-content/uploads/2008/08/five_mice.jpg"><img class="alignnone size-full wp-image-264" title="five_mice" src="http://hmgle.org/wp-content/uploads/2008/08/five_mice.jpg" alt="" width="359" height="399" />
+</a>几个介绍Nim游戏的链接：<a href="http://en.wikipedia.org/wiki/Nim" target="_blank">http://en.wikipedia.org/wiki/Nim</a>
+<a href="http://www.cut-the-knot.org/ctk/May2001.shtml" target="_blank">http://www.cut-the-knot.org/ctk/May2001.shtml</a>
+<a href="http://mathworld.wolfram.com/Nim.html" target="_blank">http://mathworld.wolfram.com/Nim.html</a>
+
+</div>

@@ -1,0 +1,75 @@
+--- 
+layout: post
+title: "\xE4\xB8\x80\xE9\x81\x93\xE9\xA2\x98\xE7\x9A\x84\xE8\xAF\x81\xE6\x98\x8E"
+categories: 
+- "\xE6\xB5\x81\xE5\x85\xA5"
+- "\xE9\x80\x90\xE6\xB5\xAA"
+tags: 
+- "\xE8\xAF\x81\xE6\x98\x8E"
+- "\xE8\xB6\xA3\xE9\xA2\x98"
+status: publish
+type: post
+published: true
+meta: 
+  _edit_last: "1"
+---
+<div align="left">
+
+原题来源：<a href="http://www.eaglefantasy.cn/archives/196" target="_blank">http://www.eaglefantasy.cn/archives/196</a>本文遵从<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank">cc-by-nc-sa版权协议</a>
+
+今天在Eagle_Fantasy的站点上偶然看到一道有意思的小数学题，原题如下：汽油危机已经来临，大家都在叫油荒。分散在长长的环形公路各处的加油站所存的油量仅仅够你跑一圈而无点滴富余。请证明，如果你在一个合适的加油站开始启程，把空油箱加足了汽油，你有充分把握可以跑完一圈，不会中途抛锚。
+
+Eagle_Fantasy给出的解答是：设想你在第一站带上足够的燃料，沿着公路环行，每到一处，便做好记录油箱里还有多少油，并把那里的汽油全部倒进油箱。当你回到第一站时，你将发现，油箱里的剩油与出发时一样多。总有一站油箱里的油量最小，我们就从这站开始启程，这样保证环行一周途中不愁汽油断档。
+
+Eagle_Fantasy给出的解答更像一个解法，当然我们可以进一步证明它的确是可行的，这将在后面看到。下面是我的不严格阐述：
+
+设共有n站，从任意一个站点开始按顺序编号，第i站可加油量为A[i],从第i站跑到第(i+1)站需耗掉的油量为a[i] (a[n]表示从第n站到第一站)，由题设可知：
+
+sum(A[i],i=1..n) = sum(a[i],i=1..n)        (1)
+
+我们采用反证法：假设不存在可完成不中途抛锚行程的站点，即对于任意站点i，至少存在一个正整数j(0&lt;j&lt;n)，使得：从第i站出发，在第(i+j) mod(n)站前耗尽油抛锚，即最后加油的一站是[i+j-1]站,于是有
+
+A[i]&gt;=a[i]    (2),
+
+A[i]+A[i+1]&gt;=a[i]+a[i+1]    (3),
+
+...,
+
+A[i]+A[i+1]+...+A[i+j-2]&gt;=a[i]+a[i+1]+...+a[i+j-2]    (4),
+
+A[i]+A[i+1]+...+A[i+j-1]&lt;a[i]+a[i+1]+...+a[i+j-1]    (5),
+
+由上面(2),(3),(4),(5)式得
+
+A[i+1]+A[i+2]+...+A[i+j-1]&lt;a[i+1]+a[i+2]+...+a[i+j-1]    ,
+
+A[i+2]+A[i+3]+...+A[i+j-1]&lt;a[i+2]+a[i+2]+...+a[i+j-1]    ,
+
+...,
+
+A[i+j-1]&lt;a[i+j-1],
+
+它说明从第i,(i+1),(i+2),...,直至第(i+j-1)站出发，都是无法到达第(i+j)站的。
+
+好，我们从第1站出发，可以找到第k(1&lt;k&lt;=n)站使得在k站前抛锚，若从第k站出发，可以找到中途抛锚未到达的p站，依次类推，直到找到一站最接近第n站的q(q&lt;=n)站。编号在q之前的所有站点作为出发点，都是不可能到达q站的。根据假设，我们一定可以找到一站p(0&lt;p&lt;q),使得从q站出发，在p站之前因耗尽油而抛锚。p编号在q之前，故从p站出发，也是不能到达q站的。即
+
+A[q]+A[q+1]+...+A[n]+A[1]+A[2]+...+A[p-1]&lt;a[q]+a[q+1]+...+a[n]+a[1]+a[2]+...+a[p-1]    (6),
+
+A[p]+A[p+1]+...+A[q-1]&lt;a[p]+a[p+1]+...+a[q-1]    (7),
+
+由(6),(7)得
+
+A[1]+A[2]+...+A[n]&lt;a[1]+a[2]+...+a[n],
+
+即sum(A[i],i=1..n)&lt;sum(a[i],i=1..n),与题设(1)矛盾，于是假设不成立。
+
+得证。
+
+为什么Eagle_Fantasy给出的解答是合理可行的呢？
+
+以纵坐标表示油量，我们假设不受油量限制可以一直行驶，我们可以画出如下的油量变化图.
+<a href="http://hmgle.org/wp-content/uploads/2008/05/youliang_xingcheng.jpg"><img class="alignnone size-full wp-image-273" title="youliang_xingcheng" src="http://hmgle.org/wp-content/uploads/2008/05/youliang_xingcheng.jpg" alt="" width="344" height="240" /></a>
+<div></div>
+它要求起点和终点的纵坐标一样，如果我们选择纵坐标为最小值的点为起点，就可以保证油量曲线在x轴上方了，即油量一直大于等于零，就可以顺利绕环行路一周了。
+
+</div>
