@@ -11,9 +11,11 @@ published: true
 meta: 
   _edit_last: "1"
 ---
+<p>
 最近在做个IP camera, 开发板是Hi3511的. 在写h.264码流封装成rtp包进行网络传输时, 出问题了: 在客户端用vlc看不到期待的画面. 用wireshark抓包, 把源源不断的rtp包拆包一看, 竟然没有fu-a包, 全是单个的nal包. 而输入的nalu基本都是大于最大传输单元MTU的, 需要分解成fu-a包的形式. 通过测试发现, 问题出现在设置fu分片包的indicator和header上. 再往下分析, 得到在ARM平台下令人惊奇的现象. 假如我们有下面代码:
 
-[php lang_name="C"]
+</p>
+<pre><code>
 #include &lt;stdint.h&gt;
 
 typedef struct fu_indicator {
@@ -32,9 +34,11 @@ int main(int argc, char **argv)
     printf("now n is %d\n", n);
     return 0;
 }
-[/php]
+</pre></code>
+<p>
 以上代码在x86平台上运行结果正如预想的一样, 但在arm平台下就不一样了, 结果竟然是n变成0了. 看汇编内容:
-[php lang_name="C"]
+</p>
+<pre><code>
 main:
 @ args = 0, pretend = 0, frame = 12
 @ frame_needed = 1, uses_anonymous_args = 0
@@ -61,12 +65,22 @@ sub sp, fp, #12
 ldmfd sp, {fp, sp, pc}
 .size main, .-main
 .ident "GCC: (GNU) 3.4.3 (release) (CodeSourcery ARM Q3cvs 2004)"
-[/php]
+</pre></code>
+<p>
 汇编代码文件看起来没有问题, 但问题是程序跑出来的结果n是不等于15的. 这说明出现问题的阶段是发生在编译阶段之后的, 也许是汇编阶段, 也许是链接阶段. 据老夫多年行医经验来看, 汇编阶段不过是将汇编指令的机器码查找出翻译成机器码就可以了, 像查英汉字典一样有固定解释, 很少有出错的可能, 基本可诊断为问题出现在链接阶段, 而像地址分配, 内存对齐,重定位等都在这一阶段完成.
+</p>
+<p>
 接下来用sizeof(fu_indicator_t)一看, 在ARM平台上竟然是4, 不是x86平台下的1了. 我试着改这个结构体里面各个位域的不同值发现, 各个位域的位置是随机的呀! 连顺序都会改变呢! 就是说这个结构体的位域的位置连顺序也不保证. 你见过一个结构体的比特序都会变化的吗? 当fu_indicator结构体里面的type位于后三个字节的时候当然就不是我预想的结果了.
 
+</p>
+<p>
 解决办法: 强制这个结构体按最紧凑的方式对齐, 可以在声明fu_indicator结构体后加入"__attribute__ ((packed))" 或在Makefile里的加编译选项"-fpack-struct", 这样fu_indicator结构体的长度就为1字节了, 比特顺序也能得到保证. 或按最保险的方法: 放弃用位域这种结构, 而直接用按位操作来代替.
 
+</p>
+<p>
 总结: 位域这种结构移植性是非常差的. C语言参考手册说了: 依赖于存储策略是危险的, 原因有几个. 1, 不同的计算机对数据类型的对齐限制不同. 2, 位字段宽度的限制不同. 3, 字节序不同. 甚至比特序也不同, 像上面的例子在arm平台就在同一个结构体上出现了截然相反的比特序. 如处于移植性考虑, 尽量不要用位域这种结构体来实现设置位的操作, 而是直接用按位操作.
 
+</p>
+<p>
 另: 从这个<a title="ARM平台上编译器的地址对齐/指针优化问题" href="http://www.linuxforum.net/forum/printthread.php?Cat=&amp;Board=embedded&amp;main=535759&amp;type=thread">帖子</a>来看, 这个问题还和GCC的版本有关.
+</p>

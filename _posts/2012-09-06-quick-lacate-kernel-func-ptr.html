@@ -11,10 +11,17 @@ published: true
 meta: 
   _edit_last: "1"
 ---
+<p>
 上一周, 我在调试linux的phy驱动.
-
+</p>
+<p>
 在调试的过程中, 我遇到了一个问题: 驱动初始化前先用 bus-&gt;read()来读取phy寄存器的值, 而read这个成员在mii_bus结构体中是一个函数指针, 如何在内核中快速定位一个函数指针到底指向哪个函数呢?
 
+</p>
+<p>
 如果在应用层的话, 我们有gdb可以跟踪, 还有backtrace系列函数可用. 而在内核, 尽管可以通过阅读内核源代码, 分析设备驱动初始化的流程, 也可以得出每一个函数指针指向的函数, 但有时这个代价很大, 尤其是对设备驱动注册流程不熟悉的初学者, 面对庞大的linux内核源码, 即使有source insight这样好用的工具, 也未必能快速的正确定位到当前函数指针指向的函数, 之所以说当前, 是因为采用函数指针的一个意图就是方便各个阶段指向不同的函数, 也就是说函数指针有可能随着运行的阶段而变化.
 
+</p>
+<p>
 后来, 我在stackoverflow的<a href="http://stackoverflow.com/questions/351134/how-to-get-functions-name-from-functions-pointer-in-c">这个帖子</a> (http://stackoverflow.com/questions/351134/how-to-get-functions-name-from-functions-pointer-in-c) 上找到了同样的问题, 也得到了解答: 可以在内核源码中要定位的函数指针的上一行或附近加打印信息, 比如<em> printk(KERN_INFO "--in %s %d %s() addr of bus-&gt;read is %#x \n", __FILE__, __LINE__, __func__, bus-&gt;read);</em> 重新编译内核后, 加载驱动的时候就会打印出函数指针指向的地址, 而 linux 每次启动时都会在 <em>/proc/kallsyms</em> 记录内核用到的所有函数地址和名称的对应关系, 只要 cat 一下 /proc/kallsyms 再 grep 一下刚才打印出的地址就找到这个函数指针当时指向的函数了.
+</p>

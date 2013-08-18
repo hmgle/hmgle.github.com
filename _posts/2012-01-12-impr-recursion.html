@@ -11,8 +11,10 @@ published: true
 meta: 
   _edit_last: "1"
 ---
+<p>
 在<a href="http://hmgle.org/archives/204">上一篇</a>(<a href="http://hmgle.org/archives/204">一次面试</a>)中, 我用递归实现了输出所有可接受序列的排队方法. 后来, 我意识到, 在递归中, 频繁地申请内存来存储新增加的可接受序列的字符串, 再释放掉这片存储区域的方法是不必要的. 因为在递归中每调用一次新的递归后, 这时的可接受序列的字符串前面部分是一样的, 可以每次调用递归函数都用这块存储区域. 这时我们就不能用strcat()函数来加入新的字符了, 而是要先计算出目前要修改的字符的位置(pstr + (num_of_push_fiftycents * 2 - sum_of_fiftycents_inbox)), 然后直接在这个位置上修改要加入的字符. 改进后的代码如下:
-[php lang_name="C"]
+</p>
+<pre><code>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -114,6 +116,8 @@ main(int argc, char **argv)
 
     return 0;
 }
-[/php]
+</pre></code>
 
+<p>
 不过, 频繁的申请, 释放内存并不是这个程序的瓶颈. 修改后的程序运行时间基本是和原来一样的. 原因之一是每一次调用malloc申请到的其实是同一片区域, 没有调用到sbrk()申请过一片大的存储区域. 另一个原因是递归实在是效率低下, 没有留给别的东西当瓶颈的机会.
+</p>
