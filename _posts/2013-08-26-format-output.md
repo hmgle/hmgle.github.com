@@ -7,7 +7,7 @@ categories: blog
 
 在 c 中， 格式转换说明中可以用 "\*" 表示宽度或精度，从而实现可变宽度的格式输出. 如：
 
-```c
+```cpp
 #include <stdio.h>
 
 static int pretty_float(double f, unsiged int n)
