@@ -2,12 +2,13 @@
 layout: post
 title:  "一次 python segmentation fault 的调试"
 date:   2014-01-04 12:58:53
-categories: python segfault driver kernel
+categories: python segfault linux driver kernel
 ---
 
 前段时间玩成语接龙，我写了个 linux [成语驱动](https://github.com/hmgle/innocent)模块(不要问为什么要在这么底层上实现这么上层的玩意儿，仅仅为了折腾一下 kernel`:)`). 应用层通过 `write`, `read` 设备节点的方式查询符合一定条件的成语。
 
-这两天在上面用 python 写了个读写这个设备节点以判断输入是否是成语的例子，运行时出现了`segmentation fault python innocent_demo.py`的错误。python 解释器出现如此严重的 segmentation fault 现象我还第一次见。
+这两天在上面用 python 写了个读写这个设备节点以判断输入是否是成语的例子，运行时出现了`segmentation fault python innocent_demo.py`的错误。python解释器出现如此严重的**segmentation fault**现象我还第一次见。
+
 我为这个错误的状态建立了一个分支，要重现的话可以执行下面的步骤：
 
 	git clone https://github.com/hmgle/innocent.git
@@ -40,6 +41,7 @@ print t
 t = is_idiom('一二三四')
 print t
 ```
+
 执行 `is_idiom('逃之夭夭')` 正常，执行 `is_idiom('一二三四')` 就挂了，python解释器直接退出， 仅输出错误信息：
 
 	[1]    1202 segmentation fault  python innocent_demo.py
@@ -61,7 +63,7 @@ print t
 
 之前我用 `shell` 直接调用 `cat` 和 `echo` 来读写这个设备文件，表现正常， 见 [innocent_demo.sh](https://raw.github.com/hmgle/innocent/bug/innocent_demo.sh)：
 
-```shell
+```
 #!/bin/sh
 
 if [ ! -z "$1" ]; then
@@ -78,7 +80,7 @@ cat /dev/innocent
 
 看看 innocent 驱动的 `read` 实现：
 
-```
+```c
 static ssize_t innocent_read(struct file *filp, char __user *buf,
 			     size_t count, loff_t *f_pos)
 {
@@ -111,3 +113,4 @@ static ssize_t innocent_read(struct file *filp, char __user *buf,
 而 python 的 `readlines()` 每次调用系统调用`read()`时， 是读取8k的字节，恰好 "逃" 开头的成语少于8k，而"一"开头的成语超过8k，于是开头时的崩溃现象就发生了。
 
 那么该如何修正呢？ 我仅仅对 copy_to_user() 加了是否返回成功的判断。这样应用层不能像普通文件一样读取"innocent"了，想查询某字开头的所有成语，就只能一次性读完，不能分多次读。如果要把设备文件的读取做成普通文件那样的流形式，还需考虑许多问题。
+
