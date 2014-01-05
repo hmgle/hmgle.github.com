@@ -7,9 +7,9 @@ categories: python segfault linux driver kernel
 
 前段时间玩成语接龙，我写了个 linux [成语驱动](https://github.com/hmgle/innocent)模块(不要问为什么要在这么底层上实现这么上层的玩意儿，仅仅为了折腾一下 kernel`:)`). 应用层通过 `write`, `read` 设备节点的方式查询符合一定条件的成语。
 
-这两天在上面用 python 写了个读写这个设备节点以判断输入是否是成语的例子，运行时出现了`segmentation fault python innocent_demo.py`的错误。python解释器出现如此严重的**segmentation fault**现象我还第一次见。
+这两天在上面用 python 写了个读写这个设备节点以判断输入是否是成语的例子，运行时出现了`segmentation fault python innocent_demo.py`的错误。python解释器出现如此严重的 **segmentation fault** 现象我还第一次见。
 
-我为这个错误的状态建立了一个分支，要重现的话可以执行下面的步骤：
+我为这个错误的状态建立了一个分支，要重现这个bug的话可以执行下面的步骤：
 
 	git clone https://github.com/hmgle/innocent.git
 	git checkout -b bug origin/bug
