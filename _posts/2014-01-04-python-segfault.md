@@ -63,7 +63,7 @@ print t
 
 之前我用 `shell` 直接调用 `cat` 和 `echo` 来读写这个设备文件，表现正常， 见 [innocent_demo.sh](https://raw.github.com/hmgle/innocent/bug/innocent_demo.sh)：
 
-```
+```sh
 #!/bin/sh
 
 if [ ! -z "$1" ]; then
@@ -80,7 +80,7 @@ cat /dev/innocent
 
 看看 innocent 驱动的 `read` 实现：
 
-```c
+```cpp
 static ssize_t innocent_read(struct file *filp, char __user *buf,
 			     size_t count, loff_t *f_pos)
 {
