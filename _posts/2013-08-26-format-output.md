@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 而 python 除了支持这种 c 风格的变宽度指定外， 还可以这么使用：
 
 ```python
-def pretty_float(f, n = 3):
+def pretty_float(f, n=3):
 	return "%0.{0}f" .format(n) % f
 
 pretty_float(3.1415926, 2)
@@ -33,7 +33,7 @@ pretty_float(3.1415926, 2)
 也可以这样：
 
 ```python
-def pretty_float_another(f, n = 3):
+def pretty_float_another(f, n=3):
 	return "%%0.%df" %n%f
 
 pretty_float_another(3.1415926, 2)
