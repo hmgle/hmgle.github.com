@@ -33,4 +33,4 @@ categories: Makefile git
 
 但为什么一点错误提示都没用呢？因为Makefile 的 `sinclude` 语句会产生这样的效果：当所包含的文件不存在时不报错(这个特性和**make**的版本及平台有关, 我在**cygwin**下运行时会有提示信息`make: *** 没有规则可以创建“foo.o”需要的目标“bar.h”。 停止。`)。
 
-从这个实例可以看到，在Makefile中的clean目标部分， 还是有理由删除".d"文件的，这样至少可以在执行一次`make clean`后，可以再次正常编译。再保守一点的话，".gitignore" 不要忽略".d"文件。如果需要自动编译系统的话，在`hooks`目录的"post-checkout"钩子文件添加删除“.d”文件的语句。
+从这个实例可以看到，在Makefile中的clean目标部分， 还是有理由删除".d"文件的，这样至少可以在执行一次`make clean`后，可以再次正常编译。再保守一点的话，".gitignore" 不要忽略".d"文件。如果需要自动编译系统，可以在`hooks`目录的"post-checkout"钩子文件添加删除“.d”文件的语句。
