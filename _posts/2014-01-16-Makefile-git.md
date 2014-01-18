@@ -31,4 +31,6 @@ categories: Makefile git
 
 经过调试分析，才明白原来是".d"文件在作怪. 执行make clean 没有清除".d"文件，git checkout 后， ".d"文件是分支xx状态建立的，而这个分支因为加了bar.h文件，foo.c 包含了这个新加入的头文件，因此这个分支下的".d"文件会把bar.h加入foo.c的依赖文件中去，执行`git checkout master`后，里面的".d"文件是分支xx的，而master分支里面没有这个bar.h文件，因此不会编译成功。
 
-但为什么一点错误提示都没用呢？因为Makefile 的 `sinclude` 语句会产生这样的效果：当所包含的文件不存在时不报错(这个特性和make的版本及平台有关, 我在cygwin下运行时会有提示信息)。
+但为什么一点错误提示都没用呢？因为Makefile 的 `sinclude` 语句会产生这样的效果：当所包含的文件不存在时不报错(这个特性和**make**的版本及平台有关, 我在**cygwin**下运行时会有提示信息`make: *** 没有规则可以创建“foo.o”需要的目标“bar.h”。 停止。`)。
+
+从这个实例可以看到，在Makefile中的clean目标部分， 还是有理由删除".d"文件的，这样至少可以在执行一次`make clean`后，可以再次正常编译。再保守一点的话，".gitignore" 不要忽略".d"文件。如果需要自动编译系统的话，在`hooks`目录的"post-checkout"钩子文件添加删除“.d”文件的语句。
