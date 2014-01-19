@@ -29,7 +29,9 @@ categories: Makefile git
 	git checkout master
 	make # 奇怪的事情发生了！
 
-经过调试分析，才明白原来是".d"文件在作怪. 执行make clean 没有清除".d"文件，git checkout 后， ".d"文件是分支xx状态建立的，而这个分支因为加了bar.h文件，foo.c 包含了这个新加入的头文件，因此这个分支下的".d"文件会把bar.h加入foo.c的依赖文件中去，执行`git checkout master`后，里面的".d"文件是分支xx的，而master分支里面没有这个bar.h文件，因此不会编译成功。
+经过调试分析，才明白原来是".d"文件在作怪. 在**develop**分支中，新加了"foo.c"依赖的"bar.h"头文件，因此在这个分支下编译的时候，会生成新的"foo.d"文件，描述了最新的依赖关系,把"bar.h"加到依赖文件中。
+从**develop**分支切换回**master**分支后，这个"foo.d"文件还是原来**develop**分支状态建立的，执行`make`编译的时候，由于"foo.d"文件比其他源文件都要新，因此不会根据源文件再次生成"foo.d"文件，还继续用描述**develop**分支依赖关系的这个"foo.d"文件。
+而**master**分支是没有"bar.h"文件的，于是不会编译成功。
 
 但为什么一点错误提示都没用呢？因为Makefile 的 `sinclude` 语句会产生这样的效果：当所包含的文件不存在时不报错(这个特性和**make**的版本及平台有关, 我在**cygwin**下运行时会有提示信息`make: *** 没有规则可以创建“foo.o”需要的目标“bar.h”。 停止。`)。
 
