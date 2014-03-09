@@ -8,20 +8,22 @@ categories: Makefile
 `GNU Make` 有一个很少见的语法, 可以为特定的目标指定例外选项。
 比如下面的一段代码来自 `Linux` 内核的一个 `Makefile`:
 
-	quiet_cmd_unroll = UNROLL  $@
-	      cmd_unroll = $(AWK) -f$(srctree)/$(src)/unroll.awk -vN=$(UNROLL) \
-	                   < $< > $@ || ( rm -f $@ && exit 1 )
-	
-	ifeq ($(CONFIG_ALTIVEC),y)
-	altivec_flags := -maltivec -mabi=altivec
-	endif
-	
-	targets += int1.c
-	$(obj)/int1.c:   UNROLL := 1
-	$(obj)/int1.c:   $(src)/int.uc $(src)/unroll.awk FORCE
-		$(call if_changed,unroll)
+{% highlight makefile linenos %}
+quiet_cmd_unroll = UNROLL  $@
+      cmd_unroll = $(AWK) -f$(srctree)/$(src)/unroll.awk -vN=$(UNROLL) \
+                   < $< > $@ || ( rm -f $@ && exit 1 )
 
-看上面 `$(obj)/int1.c: UNROLL := 1` 这一行，这种语法在`Makefile`里很少见。
+ifeq ($(CONFIG_ALTIVEC),y)
+altivec_flags := -maltivec -mabi=altivec
+endif
+
+targets += int1.c
+$(obj)/int1.c:   UNROLL := 1
+$(obj)/int1.c:   $(src)/int.uc $(src)/unroll.awk FORCE
+	$(call if_changed,unroll)
+{% endhighlight %}
+
+看上面第10行： `$(obj)/int1.c: UNROLL := 1`，这种语法在`Makefile`里很少见。
 这是什么意思呢？
 
 它的意思是单独为 `$(obj)/int1.c` 设置 `UNROLL:=1`, 而在别的目标里， `UNROLL` 还是保留原来的值。
