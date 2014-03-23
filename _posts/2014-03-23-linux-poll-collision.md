@@ -20,7 +20,7 @@ accept， 它们监控的文件描述符是可以被多个进程同时处理的�
 冲突的理解存在许多误区，比如有人都用如下类似的代码模拟select冲突(网上搜 select
 惊群或 epoll 惊群有真相):
 
-{% highlight c linenos %}
+{% highlight cpp %}
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
