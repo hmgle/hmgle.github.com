@@ -5,6 +5,12 @@ date:   2014-09-11 20:37:53
 categories: Erlang
 ---
 
+## 基本类型
+
+## 运行环境
+
+## 技巧
+
 ## 错误总结
 
 * erl 文件包含头文件位置不能位于 `-module(module_name).` 前面.
@@ -15,3 +21,4 @@ categories: Erlang
 ## 新特性
 
 * **maps** 是 R17 才开始支持的, 这是对 **record** 的改善. 见[Big changes to Erlang](http://joearms.github.io/2014/02/01/big-changes-to-erlang.html).
+
