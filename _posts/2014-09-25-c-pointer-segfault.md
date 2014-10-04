@@ -5,7 +5,7 @@ date:   2014-09-25 20:41:53
 categories: C
 ---
 
-[上一篇](c-type.html)
+[相关日记: C 错误记录(一): 记一次指针类型转换的 bug](http://hmgle.github.io/other/2013/10/28/c-type.html)
 
 我修改以前一段使用 `select(2)` 的服务端代码时, 遇到一个 segment fault.
 定位到问题后, 发现是指针赋值原因.
