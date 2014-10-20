@@ -40,18 +40,18 @@ inetd 根据配置文件(inetd.conf)来判别服务的类型和监听的端口. 
 
   比如 `date`, 假如配置文件为:
 
-  ```bash
+```bash
 tcpmux stream  tcp nowait root /bin/date  date
-  ```
+```
 
   inetd 会在 tcpmux 这个服务对应的 TCP 端口监听连接, 等到有客户端连接(`connect(2)`)过来后, inetd 接受(`accept(2)`) 并创建一个新套接字的文件描述符, 再 `fork(2)` 出子进程, 子进程会继承这个文件描述符, 只要将这个文件描述符 `dup2(2)` 到 `STDIN_FILENO`,  `STDOUT_FILENO` 和 `STDERR_FILENO` 就可以了. 通过 `execv(3)` 启动原始的服务, 这样, `date` 读写stdio设备实际上就是向连接客户端的套接字进行读写了.
 
   可以用 `netcat` 这样模拟客户端:
 
-  ```console
+```console
 $ nc localhost 1
 2014年 10月 20日 星期一 17:11:57 CST
-  ```
+```
 
   unix 上的许多工具都遵循这这样的传统: 默认从 `STDIN_FILENO` 读入, 写出到 `STDOUT_FILENO`, 出错信息输出到 `STDERR_FILENO`. 例如 `dd`, `cat`, 这意味着它们可以通过 inetd 管理的的方式提供网络服务. 对于常见的服务, inetd 本身实现了内置的服务, 这可以在配置文件中通过 `internal` 选项指明使用内置的服务.
 
@@ -73,13 +73,13 @@ $ nc localhost 1
 
   inetd.conf 文件需要加入一行这样的配置:
 
-  ```bash
+```bash
 dcap stream tcp wait root /home/gle/inetd_test/foo foo # 路径根据实际情况自己修改
-  ```
+```
 
   foo.c 代码:
 
-  ```cpp
+```cpp
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -166,14 +166,14 @@ int main(int argc, char **argv)
 	}
 	return 0;
 }
-  ```
+```
 
   客户端通过 netcat 来模拟:
 
-  ```console
+```console
 $ nc 127.0.0.1 22125
 hello!
-  ```
+```
 
 ### 3. UDP 服务
 
