@@ -39,6 +39,7 @@ inetd 根据配置文件(inetd.conf)来判别服务的类型和监听的端口. 
 ### 1. 仅用 `STDIN_FILENO`, `STDOUT_FILENO` 和 `STDERR_FILENO` 与用户交互的服务
 
   比如 `date`, 假如配置文件为:
+
   ```bash
 tcpmux stream  tcp nowait root /bin/date  date
   ```
@@ -46,6 +47,7 @@ tcpmux stream  tcp nowait root /bin/date  date
   inetd 会在 tcpmux 这个服务对应的 TCP 端口监听连接, 等到有客户端连接(`connect(2)`)过来后, inetd 接受(`accept(2)`) 并创建一个新套接字的文件描述符, 再 `fork(2)` 出子进程, 子进程会继承这个文件描述符, 只要将这个文件描述符 `dup2(2)` 到 `STDIN_FILENO`,  `STDOUT_FILENO` 和 `STDERR_FILENO` 就可以了. 通过 `execv(3)` 启动原始的服务, 这样, `date` 读写stdio设备实际上就是向连接客户端的套接字进行读写了.
 
   可以用 `netcat` 这样模拟客户端:
+
   ```console
 $ nc localhost 1
 2014年 10月 20日 星期一 17:11:57 CST
@@ -70,11 +72,13 @@ $ nc localhost 1
   被 inetd 接管的服务需要根据以上的特点改造一下才能既能独立启动, 又能被 inetd 启动. 我写一个简单的例子, 假设这个服务为 foo:
 
   inetd.conf 文件需要加入一行这样的配置:
+
   ```bash
 dcap stream tcp wait root /home/gle/inetd_test/foo foo # 路径根据实际情况自己修改
   ```
 
   foo.c 代码:
+
   ```cpp
 #include <unistd.h>
 #include <stdlib.h>
@@ -165,6 +169,7 @@ int main(int argc, char **argv)
   ```
 
   客户端通过 netcat 来模拟:
+
   ```console
 $ nc 127.0.0.1 22125
 hello!
