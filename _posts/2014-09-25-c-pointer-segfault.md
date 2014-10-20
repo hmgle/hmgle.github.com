@@ -93,7 +93,7 @@ static int xx_fd_set_init(struct xx_server_ctx *server)
 	fd_set = malloc(sizeof(struct xx_fd_set));
 	if (fd_set == NULL)
 		return -1;
-	server->apidata = fd_set;
+	server->xx_allfd_set = fd_set;
 	FD_ZERO(&(fd_set)->rfds);
 	FD_ZERO(&(fd_set)->wfds);
 	return 0;
