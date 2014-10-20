@@ -36,7 +36,7 @@ inetd 根据服务的特点把服务分成大致的三类:
 
 inetd 根据配置文件(inetd.conf)来判别服务的类型和监听的端口. 配置文件的每一行都标识了一个服务, 具体可以看[inet 手册](https://www.freebsd.org/cgi/man.cgi?query=inetd&sektion=8). 以上三种类别的服务, inetd 启动服务和传递文件描述符的方式各不相同:
 
-1. 仅用 `STDIN_FILENO`, `STDOUT_FILENO` 和 `STDERR_FILENO` 与用户交互的服务
+### 1. 仅用 `STDIN_FILENO`, `STDOUT_FILENO` 和 `STDERR_FILENO` 与用户交互的服务
 
   比如 `date`, 假如配置文件为:
   ```bash
@@ -53,9 +53,9 @@ $ nc localhost 1
 
   unix 上的许多工具都遵循这这样的传统: 默认从 `STDIN_FILENO` 读入, 写出到 `STDOUT_FILENO`, 出错信息输出到 `STDERR_FILENO`. 例如 `dd`, `cat`, 这意味着它们可以通过 inetd 管理的的方式提供网络服务. 对于常见的服务, inetd 本身实现了内置的服务, 这可以在配置文件中通过 `internal` 选项指明使用内置的服务.
 
-2. 服务本身通过 TCP 连接与客户端交互
+### 2. 服务本身通过 TCP 连接与客户端交互
 
-  这种情况需要符合一定的规则才可以由 inetd 顺利启动并传递文件描述符的. 而且 inetd 的配置行必须要设置为 "wait" 方式. 
+  这种情况需要符合一定的规则才可以由 inetd 顺利启动并传递文件描述符的. 而且 inetd 的配置行必须要设置为 "wait" 方式, 以使得新的客户端连接由子进程的服务接管. 
 
   这里有一个关键点: 就是 inetd 在什么时候 `fork(2)` 并传入文件描述符, 客户端只能 `connect(2)` 一次, 到底是由 inetd `accept(2)` 还是服务本身 `accept(2)`? 客户端由 inetd 启动时到底要省略 TCP 服务启动流程的哪些步骤?
 
@@ -170,5 +170,6 @@ $ nc 127.0.0.1 22125
 hello!
   ```
 
-3. 
+### 3. UDP 服务
 
+  对于无连接的 UDP, 同样需要在 inetd 的配置文件中设置 wait 选项, 传递套接字的文件描述符方式与前文一致, 不再赘述.
