@@ -22,10 +22,10 @@ inetd 的现代版为 xinetd, 它增加了许多安全的功能.
 
 ## 原理
 
-为了探索背后的原理, 我在[GNU Operating System](http://ftp.gnu.org/gnu/inetutils/)下载了 inetd 的源码, 并阅读了大体的流程. 顺便说下, 获取一个 [Coreutils](https://zh.wikipedia.org/zh/GNU%E6%A0%B8%E5%BF%83%E5%B7%A5%E5%85%B7%E7%BB%84) 源码的方式是多种多样的:
+为了探索背后的原理, 我在[GNU Operating System](http://ftp.gnu.org/gnu/inetutils/)下载了 inetd 的源码, 并阅读了大体的流程. 顺便说下, 获取一个 [Coreutils](https://zh.wikipedia.org/zh/GNU%E6%A0%B8%E5%BF%83%E5%B7%A5%E5%85%B7%E7%BB%84)工具 源码的方式是多种多样的:
 
 - 通过包管理器: `apt-get source inetutils-inetd` # 适合于 Debian/Ubuntu
-- 到 [GNU](http://www.gnu.org/software/coreutils/) 网址下载
+- 到 [GNU](http://www.gnu.org/software/coreutils/) 网站下载
 - 下载 [busybox](http://www.busybox.net/downloads/)
 
 inetd 根据服务的特点把服务分成大致的三类:
