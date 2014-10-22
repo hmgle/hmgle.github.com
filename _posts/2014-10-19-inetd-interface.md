@@ -22,7 +22,7 @@ inetd 的现代版为 xinetd, 它增加了许多安全的功能.
 
 ## 原理
 
-为了探索背后的原理, 我在[GNU Operating System](http://ftp.gnu.org/gnu/inetutils/)下载了 inetd 的源码, 并阅读了大体的流程. 顺便说下, 获取一个 [Coreutils](https://zh.wikipedia.org/zh/GNU%E6%A0%B8%E5%BF%83%E5%B7%A5%E5%85%B7%E7%BB%84)工具 源码的方式是多种多样的:
+为了探索背后的原理, 我在[GNU Operating System](http://ftp.gnu.org/gnu/inetutils/)下载了 inetd 的源码, 并阅读了大体的流程. 顺便说下, 获取一个 [Coreutils](https://zh.wikipedia.org/zh/GNU%E6%A0%B8%E5%BF%83%E5%B7%A5%E5%85%B7%E7%BB%84)工具源码的方式是多种多样的:
 
 - 通过包管理器: `apt-get source inetutils-inetd` # 适合于 Debian/Ubuntu
 - 到 [GNU](http://www.gnu.org/software/coreutils/) 网站下载
@@ -34,7 +34,7 @@ inetd 根据服务的特点把服务分成大致的三类:
 2. 服务本身通过 TCP 连接和客户端交互
 3. 服务本身通过 UDP 报文和客户端交互
 
-inetd 根据配置文件(inetd.conf)来判别服务的类型和监听的端口. 配置文件的每一行都标识了一个服务, 具体可以看[inet 手册](https://www.freebsd.org/cgi/man.cgi?query=inetd&sektion=8). 以上三种类别的服务, inetd 启动服务和传递文件描述符的方式各不相同:
+inetd 根据配置文件(inetd.conf)来判别服务的类型和监听的端口. 配置文件的每一行都标识了一个服务, 具体可以看[inetd 手册](https://www.freebsd.org/cgi/man.cgi?query=inetd&sektion=8). 以上三种类别的服务, inetd 启动服务和传递文件描述符的方式各不相同:
 
 ### 1. 仅用 `STDIN_FILENO`, `STDOUT_FILENO` 和 `STDERR_FILENO` 与用户交互的服务
 
