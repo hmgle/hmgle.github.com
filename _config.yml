@@ -1,4 +1,4 @@
 name: hmgle's blog
 markdown: redcarpet
-pygments: true
+highlighter: pygments
 
