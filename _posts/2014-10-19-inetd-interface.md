@@ -174,8 +174,7 @@ int main(int argc, char **argv)
 $ nc 127.0.0.1 22125
 hello!
 ```
-
-
+<p></p>
 ### 3. UDP 服务
 
   对于无连接的 UDP, 同样需要在 inetd 的配置文件中设置 wait 选项, 传递套接字的文件描述符方式与前文一致, 不再赘述.
