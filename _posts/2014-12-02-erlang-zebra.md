@@ -79,13 +79,33 @@ magicsquare() ->
 
 为方便程序描述问题, 先为 *国籍*, *职业*, *颜色*, *宠物*, *饮料* 这五项的内容映射到 1~5 这几个数字去:
 
-| House: left to right| 1  | 2  | 3  | 4  | 5  |
-| ---- | -- | -- | -- | -- | -- |
-| Nation | England | Spain | Japan | Italy | Norway |
-| Profession | painter| diplomat| violinist| doctor| sculptor |
-| Color | green | red| yellow| blue| white |
-| Animal | dog | zebra| fox| snail| horse |
-| Drink | juice| water| tea| coffee| milk |
+<table>
+
+<tr>
+<td>House: left to right</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+</tr>
+
+<tr>
+<td>Nation </td><td>England </td><td>Spain </td><td>Japan </td><td>Italy </td><td>Norway </td>
+</tr>
+
+<tr>
+<td>Profession </td><td>painter</td><td>diplomat</td><td>violinist</td><td>doctor</td><td>sculptor </td>
+</tr>
+
+<tr>
+<td>Color </td><td>green </td><td>red</td><td>yellow</td><td>blue</td><td>white </td>
+</tr>
+
+<tr>
+<td>Animal </td><td>dog </td><td>zebra</td><td>fox</td><td>snail</td><td>horse </td>
+</tr>
+
+<tr>
+<td>Drink </td><td>juice</td><td>water</td><td>tea</td><td>coffee</td><td>milk </td>
+</tr>
+
+</table>
 
 然后就可以用 Erlang 描述问题了:
 
@@ -268,49 +288,66 @@ zebra() ->
             C <- full_perms(5),
 
             %% The Norwegian's house is next to the blue one
-            (((lists:nth(data_pos('Norway', fun nation/0), N) + 1) =:= lists:nth(data_pos(blue, fun color/0), C)) orelse ((lists:nth(4, C) + 1) =:= lists:nth(5, N))),
+            (((lists:nth(data_pos('Norway', fun nation/0), N) + 1) =:=
+	      lists:nth(data_pos(blue, fun color/0), C)) orelse
+	     	((lists:nth(4, C) + 1) =:= lists:nth(5, N))),
 
             %% The Englishman lives in the red house
-            lists:nth(data_pos('England', fun nation/0), N) =:= lists:nth(data_pos(red, fun color/0), C),
+            lists:nth(data_pos('England', fun nation/0), N) =:=
+	    	lists:nth(data_pos(red, fun color/0), C),
 
             %% The green house is to the right of the white one
-            lists:nth(data_pos(white, fun color/0), C) + 1 =:= lists:nth(data_pos(green, fun color/0), C),
+            lists:nth(data_pos(white, fun color/0), C) + 1 =:=
+	    	lists:nth(data_pos(green, fun color/0), C),
 
             P <- full_perms(5),
 
             %% The Japanese is the painter
-            lists:nth(data_pos('Japan', fun nation/0), N) =:= lists:nth(data_pos(painter, fun profession/0), P),
+            lists:nth(data_pos('Japan', fun nation/0), N) =:=
+	    	lists:nth(data_pos(painter, fun profession/0), P),
 
             A <- full_perms(5),
 
             %% The Spaniard owns the dog
-            lists:nth(data_pos('Spain', fun nation/0), N) =:= lists:nth(data_pos(dog, fun animal/0), A),
+            lists:nth(data_pos('Spain', fun nation/0), N) =:=
+	    	lists:nth(data_pos(dog, fun animal/0), A),
 
             %% The sculptor breeds snails
-            lists:nth(data_pos(sculptor, fun profession/0), P) =:= lists:nth(data_pos(snail, fun animal/0), A),
+            lists:nth(data_pos(sculptor, fun profession/0), P) =:=
+	    	lists:nth(data_pos(snail, fun animal/0), A),
 
             D <- full_perms(5),
 
             %% The diplomat lives in the yellow house
-            lists:nth(data_pos(diplomat, fun profession/0), P) =:= lists:nth(data_pos(yellow, fun color/0), C),
+            lists:nth(data_pos(diplomat, fun profession/0), P) =:=
+	    	lists:nth(data_pos(yellow, fun color/0), C),
 
             %% The fox is in the house next to the doctor's house
-            (((lists:nth(data_pos(fox, fun animal/0), A) + 1) =:= lists:nth(data_pos(doctor, fun profession/0), P)) orelse ((lists:nth(data_pos(doctor, fun profession/0), P) + 1) =:= lists:nth(data_pos(fox, fun animal/0), A))),
+            (((lists:nth(data_pos(fox, fun animal/0), A) + 1) =:=
+	      lists:nth(data_pos(doctor, fun profession/0), P)) orelse
+	     	((lists:nth(data_pos(doctor, fun profession/0), P) + 1) =:=
+		 lists:nth(data_pos(fox, fun animal/0), A))),
 
             %% The horse is in the house next to the diplomat's
-            (((lists:nth(data_pos(horse, fun animal/0), A) + 1) =:= lists:nth(data_pos(diplomat, fun profession/0), P)) orelse ((lists:nth(data_pos(diplomat, fun profession/0), P) + 1) =:= lists:nth(data_pos(horse, fun animal/0), A))),
+            (((lists:nth(data_pos(horse, fun animal/0), A) + 1) =:=
+	      lists:nth(data_pos(diplomat, fun profession/0), P)) orelse
+	     	((lists:nth(data_pos(diplomat, fun profession/0), P) + 1) =:=
+		 lists:nth(data_pos(horse, fun animal/0), A))),
 
             %% Milk is drunk in the third house
             lists:nth(data_pos(milk, fun drink/0), D) =:= 3,
 
             %% The Italian likes tea
-            lists:nth(data_pos('Italy', fun nation/0), N) =:= lists:nth(data_pos(tea, fun drink/0), D),
+            lists:nth(data_pos('Italy', fun nation/0), N) =:=
+	    	lists:nth(data_pos(tea, fun drink/0), D),
 
             %% The owner of the green house likes coffee
-            lists:nth(data_pos(green, fun color/0), C) =:= lists:nth(data_pos(coffee, fun drink/0), D),
+            lists:nth(data_pos(green, fun color/0), C) =:=
+	    	lists:nth(data_pos(coffee, fun drink/0), D),
 
             %% The violinist likes juice
-            lists:nth(data_pos(violinist, fun profession/0), P) =:= lists:nth(data_pos(juice, fun drink/0), D)
+            lists:nth(data_pos(violinist, fun profession/0), P) =:=
+		lists:nth(data_pos(juice, fun drink/0), D)
     ].
 
 ```
