@@ -149,7 +149,7 @@ zebra() ->
 ```console
 $ erl
 1> c(zebra).
-{ok, zebra}.
+{ok, zebra}
 2> zebra:zebra().
 [{[3,4,5,2,1],
   [5,3,1,2,4],
