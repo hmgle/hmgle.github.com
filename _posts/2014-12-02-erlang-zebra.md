@@ -9,7 +9,7 @@ categories: Erlang
 [约束满足问题(CSPs)](http://en.wikipedia.org/wiki/Constraint_satisfaction_problem).
 数独, 幻方也属于 CSPs 问题.
 Erlang 的列表解析等语言特性让它能够以一种非常贴近自然语言的描述方式来解决这类问题:
-不需要考虑过程式的求解步骤, 描述好约束条件, Erlang 解释器就通过域搜索匹配出了答案.
+不需要考虑过程式的求解步骤, 描述好约束条件, Erlang 解释器通过域搜索匹配出了答案.
 有人还用 Erlang 写了一个对于[有限域约束(Finite Domain Constraints)](http://www.math.unipd.it/~frossi/SchulteCarlsson_CPH_2006.pdf)
 的一个[扩展](http://www.erlang.se/publications/xjobb/finite-domain-erlang.ps.gz).
 
@@ -82,7 +82,7 @@ magicsquare() ->
 <table>
 
 <tr>
-<td>House: left to right</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+<td>House: L to R</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 </tr>
 
 <tr>
@@ -145,6 +145,7 @@ zebra() ->
 ```
 
 编译运行:
+
 ```console
 $ erl
 1> c(zebra).
@@ -159,8 +160,8 @@ $ erl
 
 不错, 寥寥二三十行代码(大部分是在阐述约束条件)可以求解出正确答案了. 可是它运行得非常慢, 在我的机器上大概花了一两个小时! 而且得出的答案还需要人工将数字映射到对应的属性去. 
 
-先来解决运行慢的问题:
-还记得[计算机程序的构造和解释](http://book.douban.com/subject/1148282/)[*SICP*](http://mitpress.mit.edu/sicp/)[练习4.39](http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-28.html#%_thm_4.39)这个问题吗? 约束条件的顺序不会影响答案, 但会影响程序执行时搜索范围的大小, 导致不同的约束条件的顺序运行的时间相差巨大. 把约束性越强的条件放在前面, 将显著减少搜索范围, 降低运行时间. 调整下上面的zebra求解代码, 就瞬间解出了答案:
+先来解决运行慢的问题: 
+还记得[计算机程序的构造和解释](http://book.douban.com/subject/1148282/)[*SICP*](http://mitpress.mit.edu/sicp/)[练习4.39](http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-28.html#%_thm_4.39)这个问题吗? 约束条件的顺序不会影响答案, 但会影响程序执行时搜索范围的大小, 导致不同的约束条件的顺序运行的时间相差巨大. 把约束性强的条件放在前面, 将显著减少搜索范围, 降低运行时间. 调整下上面的zebra求解代码, 就瞬间解出了答案:
 
 ```erl
 %% zebra.erl version2
