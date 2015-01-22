@@ -1,6 +1,6 @@
 name: hmgle's blog
 markdown: redcarpet
 highlighter: pygments
-url: hmgle.github.io
+url: http://hmgle.github.io
 baseurl: "" # the subpath of your site, e.g. /blog/
 
