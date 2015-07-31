@@ -7,4 +7,10 @@ layout: default
 <div class="post">
 {{ content }}
 </div>
-{% include duoshuo.html %}
+{% if site.duoshuo.config %}
+    {% include duoshuo.html %}
+{% else %}
+    {% if site.disqus.config %}
+        {% include disqus.html %}
+    {% endif %}
+{% endif %}

@@ -4,3 +4,8 @@ highlighter: pygments
 url: http://hmgle.github.io
 baseurl: "" # the subpath of your site, e.g. /blog/
 
+# comments
+disqus:
+  config: true
+duoshuo:
+  config: false
