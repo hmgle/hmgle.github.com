@@ -36,6 +36,7 @@ categories: lisp
 
 1. SAE 部分：申请、创建应用等步骤不在话下，如有困难请用搜索引擎搜索关键字`SAE 申请 创建应用`。然后克隆 https://github.com/hmgle/wechat-scheme-server/tree/master/sae 里面的代码到 SAE 代码仓库，修改 weixin.py 里面的 scheme server 地址为自己运行 scheme 服务的地址，修改 weixin.py 里面的 token 为自己对应的微信 token，运行后，按照微信平台说明完成与微信的握手认证。
 2. scheme server 部分：进入 `scheme-svr/yascm` 目录，按照里面的 `README.md` 编译。然后执行下面语句:
+
 ```
 cd ..
 nohup ./bootstrap.sh > /dev/null 2>&1 &
