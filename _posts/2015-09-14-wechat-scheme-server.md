@@ -30,7 +30,7 @@ categories: lisp
 1. 这个 scheme 是 native 的，SAE 不允许运行；
 2. 在我看来，这样的服务方式耦合度很低，扩展性好。假如要加入另一个 lua 解释器 server，除修改一下服务路由之外，原有代码基本不需改动。
 
-所有代码都已开源：https://github.com/hmgle/wechat-scheme-server
+所有代码都已开源：[https://github.com/hmgle/wechat-scheme-server](https://github.com/hmgle/wechat-scheme-server)
 
 怎么部署呢？
 
@@ -42,6 +42,7 @@ nohup ./bootstrap.sh > /dev/null 2>&1 &
 ```
 
 值得说明的两点是：
+
 1. scheme server 并没有使用 nginx 之类的通用服务器，而是用了 `netcat` 这个工具作为网络服务接口，因此完全不需要配置。为什么会用如此简陋的工具呢？
  因为这个场景没有大并发的需求，scheme server 仅有 SAE 这一个客户端连接，使用 `netcat` 足矣。我倾向于用最简单的方法解决问题:)
 2. 并没有使用现有的 scheme 解释器，而是用我之前实现的一个不满足 r4rs 规范简单的 scheme 解释器轮子 [yascm](https://github.com/hmgle/yascm)。这最主要的原因是用一般的 scheme 解释器的话，相当于对用户开放了整个服务器系统，当然这可以通过 chroot 或者 Docker 容器来解决，然而我在 yascm 直接就不实现这类修改服务器系统的功能就简单得多了:) 还有一个原因是一般的解释器计算出结果使用 `printf(3)` 打印到标准输出后，需将标准输出的内容重定向到一个命名管道供 `netcat` 读取，由于默认缓存机制，如不使用 `fflush(3)`
