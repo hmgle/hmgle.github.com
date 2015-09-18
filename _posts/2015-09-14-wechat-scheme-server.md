@@ -13,7 +13,7 @@ categories: lisp
 
 ```
 (define x 3)
-(+ x 10)
+(+ x 7)
 ```
 
 这个服务非常简单，运行模型如下:
