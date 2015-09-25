@@ -13,7 +13,7 @@ categories: Golang
 
 Update: 依照这篇博文 [Writing Android apps with Go bindings](http://www.sajalkayan.com/post/android-apps-golang.html) 的介绍，我也用 Android Studio 编译出了 TCFS 的 Android 版本：
 
-![tcfsandroid]({{ site.url }}/tcfsandroid.png)
+![tcfsandroid]({{ site.url }}/images/tcfsandroid.png)
 
 界面还未完善，毕竟是我开发的第一个 Android 应用~ 源码托管在 https://github.com/hmgle/tcfs-android 。需要的同学可以自己编译出来，欢迎 PR 。
 
