@@ -11,6 +11,12 @@ categories: Golang
 
 一开始我想到的是使用 [go mobile](https://github.com/golang/mobile/) 来作为 Android 界面来运行 TCFS 服务，顺利编译出 APK 后安装到手机上，运行时谁知道因为权限的原因无法监听 TCP 端口，而目前仅仅使用 Go 应该配置不了 APK 的操作权限的。解决办法还得依靠 Android Studio：使用 `gomobile bind` 编译出 aar 包，里面包含了 so 库文件，界面用 Java 来写，Java 这边可以通过 `import` aar 包来使用 Go 的函数，权限可以在 manifest 文件配置。
 
+Update: 依照这篇博文 [Writing Android apps with Go bindings](http://www.sajalkayan.com/post/android-apps-golang.html) 的介绍，我也用 Android Studio 编译出了 TCFS 的 Android 版本：
+
+![tcfsandroid]({{ site.url }}/tcfsandroid.png)
+
+界面还未完善，毕竟是我开发的第一个 Android 应用~ 源码托管在 https://github.com/hmgle/tcfs-android 。需要的同学可以自己编译出来，欢迎 PR 。
+
 我的 TCFS 并不一定需要界面，我就直接编译个没有界面的命令行在 Android 上用了，进入 tcfs-go 路径后，使用下面的命令编译出 Arm 平台的程序：
 
 ```
