@@ -15,7 +15,7 @@ Update: 依照这篇博文 [Writing Android apps with Go bindings](http://www.sa
 
 ![tcfsandroid]({{ site.url }}/images/tcfsandroid.png)
 
-界面还未完善，毕竟是我开发的第一个 Android 应用~ 源码托管在 https://github.com/hmgle/tcfs-android 。需要的同学可以自己编译出来，欢迎 PR 。
+界面还未完善，毕竟是我开发的第一个 Android 应用~ 源码托管在 [tcfs-android@GitHub](https://github.com/hmgle/tcfs-android) 。需要的同学可以自己编译出来，欢迎 PR 。
 
 我的 TCFS 并不一定需要界面，我就直接编译个没有界面的命令行在 Android 上用了，进入 tcfs-go 路径后，使用下面的命令编译出 Arm 平台的程序：
 
