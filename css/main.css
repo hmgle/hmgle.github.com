@@ -6,28 +6,31 @@
 
 /* Global Reset */
 * {
-  margin: 0;
+  /* margin: 0 16px 16px 0; */
   padding: 0;
 }
 
-html, body { height: 100%; }
-
 body {
   background-color: #FFF;
-  font: 13.34px Helvetica, Arial, sans-serif;
   font-family:"lucida grande", "lucida sans unicode", lucida, helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-size: 18px;
-  text-align: center;
+  /* text-align: center; */ }
+  @media screen and (max-width: 800px) {
+  body {
+    padding: 0.5em; 
+  }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h3, h4, h5, h6 {
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, Helvetica, Arial, STKaiti, SimSun, serif;
   font-size: 100%;
 }
 
 h2 {
-  margin-bottom: 60px;
-  margin-bottom: 40px;
+  font-family: Helvetica, Arial, STKaiti, "Palatino Linotype", "Book Antiqua", Palatino, SimSun, serif;
+  font-size: 1.2em;
+  margin-bottom: 50px;
+  margin-bottom: 35px;
   padding: 5px;
   border-bottom: 2px LightGrey solid;
   width: 98%;
@@ -36,8 +39,8 @@ h2 {
 }
 
 h3 {
-  margin-top: 40px;
-  margin-bottom: 30px;
+  margin-top: 30px;
+  margin-bottom: 20px;
   border-bottom: 1px LightGrey solid;
   width: 98%;
   line-height: 150%;
@@ -45,8 +48,8 @@ h3 {
 }
 
 h4 {
-  margin-top: 40px;
-  margin-bottom: 30px;
+  margin-top: 30px;
+  margin-bottom: 20px;
   border-bottom: 1px LightGrey solid;
   width: 98%;
   line-height: 150%;
@@ -104,11 +107,17 @@ ul.posts span {
 /*****************************************************************************/
 
 .site {
-  font-size: 115%;
+  /* font-size: 115%; */
   text-align: justify;
-  width: 42em;
-  margin: 3em auto 2em;
-  line-height: 1.5em;
+  width: 44em;
+  margin: 1em auto 2em;
+  line-height: 1.5em; }
+  @media screen and (max-width: 800px) {
+  .site {
+    text-align: justify;
+    width: auto;
+    margin: 0.5em auto 1em;
+  line-height: 1.5em; }
 }
 
 .site .header a {
@@ -118,7 +127,7 @@ ul.posts span {
 
 .site .header h1.title {
   display: inline-block;
-  margin-bottom: 2em;
+  margin-bottom: 1.2em;
 }
 
 .site .header h1.title a {
@@ -131,7 +140,11 @@ ul.posts span {
 
 .site .header a.extra {
   color: #aaa;
-  margin-left: 1em;
+  margin-left: 1em; }
+  @media screen and (max-width: 800px) {
+  .site .header a.extra {
+  color: #aaa;
+  margin-left: 0.1em; }
 }
 
 .site .header a.extra:hover {
@@ -180,6 +193,7 @@ ul.posts span {
   border: 1px solid #ddd;
   background-color: #eef;
   padding: 0 .4em;
+  font-size: 90%;
 }
 
 .post ul, .post ol {
