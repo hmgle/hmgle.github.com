@@ -15,25 +15,73 @@ html, body { height: 100%; }
 body {
   background-color: #FFF;
   font: 13.34px Helvetica, Arial, sans-serif;
-  font-size: small;
+  font-family:"lucida grande", "lucida sans unicode", lucida, helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-size: 18px;
   text-align: center;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-size: 100%; }
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Helvetica, Arial, STKaiti, SimSun, serif;
+  font-size: 100%;
+}
 
-h1 { margin-bottom: 1em; }
-p { margin: 1em 0; }
+h2 {
+  margin-bottom: 60px;
+  margin-bottom: 40px;
+  padding: 5px;
+  border-bottom: 2px LightGrey solid;
+  width: 98%;
+  line-height: 150%;
+  color: #666666;
+}
+
+h3 {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  border-bottom: 1px LightGrey solid;
+  width: 98%;
+  line-height: 150%;
+  color: #666666;
+}
+
+h4 {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  border-bottom: 1px LightGrey solid;
+  width: 98%;
+  line-height: 150%;
+  color: #666666;
+}
+
+.box {
+  padding: 2% 8% 5% 8%;
+  border: 1px solid LightGrey;
+}
+
+p {
+  line-height: 1.6;
+}
 
 a         { color: #00a; }
 a:hover   { color: #000; }
 a:visited { color: #a0a; }
+
+li {
+  margin-left: 10px;
+}
 
 /*****************************************************************************/
 /*
 /* Home
 /*
 /*****************************************************************************/
+
+blockquote {
+  border-left: 4px lightgrey solid;
+  padding-left: 5px;
+  margin-left: 20px;
+}
+
 ul.posts {
   list-style-type: none;
   margin-bottom: 2em;
@@ -157,4 +205,14 @@ ul.posts span {
 
 .post pre.terminal code {
   background-color: #333;
+}
+
+img {
+  box-shadow: 0 0 10px #555;
+  border-radius: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 0 0 10px #555;
 }
