@@ -2,7 +2,7 @@
 layout: post
 title:  "可变域宽度格式输出"
 date:   2013-08-26 19:58:53
-categories: blog
+categories: misc
 ---
 
 在 c 中， 格式转换说明中可以用 `*` 表示宽度或精度，从而实现可变宽度的格式输出. 如：
