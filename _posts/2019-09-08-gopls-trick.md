@@ -62,8 +62,7 @@ categories: vim
 
 在使用过程中发现一个问题，如果使用了 `YouCompleteMe`，每次退出 `vim` 后，会发送 [`exit` 通知](https://microsoft.github.io/language-server-protocol/specification#exit)给 `gopls-server` 服务，导致 `gopls-server` 退出。跟踪了一下，发现是 `ycmd` 导致，直接把发送[退出通知](https://github.com/ycm-core/ycmd/blob/3365e2d44817d127596f59f70a6240507eb4b0bc/ycmd/completers/language_server/language_server_protocol.py#L266)的代码注释掉了:
 
-```
-# 
+```python
 def Exit():
   # return BuildNotification( 'exit', None )
   pass
