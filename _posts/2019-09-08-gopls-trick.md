@@ -32,7 +32,8 @@ gopls 进程启动的数量还会再翻一倍。gopls 本身是个占用资源�
     如果使用了 YouCompleteMe，它会启动它自己路径下第三方依赖里面的 gopls，也需要把它重命名：
 
     ```sh
-    mv your_YouCompleteMe_DIR/third_party/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls/gopls{,.bak}
+    mv your_YouCompleteMe_DIR/third_party/ycmd/third_party/\
+      go/src/golang.org/x/tools/cmd/gopls/gopls{,.bak}
     ```
 
 2. 创建一个名字为 gopls 的脚本，它仅仅是供这些插件使用的客户端：
@@ -41,9 +42,9 @@ gopls 进程启动的数量还会再翻一倍。gopls 本身是个占用资源�
     echo '#!/bin/sh
     
     nc localhost 9877 # or socat - tcp:localhost:9877' > $GOPATH/bin/gopls
-    cp $GOPATH/bin/gopls your_YouCompleteMe_DIR/third_party/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls/gopls
     chmod a+x $GOPATH/bin/gopls
-    chmod a+x your_YouCompleteMe_DIR/third_party/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls/gopls
+    cp $GOPATH/bin/gopls your_YouCompleteMe_DIR/third_party/ycmd/third_party/\
+      go/src/golang.org/x/tools/cmd/gopls/gopls
     ```
 
 3. 启动 TCP 服务模式的 gopls，可以把它加入到开机启动，省的手动启动：
