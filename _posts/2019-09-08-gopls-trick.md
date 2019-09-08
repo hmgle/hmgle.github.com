@@ -25,33 +25,33 @@ categories: vim
 
 1. 重命名 `gopls`，为了让插件丧失启动 `gopls` 的能力：
 
-```sh
-mv $GOPATH/bin/gopls{,-server}
-```
+    ```sh
+    mv $GOPATH/bin/gopls{,-server}
+    ```
 
-如果使用了 `YouCompleteMe`，它会启动它自己路径下第三方依赖里面的 `gopls`，也需要把它重命名：
+    如果使用了 `YouCompleteMe`，它会启动它自己路径下第三方依赖里面的 `gopls`，也需要把它重命名：
 
-```sh
-mv your_YouCompleteMe_DIR/third_party/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls/gopls{,.bak}
-```
+    ```sh
+    mv your_YouCompleteMe_DIR/third_party/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls/gopls{,.bak}
+    ```
 
 2. 创建一个名字为 `gopls` 的脚本，它仅仅是供这些插件使用的客户端：
 
-```sh
-echo '#!/bin/sh
-
-nc localhost 9877 # or socat - tcp:localhost:9877' > $GOPATH/bin/gopls
-cp $GOPATH/bin/gopls your_YouCompleteMe_DIR/third_party/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls/gopls
-chmod a+x $GOPATH/bin/gopls
-chmod a+x your_YouCompleteMe_DIR/third_party/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls/gopls
-```
+    ```sh
+    echo '#!/bin/sh
+    
+    nc localhost 9877 # or socat - tcp:localhost:9877' > $GOPATH/bin/gopls
+    cp $GOPATH/bin/gopls your_YouCompleteMe_DIR/third_party/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls/gopls
+    chmod a+x $GOPATH/bin/gopls
+    chmod a+x your_YouCompleteMe_DIR/third_party/ycmd/third_party/go/src/golang.org/x/tools/cmd/gopls/gopls
+    ```
 
 3. 启动 TCP 服务模式的 `gopls`，可以把它加入到开机启动，省的手动启动：
 
-```sh
-# gopls-server 就是上面重命名后的 gopls
-gopls-server serve -listen "localhost:9877" -logfile /tmp/gopls_$RANDOM.log
-```
+    ```sh
+    # gopls-server 就是上面重命名后的 gopls
+    gopls-server serve -listen "localhost:9877" -logfile /tmp/gopls_$RANDOM.log
+    ```
 
 4. 之后无论打开多少个编辑器，无论打开多少 go 文件，都只有一个 `gopls-server` 在运行了。
 
