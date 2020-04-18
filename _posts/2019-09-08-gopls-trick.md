@@ -91,5 +91,5 @@ let g:ycm_gopls_args = ['-remote=auto']
 
 可以阅读下面的链接了解为了支持这个特性背后的故事：
 
-- https://github.com/golang/go/issues/34111
-- https://github.com/fatih/vim-go/issues/2421
+- [https://github.com/golang/go/issues/34111](https://github.com/golang/go/issues/34111)
+- [https://github.com/fatih/vim-go/issues/2421](https://github.com/fatih/vim-go/issues/2421)
