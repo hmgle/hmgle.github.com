@@ -73,3 +73,23 @@ def Exit():
 但使用中发现它和 gopls-server 交互太频繁了，只要是光标的位置变动，都会和 gopls 进行消息通信。
 而 YouCompleteMe 只有在插入模式时才会请求服务。希望 vim-lsp 后期可以得到改进。
 
+----------------
+
+2020-04-18 更新:
+
+现在 gopls 已经支持多个客户端与一个服务端后台进程进行通讯共享数据了，只要启动 gopls 时增加 "-remote=auto" 即可。现在 vim-go 和 YouCompleteMe 都已经支持添加额外的 gopls 参数了。可以更新最新版的 vim-go 和 YouCompleteMe，在 vimrc 添加下面的配置就可以尝鲜了：
+
+```vim
+" vim-go conf
+let g:go_gopls_options = ['-remote=auto']
+
+" ycmd conf
+let g:ycm_gopls_args = ['-remote=auto']
+```
+
+未来也许它们会成为默认的配置，那样的话就不需要再手动添加了。
+
+可以阅读下面的链接了解为了支持这个特性背后的故事：
+
+- https://github.com/golang/go/issues/34111
+- https://github.com/fatih/vim-go/issues/2421
