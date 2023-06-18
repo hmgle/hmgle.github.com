@@ -4,6 +4,12 @@ highlighter: rouge
 url: https://hmgle.github.io
 baseurl: "" # the subpath of your site, e.g. /blog/
 
+plugins:
+  - jekyll-gist
+
+gems:
+  - jekyll-gist
+
 # comments
 disqus:
   config: true
