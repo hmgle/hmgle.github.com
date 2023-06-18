@@ -7,6 +7,9 @@ baseurl: "" # the subpath of your site, e.g. /blog/
 gems:
   - jekyll-gist
 
+plugins:
+  - jekyll-gist
+
 # comments
 disqus:
   config: true
