@@ -47,8 +47,6 @@ jobs:
         run: |
           gem install bundler
           bundle install
-      - name: Install jekyll-gist
-        run: bundle exec jekyll plugin install jekyll-gist
       - name: Build site
         run: bundle exec jekyll build
         env:
