@@ -128,7 +128,7 @@ tmux 里面查询 terminfo 的`setupterm()` 和 `tigetstr()` 函数正是链接�
 
 另外，kitty 这种使用自己的 terminfo 数据的方式的确可以为外部程序提供更多的关于自己特性的信息，但也并非完美。比如：我在 kitty 上 ssh 一台 Linux 主机后，再运行 tmux 时就报错了："missing or unsuitable terminal: xterm-kitty"，这是因为 ssh 会直接继承之前的 `TERM=xterm-kitty` 的环境变量，在远程主机运行 tmux 查询 `$TERM` 的 terminfo 时，远程主机是没有安装 kitty 的，所以会缺失 xterm-kitty 的相关信息。这里有关于 kitty 这部分的相关讨论：
 
-- https://news.ycombinator.com/item?id=24643938
+- <https://news.ycombinator.com/item?id=24643938>
 - [Please submit xterm-kitty terminfo to ncurses database](https://github.com/kovidgoyal/kitty/issues/879)
 - [Can we talk about "xterm-kitty"?](https://github.com/kovidgoyal/kitty/discussions/3873)
 
