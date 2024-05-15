@@ -56,6 +56,8 @@ set -as terminal-features ",gnome*:RGB"
 +set -as terminal-features ",xterm*:RGB"
 ```
 
+或者重新添加之前删掉的 `set -ga terminal-overrides ",xterm-256color:Tc"`，修改完配置重新加载后，tmux 在 GNOME Terminal 上也和新版的 iTerm2 一样变成 24 位 RGB 模式了，肉眼可见 tmux 上的色彩和不运行 tmux 的 GNOME Terminal 终端上一样。
+
 ### 为什么新版 iTerm2 可以无视配置规则而被 tmux 加上 RGB 颜色特性呢？
 
 浏览 tmux 代码发现，tmux 会为部分终端添加一些特性：
