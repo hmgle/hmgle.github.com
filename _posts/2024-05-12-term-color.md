@@ -21,7 +21,7 @@ categories: terminal tmux color
 
 这些颜色信息在终端是使用 [**ANSI 转义序列**（ANSI escape code）](https://en.wikipedia.org/wiki/ANSI_escape_code)来表示的。
 
-一般的现代 vim 配色主题会有两套颜色方案：256 色的 "cterm" 以及 24 位 RGB 格式的 "gui"，vim 默认是选择其中的 "cterm" 方案，除非是开启了 'termguicolors' 属性。
+一般的现代 vim 配色主题会有两套颜色方案：256 色的 "cterm" 以及 24 位 RGB 格式的 "gui"，vim 默认是选择其中的 "cterm" 方案，~~除非是开启了 'termguicolors' 属性~~刚看到 Nvim v0.10 新特性：[它能自动检测终端模拟器是否支持 24 颜色了](https://gpanders.com/blog/whats-new-in-neovim-0.10/#automatic-truecolor-detection)。
 我的 Neovim 配置是开启了 'termguicolors'，所以它输出给 tmux 的是 RGB 颜色格式的 ANSI 转义序列。
 
 tmux 对输入的这些 ANSI 转义序列并不会直接发给终端，而是根据推断出来的终端是否具备 24 位颜色渲染特性，再决定是否把这些 RGB 颜色转换为 256 色。如果 tmux 推断出终端只能渲染 256 色，那么它输出给终端的颜色信息就是经过转换后的 256 色。
