@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Tmux 环境变量陷阱：一次诡异的 API Key 残留调试经历"
+title: "tmux 环境变量陷阱"
 date: 2025-07-06 11:36:08
 categories: tmux
 ---
