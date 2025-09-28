@@ -5,9 +5,9 @@ date: 2025-07-06 11:36:08
 categories: tmux
 ---
 
-> **核心摘要**：`tmux server` 启动时会“冻结”父进程的环境变量。后续所有新窗口（Pane）都默认继承这份“冻结”的环境，而不是重新加载 `.zshrc` 等配置文件。因此，在外部 Shell 修改了环境变量后，已运行的 `tmux server` 并不会感知到。
+> **核心摘要**：`tmux server` 启动时会把当时的环境复制到自己的全局环境，并在创建新窗口（pane）时，把这份快照与会话环境合并后交给新进程。即便新 pane 内的 zsh 会重新加载 `.zshrc`，那些早已被 tmux 快照的变量仍然会存在，因此仅仅删除 `.zshrc` 里的 `export` 并不会让旧值消失。
 
-最近在切换 Gemini CLI 认证方式时遇到了一个诡异问题：本来在 `.zshrc` 中设置了 `export GEMINI_API_KEY="xxxxx"`，运行 tmux 后，想改用 Google OAuth 认证就把这行注释掉了。结果重新开 tmux pane 时，这个环境变量居然还在！
+最近在切换 Gemini CLI 认证方式时遇到了一个诡异问题：本来在 `.zshrc` 中设置了 `export GEMINI_API_KEY="xxxxx"`，运行 tmux 后，想改用 Google OAuth 认证就把这行注释掉了。结果重新开 tmux pane 时，这个环境变量居然还在！而且确认过 `.zshrc` 已经重新加载，说明问题出在 tmux 自己的环境上。
 
 ## 问题现象
 
@@ -28,7 +28,7 @@ Tmux 使用双层环境模型：
 | 全局环境 | `tmux server` 进程周期 | 仅启动时从父进程继承 |
 | 会话环境 | 单个会话周期           | 可运行时修改         |
 
-**关键问题**：`tmux server` 启动时会"冻结"当时的环境变量，后续新窗口/pane 都继承这个冻结的环境，而不是重新读取 shell 配置。可以把 `tmux server` 想象成一个“启动快照”，它只在启动那一刻为所有未来的窗口拍下了一张环境变量的快照。
+**关键问题**：`tmux server` 启动时会把父进程的环境完整复制到自己的全局环境里；每个会话也会再维护一份会话环境。创建新 pane 时，tmux 会先把“server 全局环境 + 会话环境”合并后作为初始环境传给即将启动的 shell，随后 shell 才去读取 `.zshrc`。因此即便 `.zshrc` 里已经删除了某个 `export`，tmux 仍会把旧变量塞回去，新 shell 看到的就是包含旧值的环境。
 
 ## 解决方案
 
@@ -87,12 +87,12 @@ typeset -U path PATH
 set-option -ga update-environment "GEMINI_API_KEY"
 ```
 
-`update-environment` 只会在新的客户端或会话附着时刷新列出的变量，因此重新连接前要先在外部 shell 设置好目标值。
+`update-environment` 只会在新的客户端或会话附着时刷新列出的变量，因此重新连接前要先在外部 shell 设置好目标值；否则旧值会继续保留在 tmux 的环境里。
 
 ## 总结
 
-1.  **`tmux server` 环境是“一次性快照”**：server 启动时的环境决定了所有子窗口的默认环境。
-2.  **Shell 配置变更不会自动同步**：修改 `.zshrc` 等文件对已运行的 `tmux server` 无效。
+1.  **`tmux server` 环境是“一次性快照”**：server 启动时的环境会被复制并沿用到所有 pane 的初始环境里。
+2.  **Shell 配置只能叠加，无法回收旧值**：新 pane 会重新加载 `.zshrc`，但 tmux 会在此之前注入旧的变量，因此仅靠修改配置无法清除它们。
 3.  **警惕敏感信息残留**：残留的 API Key 或 Token 可能在无意中泄露。
 4.  **`PATH` 等变量易被污染**：重复追加 `PATH` 会拖慢命令查找，应在配置中做去重处理。
 
