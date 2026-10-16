@@ -1,6 +1,9 @@
 name: hmgle's blog
 markdown: kramdown
 highlighter: rouge
+# 作者时区为 CST(+0800)，Pages 构建环境是 UTC：front matter 里不带时区的日期会被
+# 解析成 UTC 从而误判为"未来日期"，被 Jekyll 默认跳过，导致构建成功但文章不发布
+future: true
 url: https://hmgle.github.io
 baseurl: "" # the subpath of your site, e.g. /blog/
 
