@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "TPM 的 git::@ 陷阱：为什么通过 TPM 安装自己的插件后无法 push"
-date: 2026-10-16 09:45:00
+date: 2026-10-16 09:45:00 +0800
 categories: git tmux tpm
 ---
 
